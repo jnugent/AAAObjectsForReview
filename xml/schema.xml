@@ -132,4 +132,48 @@
 		</index>
 	</table>
 
+	<!--
+	  *
+	  * TABLE books_for_review_organizations
+	  *
+	  -->
+	<table name="books_for_review_organizations">
+		<field name="book_id" type="I8">
+			<NOTNULL/>
+		</field>
+		<field name="organization_id" type="I8">
+			<KEY />
+			<AUTOINCREMENT/>
+		</field>
+		<field name="publisher_name" type="C2" size="90">
+			<NOTNULL/>
+		</field>
+		<field name="street_address" type="X">
+			<NOTNULL/>
+		</field>
+		<field name="city" type="C2" size="90">
+			<NOTNULL/>
+		</field>
+		<field name="state" type="C2" size="90">
+			<NOTNULL/>
+		</field>
+		<field name="country" type="C2" size="90">
+			<NOTNULL/>
+		</field>
+		<field name="phone" type="C2" size="40">
+			<NOTNULL/>
+		</field>
+		<field name="fax" type="C2" size="40">
+			<NOTNULL/>
+		</field>
+		<field name="url" type="C2" size="90"/>
+		<field name="seq" type="F">
+			<NOTNULL/>
+			<DEFAULT VALUE="0"/>
+		</field>
+		<descr>Organization metadata for books for review.</descr>
+		<index name="bfr_org_id">
+			<col>organization_id</col>
+		</index>
+	</table>
 </schema>
