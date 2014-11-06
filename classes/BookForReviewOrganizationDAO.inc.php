@@ -47,6 +47,31 @@ class BookForReviewOrganizationDAO extends DAO {
 		return $returner;
 	}
 
+
+	/**
+	 * Retrieve all organizations for a journal.
+	 * @param $journalId int
+	 * @return array BookForReviewOrganizations ordered by sequence
+	 */
+	function &getOrganizations($journalId) {
+		$organizations = array();
+
+		$result =& $this->retrieve(
+				'SELECT * FROM books_for_review_organizations WHERE journal_id = ? ORDER BY seq',
+				$bookId
+		);
+
+		while (!$result->EOF) {
+			$organizations[] =& $this->_returnOrganizationFromRow($result->GetRowAssoc(false));
+			$result->moveNext();
+		}
+
+		$result->Close();
+		unset($result);
+
+		return $organizations;
+	}
+
 	/**
 	 * Retrieve all organizations for a book for review.
 	 * @param $bookId int
@@ -106,6 +131,7 @@ class BookForReviewOrganizationDAO extends DAO {
 
 		$organization = new BookForReviewOrganization();
 		$organization->setBookId($row['book_id']);
+		$organization->setJournalId($row['journal_id']);
 		$organization->setId($row['organization_id']);
 		$organization->setName($row['publisher_name']);
 		$organization->setStreetAddress($row['street_address']);
@@ -128,12 +154,13 @@ class BookForReviewOrganizationDAO extends DAO {
 	function insertOrganization(&$organization) {
 		$this->update(
 			'INSERT INTO books_for_review_organizations
-				(book_id, organization_name, street_address, state, country, phone, fax, url, seq)
+				(book_id, organization_name, journal_id, street_address, state, country, phone, fax, url, seq)
 				VALUES
-				(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 			array(
 				(int) $organization->getBookId(),
 				$organization->getName(),
+				(int) $organization->getJournalId(),
 				$organization->getStreetAddress(),
 				$organization->getState(),
 				$organization->getCountry(),
@@ -158,6 +185,7 @@ class BookForReviewOrganizationDAO extends DAO {
 				SET
 					book_id = ?,
 					publisher_name = ?,
+					journal_id = ?,
 					street_address = ?,
 					state = ?,
 					country = ?,
@@ -169,6 +197,7 @@ class BookForReviewOrganizationDAO extends DAO {
 			array(
 				$organization->getBookId(),
 				$organization->getName(),
+				$organization->getJournal(),
 				$organization->getStreetAddress(),
 				$organization->getState(),
 				$organization->getCountry(),

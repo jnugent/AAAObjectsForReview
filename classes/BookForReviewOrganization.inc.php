@@ -56,7 +56,7 @@ class BookForReviewOrganization extends DataObject {
 	 * Get ID of book.
 	 * @return int
 	 */
-	function getBookID() {
+	function getBookId() {
 		return $this->getData('bookId');
 	}
 
@@ -66,6 +66,22 @@ class BookForReviewOrganization extends DataObject {
 	 */
 	function setBookId($bookId) {
 		return $this->setData('bookId', $bookId);
+	}
+
+	/**
+	 * Get ID of the journal for this organization.
+	 * @return int
+	 */
+	function getJournalId() {
+		return $this->getData('journalId');
+	}
+
+	/**
+	 * Set ID of journal.
+	 * @param $journalId int
+	 */
+	function setJournalId($journalId) {
+		return $this->setData('journalId', $journalId);
 	}
 
 	/**

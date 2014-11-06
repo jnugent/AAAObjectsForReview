@@ -170,6 +170,75 @@ class BooksForReviewPlugin extends GenericPlugin {
 	}
 
 	/**
+	 * Execute a management verb on this plugin
+	 * @param $verb string
+	 * @param $args array
+	 * @param $message string Result status message
+	 * @param $messageParams array Parameters for the message key
+	 * @return boolean
+	 */
+	function manage($verb, $args, &$message, &$messageParams) {
+		if (!parent::manage($verb, $args, $message, $messageParams)) return false;
+
+		$templateMgr =& TemplateManager::getManager();
+		$templateMgr->register_function('plugin_url', array(&$this, 'smartyPluginUrl'));
+		$journal =& Request::getJournal();
+
+		switch ($verb) {
+			case 'deleteOrganization':
+				$organizationId = (int) Request::getUserVar('organizationId');
+				$bfrOrgDao = DAORegistry::getDAO('BookForReviewOrganizationDAO');
+				$bfrOrgDao->deleteOrganizationById($organizationId);
+				Request::redirect(null, 'manager', 'plugin');
+				return false;
+			case 'manageOrganization':
+				$organizationId = (int)Request::getUserVar('organizationId');
+				$this->import('classes.BookForReviewOrganizationForm');
+				$form = new BookForReviewOrganizationForm($this, $journal->getId(), $organizationId);
+				if (Request::getUserVar('save')) {
+					$form->readInputData();
+					if ($form->validate()) {
+						$form->execute();
+						Request::redirect(null, 'manager', 'plugin');
+						return false;
+					} else {
+						$this->setBreadCrumbs(true);
+						$form->display();
+					}
+				} else {
+					$this->setBreadCrumbs(true);
+					$form->initData();
+					$form->display();
+				}
+				return true;
+			case 'updateOrganization':
+				$organizationId = (int) Request::getUserVar('organizationId');
+				$this->import('classes.BookForReviewOrganizationForm');
+				$form = new BookForReviewOrganizationForm($this, $journal->getId(), $organizationId);
+				$form->readInputData();
+
+				if ($form->validate()) {
+					$form->execute();
+				}
+				return true;
+			case 'organizations':
+
+				$templateMgr =& TemplateManager::getManager();
+
+				$bfrOrgDao = DAORegistry::getDAO('BookForReviewOrganizationDAO');
+				$organizations = $bfrOrgDao->getOrganizations($journal->getId());
+				$templateMgr->assign_by_ref('organizations', $organizations);
+				$templateMgr->display($this->getTemplatePath() . 'templates/listOrganizations.tpl');
+
+				return true;
+			default:
+				// Unknown management verb
+				assert(false);
+			return false;
+		}
+	}
+
+	/**
 	 * Set the page's breadcrumbs, given the plugin's tree of items
 	 * to append.
 	 * @param $subclass boolean
