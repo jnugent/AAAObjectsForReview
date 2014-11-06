@@ -189,5 +189,6 @@
 	<message key="plugins.generic.booksForReview.field.isbn">ISBN</message>
 	<message key="plugins.generic.booksForReview.field.title">Title</message>
 	<message key="plugins.generic.booksForReview.field.description">Description</message>
+	<message key="plugins.generic.booksForReview.manageOrganizations">Manage Organizations</message>
 
 </locale>

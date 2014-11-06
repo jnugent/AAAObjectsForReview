@@ -159,6 +159,17 @@ class BooksForReviewPlugin extends GenericPlugin {
 	}
 
 	/**
+	 * Display verbs for the management interface.
+	 */
+	function getManagementVerbs() {
+		$verbs = array();
+		if ($this->getEnabled()) {
+			$verbs[] = array('organizations', __('plugins.generic.booksForReview.manageOrganizations'));
+		}
+		return parent::getManagementVerbs($verbs);
+	}
+
+	/**
 	 * Set the page's breadcrumbs, given the plugin's tree of items
 	 * to append.
 	 * @param $subclass boolean
