@@ -139,6 +139,12 @@
 	<message key="plugins.generic.booksForReview.editor.listOrganizations.createNewOrganization">Create a new Organization</message>
 	<message key="plugins.generic.booksForReview.editor.listOrganizations.confirmDelete">Confirm Delete?</message>
 
+	<!--  Books for Review Organization Form Fields -->
+	<message key="plugins.generic.booksForReview.manager.organization.name">Organization/Publisher Name</message>
+	<message key="plugins.generic.booksForReview.manager.organization.city">City</message>
+	<message key="plugins.generic.booksForReview.manager.organization.state">State</message>
+	<message key="plugins.generic.booksForReview.manager.organizationSettings">Organization Settings</message>
+
 	<!-- Books For Review Author -->
 	<message key="plugins.generic.booksForReview.author.title">Title</message>
 	<message key="plugins.generic.booksForReview.author.editor">Editor</message>

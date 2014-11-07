@@ -136,6 +136,7 @@ class BookForReviewOrganizationDAO extends DAO {
 		$organization->setName($row['publisher_name']);
 		$organization->setStreetAddress($row['street_address']);
 		$organization->setState($row['state']);
+		$organization->setCity($row['city']);
 		$organization->setCountry($row['country']);
 		$organization->setPhone($row['phone']);
 		$organization->setFax($row['fax']);
@@ -148,13 +149,24 @@ class BookForReviewOrganizationDAO extends DAO {
 	}
 
 	/**
+	 * return a new BookForReviewOrganization
+	 * @return BookForReviewOrganization
+	 */
+	function newDataObject() {
+		$bfrPlugin =& PluginRegistry::getPlugin('generic', $this->parentPluginName);
+		$bfrPlugin->import('classes.BookForReviewOrganization');
+		$organization = new BookForReviewOrganization();
+		return $organization;
+	}
+
+	/**
 	 * Insert a new BookForReviewOrganization.
 	 * @param $organization BookForReviewOrganization
 	 */
 	function insertOrganization(&$organization) {
 		$this->update(
 			'INSERT INTO books_for_review_organizations
-				(book_id, organization_name, journal_id, street_address, state, country, phone, fax, url, seq)
+				(book_id, publisher_name, journal_id, street_address, state, country, phone, fax, url, seq)
 				VALUES
 				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 			array(
@@ -188,6 +200,7 @@ class BookForReviewOrganizationDAO extends DAO {
 					journal_id = ?,
 					street_address = ?,
 					state = ?,
+					city = ?,
 					country = ?,
 					phone = ?,
 					fax = ?,
@@ -197,9 +210,10 @@ class BookForReviewOrganizationDAO extends DAO {
 			array(
 				$organization->getBookId(),
 				$organization->getName(),
-				$organization->getJournal(),
+				$organization->getJournalId(),
 				$organization->getStreetAddress(),
 				$organization->getState(),
+				$organization->getCity(),
 				$organization->getCountry(),
 				$organization->getPhone(),
 				$organization->getFax(),

@@ -29,7 +29,7 @@
 			{$organization->getName()|escape}
 		</td>
 		<td>
-		<td><a href="{plugin_url path="manageOrganization" organizationId=$organization>getId()}">{translate key="common.edit"}</a> | <a onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.booksForReview.editor.listOrganizations.confirmDelete"}')" href="{plugin_url path="deleteOrganization" organization=$organization->getId()}">{translate key="common.delete"}</a>
+		<td><a href="{plugin_url path="manageOrganization" organizationId=$organization->getId()}">{translate key="common.edit"}</a> | <a onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.booksForReview.editor.listOrganizations.confirmDelete"}')" href="{plugin_url path="deleteOrganization" organizationId=$organization->getId()}">{translate key="common.delete"}</a>
 		</td>
 		</tr>
 	{/foreach}
