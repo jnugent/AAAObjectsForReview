@@ -58,7 +58,7 @@ class BookForReviewOrganizationDAO extends DAO {
 
 		$result =& $this->retrieve(
 				'SELECT * FROM books_for_review_organizations WHERE journal_id = ? ORDER BY seq',
-				$bookId
+				$journalId
 		);
 
 		while (!$result->EOF) {
