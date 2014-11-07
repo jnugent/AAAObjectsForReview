@@ -187,7 +187,7 @@ class BooksForReviewPlugin extends GenericPlugin {
 				return false;
 			case 'manageOrganization':
 				$organizationId = (int)Request::getUserVar('organizationId');
-				$this->import('classes.BookForReviewOrganizationForm');
+				$this->import('classes.form.BookForReviewOrganizationForm');
 				$form = new BookForReviewOrganizationForm($this, $journal->getId(), $organizationId);
 				if (Request::getUserVar('save')) {
 					$form->readInputData();
@@ -207,7 +207,7 @@ class BooksForReviewPlugin extends GenericPlugin {
 				return true;
 			case 'updateOrganization':
 				$organizationId = (int) Request::getUserVar('organizationId');
-				$this->import('classes.BookForReviewOrganizationForm');
+				$this->import('classes.form.BookForReviewOrganizationForm');
 				$form = new BookForReviewOrganizationForm($this, $journal->getId(), $organizationId);
 				$form->readInputData();
 
