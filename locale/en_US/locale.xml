@@ -133,6 +133,12 @@
 	<message key="plugins.generic.booksForReview.settings.numDaysBeforeDueReminderValid">Please specify a valid number of days for the reminder email.</message>
 	<message key="plugins.generic.booksForReview.settings.numDaysAfterDueReminderValid">Please specify a valid number of days for the reminder email.</message>
 
+	<!--  Books for Review Orgnization Management -->
+	<message key="plugins.generic.booksForReview.editor.listOrganizations">Organizations within this system</message>
+	<message key="plugins.generic.booksForReview.editor.listOrganizations.description">Manage the organizations that use this plugin.  Users who have access are assigned to one of these entries.</message>
+	<message key="plugins.generic.booksForReview.editor.listOrganizations.createNewOrganization">Create a new Organization</message>
+	<message key="plugins.generic.booksForReview.editor.listOrganizations.confirmDelete">Confirm Delete?</message>
+
 	<!-- Books For Review Author -->
 	<message key="plugins.generic.booksForReview.author.title">Title</message>
 	<message key="plugins.generic.booksForReview.author.editor">Editor</message>

@@ -33,22 +33,16 @@ class BooksForReviewPlugin extends GenericPlugin {
 		if ($success && $this->getEnabled()) {
 			$this->import('classes.BookForReviewDAO');
 			$this->import('classes.BookForReviewAuthorDAO');
+			$this->import('classes.BookForReviewOrganizationDAO');
 
-			// PHP4 Requires explicit instantiation-by-reference
-			if (checkPhpVersion('5.0.0')) {
-				$bfrAuthorDao = new BookForReviewAuthorDAO($this->getName());
-			} else {
-				$bfrAuthorDao =& new BookForReviewAuthorDAO($this->getName());
-			}
+			$bfrAuthorDao = new BookForReviewAuthorDAO($this->getName());
 			$returner =& DAORegistry::registerDAO('BookForReviewAuthorDAO', $bfrAuthorDao);
 
-			// PHP4 Requires explicit instantiation-by-reference
-			if (checkPhpVersion('5.0.0')) {
-				$bfrDao = new BookForReviewDAO($this->getName());
-			} else {
-				$bfrDao =& new BookForReviewDAO($this->getName());
-			}
+			$bfrDao = new BookForReviewDAO($this->getName());
 			$returner =& DAORegistry::registerDAO('BookForReviewDAO', $bfrDao);
+
+			$bfrOrgDao = new BookForReviewOrganizationDAO($this->getName());
+			$returner =& DAORegistry::registerDAO('BookForReviewOrganizationDAO', $bfrOrgDao);
 
 			$journal =& Request::getJournal();
 			if ($journal) {
@@ -228,7 +222,7 @@ class BooksForReviewPlugin extends GenericPlugin {
 				$bfrOrgDao = DAORegistry::getDAO('BookForReviewOrganizationDAO');
 				$organizations = $bfrOrgDao->getOrganizations($journal->getId());
 				$templateMgr->assign_by_ref('organizations', $organizations);
-				$templateMgr->display($this->getTemplatePath() . 'templates/listOrganizations.tpl');
+				$templateMgr->display($this->getTemplatePath() . 'editor/listOrganizations.tpl');
 
 				return true;
 			default:
