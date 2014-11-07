@@ -32,6 +32,14 @@ class BookForReviewOrganization extends DataObject {
 		return $this->getData('publisherName');
 	}
 
+	/**
+	 * Set Name of organization.
+	 * @param $name string
+	 */
+	function setName($name) {
+		return $this->setData('publisherName', $name);
+	}
+
 	//
 	// Get/set methods
 	//
