@@ -3,7 +3,6 @@
 <!--
   * emailTemplateData.xml
   *
-  * Copyright (c) 2013-2014 Simon Fraser University Library
   * Copyright (c) 2003-2014 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
@@ -11,111 +10,107 @@
   *
   -->
 <email_texts locale="da_DK">
-	<email_text key="BFR_REVIEW_REMINDER">
-		<subject>Boganmeldelse: Deadline nærmer sig</subject>
+	<email_text key="OFR_REVIEW_REMINDER">
+		<subject>Bedømmelse: Husk forfaldsdato</subject>
 		<body>Kære {$authorName}:
 
-Dette er blot for at minde dig om, at din anmeldelse af bogen {$bookForReviewTitle} skal være os i hænde senest {$bookForReviewDueDate}.
+Dette er blot for at minde dig om vores forespørgsel om din bedømmelse af  {$objectForReviewTitle} er forfalden {$objectForReviewDueDate}.
 
-For at indsende din boganmeldelse skal du logge dig ind på tidsskriftets hjemmeside og der gennemføre onlineindleveringen af manuskriptet. For nemheds skyld finder du din manuskript-URL her:
+For at indsende din bedømmelse bedes du logge dig ind på tidsskriftets hjemmeside og færdiggøre online indsendelsen. For nemheds skyld finder du URL-adressen her: {$submissionUrl}
 
-Manuskript-URL: {$submissionUrl}
+Du er velkommen til at kontakte mig, hvis du spørgsmål eller betænkeligheder omkring denne bedømmelse.
 
-Kontakt mig endelig, hvis du har spørgsmål eller problemer i forbindelse med denne boganmeldelse
-
-Tak for dit bidrag. Jeg ser frem til modtagelsen af dit manuskript.
+Tak for dit bidrag. Jeg ser frem til at høre fra dig.
 
 {$editorialContactSignature}</body>
-		<description>Dette er en automatisk genereret e-mail, der sendes til en boganmelder for at gøre opmærksom på, at deadline for aflevering snart indtræder.</description>
+		<description>This is an automatically generated email that is sent to an object for review author as a reminder that the due date for the review is approaching.</description>
 	</email_text>
-	<email_text key="BFR_REVIEW_REMINDER_LATE">
-		<subject>Bog til bedømmelse: Afleveringsfrist</subject>
+	<email_text key="OFR_REVIEW_REMINDER_LATE">
+		<subject></subject>
 		<body>Kære {$authorName}:
 
-Hermed en venlig påmindelse om, at din bedømmelse af bogen {$bookForReviewTitle} skulle have været afleveret {$bookForReviewDueDate}.
+Dette blot for at minde dig om, at din bedømmelse af {$objectForReviewTitle} skulle have være afsendt {$objectForReviewDueDate}. Imidlertid har vi intet modtaget.
 
-Du kan indlevere din bedømmelse af bogen ved at logge ind på tidsskriftets websted og gennemføre onlineproceduren for indlevering af artikler. For at gøre det enkelt for dig har vi indsat et indleveringslink herunder.
+For at færdiggøre din bedømmelse, bedes du logge ind på tidsskriftets hjemmeside og udfylde indsendelsen. For nemheds skyld finder du URL-adressen nedenfor.
 
-Indleveringslink: {$submissionUrl}
+Indsendelses-URL: {$submissionUrl}
 
-Du er velkommen til at kontakte mig, hvis du har nogen spørgsmål eller er i tvivl om denne bogbedømmelse.
+Du er velkommen til at kontakte mig, hvis du har spørgsmål eller betænkeligheder omkring denne bedømmelse.
 
-Tak for dit bidrag til tidsskriftet – jeg ser frem til at modtage din bedømmelse.
+Tak for dit bidrag. Jeg ser frem til at modtage din indsendelse.
 
 {$editorialContactSignature}</body>
-		<description>Dette er en automatisk genereret e-mail, der bliver sendt til forfattere af bogbedømmelser, når afleveringsfristen er overskredet.</description>
+		<description></description>
 	</email_text>
-	<email_text key="BFR_BOOK_ASSIGNED">
-		<subject>Bog til bedømmelse: Bog tildelt</subject>
+	<email_text key="OFR_OBJECT_ASSIGNED">
+		<subject>Object for Review: Object Assigned</subject>
 		<body>Kære {$authorName}:
 
-Denne e-mail er en bekræftelse af, at du er blevet valgt til at skrive en bedømmelse af  {$bookForReviewTitle} , som skal afleveres senest {$bookForReviewDueDate}.
+Denne e-mail bekræfter, at {$objectForReviewTitle} er blevet tildelt dig til bedømmelse med forfaldsdato {$objectForReviewDueDate}.
 
-Kontrollér, at adressen i din online brugerprofil er opdateret. Der vil blive sendt et eksemplar af den bog, du skal bedømme, til denne adresse.
+Vær venlig at sikre, at din mailadresse i din brugerprofil er opdateret. Denne adresse vil blive benyttet når objektet skal vidersendes til bedømmelse.
 
-Den adresse, som vi har registreret nu, er:
+I din brugerprofil står følgende mailadresse:
 {$authorMailingAddress}
 
-Hvis denne adresse er ufuldstændig, eller hvis du ikke længere opholder dig på denne adresse, skal du opdatere din adresse via følgende link til din brugerprofil:
+Hvis denne adresse er ufuldstændig eller ugyldig bedes du opdatere den via følgende URL:
 
-Link til brugerprofil: {$userProfileUrl}
+Brugerprofil-URL: {$userProfileUrl}
+ 
+For at færdiggøre din bedømmelse, bedes du logge ind på tidsskriftets hjemmeside og udfylde indsendelsen vis følgende URL-adresse:
 
-Du kan indlevere din bedømmelse af bogen ved at logge ind på tidsskriftets websted og gennemføre onlineproceduren for indlevering af artikler.
+Indsendelses-URL: {$submissionUrl}
 
-Indleveringslink: {$submissionUrl}
-
-Du er velkommen til at kontakte mig, hvis du har nogen spørgsmål eller er i tvivl om denne bogbedømmelse.
+Du er velkommen til at kontakte mig, hvis du har spørgsmål eller betænkeligheder omkring denne bedømmelse.
 
 {$editorialContactSignature}</body>
-		<description>Denne e-mail sendes af en redaktør til en bogbedømmer, når en redaktør har udvalgt forfatteren til en bogbedømmelse.</description>
+		<description>This email is sent by an editor to an object review author when an editor assigns the object for review to the author.</description>
 	</email_text>
-	<email_text key="BFR_BOOK_DENIED">
-		<subject>Bog til bedømmelse</subject>
+	<email_text key="OFR_OBJECT_DENIED">
+		<subject>Object for Review</subject>
 		<body>Kære {$authorName}:
 
-Desværre er du ikke blevet valgt til at bedømme {$bookForReviewTitle}.
+Desværre kan jeg ikke denne gang tildele dig {$objectForReviewTitle} til viderebedømmelse.
 
-Jeg håber, at du vil overveje at bedømme en anden bog fra vores liste – enten nu eller ved en senere lejlighed.
+Jeg håber, du vil overveje at bedømme et andet objekt fra vores liste enten nu eller senere.
 
 {$editorialContactSignature}</body>
-		<description>Denne e-mail sendes af en redaktør til en interesseret forfatter, når en bog ikke længere er tilgængelig til bedømmelse.</description>
+		<description>This email is sent by an editor to an interested author when an object is no longer available for review.</description>
 	</email_text>
-	<email_text key="BFR_BOOK_REQUESTED">
-		<subject>Bog til bedømmelse: Boganmodning</subject>
+	<email_text key="OFR_OBJECT_REQUESTED">
+		<subject>Object for Review: Object Requested</subject>
 		<body>Kære {$editorName}:
 
-Jeg er interesseret i at skrive en bedømmelse af {$bookForReviewTitle}.
+Jeg vil gerne foretage en bedømmelse af {$objectForReviewTitle}.
 
-Kan du bekræfte, at denne bog stadig er ledig til bedømmelse?
+Kan du bekræfte om der stadig er mulighed for dette?
 
 {$authorContactSignature}</body>
-		<description>Denne e-mail sendes til en redaktør fra en forfatter, der er interesseret i at skrive en bedømmelse af en bog fra listen.</description>
+		<description>This email is sent to an editor by an author interested in writing an object review for a listed object.</description>
 	</email_text>
-	<email_text key="BFR_BOOK_MAILED">
-		<subject>Bog til bedømmelse: Bog afsendt</subject>
+	<email_text key="OFR_OBJECT_MAILED">
+		<subject>Object for Review: Object Mailed</subject>
 		<body>Kære {$authorName}:
 
-Denne e-mail er en bekræftelse af, at jeg har sendt et eksemplar af {$bookForReviewTitle} til den følgende adresse i din online brugerprofil:
+Denne e-mail bekræfter, at jeg har sendt en kopi af {$objectForReviewTitle} til følgende mailadresse fra din online brugerprofil:
 {$authorMailingAddress}
+ 
+For at indsende din bedømmelse bedes du logge ind på tidsskriftets hjemmeside og færdiggøre online-bedømmelsen via følgende URL: {$submissionUrl}
 
-Du kan indlevere din bedømmelse af bogen ved at logge ind på tidsskriftets websted og gennemføre onlineproceduren for indlevering af artikler.
-
-Indleveringslink: {$submissionUrl}
-
-Du er velkommen til at kontakte mig, hvis du har nogen spørgsmål eller er i tvivl om denne bogbedømmelse.
+Du er velkommen til at kontakte mig, hvis du har spørgsmål eller betænkeligheder omkring denne bedømmelse.
 
 {$editorialContactSignature}</body>
-		<description>Denne e-mail sendes af en redaktør til en bedømmer, når redaktøren har sendt et eksemplar af bogen til bedømmeren.</description>
+		<description></description>
 	</email_text>
-	<email_text key="BFR_REVIEWER_REMOVED">
-		<subject>Bog til bedømmelse</subject>
+	<email_text key="OFR_REVIEWER_REMOVED">
+		<subject>Object for Review</subject>
 		<body>Kære {$authorName}:
 
-Denne e-mail er en bekræftelse af, at du er blevet slettet som bedømmer af bogen {$bookForReviewTitle}, der vil blive stillet til rådighed for andre forfattere, som er interesserede i at bedømme bogen.
+Denne e-mail bekræfter, at du er blevet slettet som bedømmer af {$objectForReviewTitle}.
 
-Jeg håber, at du vil overveje at bedømme en anden bog fra vores liste – enten nu eller ved en senere lejlighed.
+Jeg håber, du vil overveje at bedømme et andet objekt fra vores liste enten nu eller senere.
 
 {$editorialContactSignature}</body>
-		<description>Denne e-mail sendes af en redaktør til en interesseret bedømmer, når en bog ikke længere er tilgængelig til bedømmelse.</description>
+		<description>This email is sent by an editor to an interested author when an object is no longer available for review.</description>
 	</email_text>
 </email_texts>

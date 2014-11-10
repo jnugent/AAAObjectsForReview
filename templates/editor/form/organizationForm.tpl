@@ -1,5 +1,5 @@
 {**
- * plugins/generic/booksForReview/templates/editor/organizationForm.tpl
+ * plugins/generic/objectsForReview/templates/editor/organizationForm.tpl
  *
  * Copyright (c) 2013-2014 Simon Fraser University Library
  * Copyright (c) 2003-2014 John Willinsky
@@ -9,7 +9,7 @@
  *
  *}
 {strip}
-{assign var="pageTitle" value="plugins.generic.booksForReview.manager.organizationSettings"}
+{assign var="pageTitle" value="plugins.generic.objectsForReview.manager.organizationSettings"}
 {include file="common/header.tpl"}
 {/strip}
 <div id="organization">
@@ -27,7 +27,7 @@
 
 <table width="100%" class="data">
 <tr valign="top">
-	<td width="20%" class="label">{fieldLabel name="name" key="plugins.generic.booksForReview.manager.organization.name"}</td>
+	<td width="20%" class="label">{fieldLabel name="name" key="plugins.generic.objectsForReview.manager.organization.name"}</td>
 	<td width="80%" class="value"><input type="text" name="name" id="name" value="{$name|escape}" size="40" maxlength="90" class="textField" /></td>
 </tr>
 <tr valign="top">
@@ -35,11 +35,11 @@
 	<td class="value"><input type="text" name="street_address" id="street_address" value="{$streetAddress|escape}" size="40" maxlength="90" class="textField" /></td>
 </tr>
 <tr valign="top">
-	<td class="label">{fieldLabel name="city" key="plugins.generic.booksForReview.manager.organization.city"}</td>
+	<td class="label">{fieldLabel name="city" key="plugins.generic.objectsForReview.manager.organization.city"}</td>
 	<td class="value"><input type="text" name="city" id="city" value="{$city|escape}" size="40" maxlength="90" class="textField" /></td>
 </tr>
 <tr valign="top">
-	<td class="label">{fieldLabel name="state" key="plugins.generic.booksForReview.manager.organization.state"}</td>
+	<td class="label">{fieldLabel name="state" key="plugins.generic.objectsForReview.manager.organization.state"}</td>
 	<td class="value"><input type="text" name="state" id="state" value="{$state|escape}" size="40" maxlength="90" class="textField" /></td>
 </tr>
 <tr valign="top">

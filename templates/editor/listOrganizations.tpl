@@ -1,5 +1,5 @@
 {**
- * plugins/generic/booksForReview/templates/editor/listOrganizations.tpl
+ * plugins/generic/objectsForReview/templates/editor/listOrganizations.tpl
  *
  * Copyright (c) 2013-2014 Simon Fraser University Library
  * Copyright (c) 2003-2014 John Willinsky
@@ -9,11 +9,11 @@
  *
  *}
 {strip}
-{assign var="pageTitle" value="plugins.generic.booksForReview.editor.listOrganizations"}
+{assign var="pageTitle" value="plugins.generic.objectsForReview.editor.listOrganizations"}
 {include file="common/header.tpl"}
 {/strip}
-<div id="booksForReviewOrganizations">
-<div id="description">{translate key="plugins.generic.booksForReview.editor.listOrganizations.description"}</div>
+<div id="objectsForReviewOrganizations">
+<div id="description">{translate key="plugins.generic.objectsForReview.editor.listOrganizations.description"}</div>
 
 <div class="separator"></div>
 
@@ -21,7 +21,7 @@
 
 {include file="common/formErrors.tpl"}
 
-<p><a href="{plugin_url path="manageOrganization"}">{translate key="plugins.generic.booksForReview.editor.listOrganizations.createNewOrganization"}</a></p>
+<p><a href="{plugin_url path="manageOrganization"}">{translate key="plugins.generic.objectsForReview.editor.listOrganizations.createNewOrganization"}</a></p>
 <table width="100%" class="data">
 	{foreach from=$organizations item=organization}
 		<tr>
@@ -29,7 +29,7 @@
 			{$organization->getName()|escape}
 		</td>
 		<td>
-		<td><a href="{plugin_url path="manageOrganization" organizationId=$organization->getId()}">{translate key="common.edit"}</a> | <a onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.booksForReview.editor.listOrganizations.confirmDelete"}')" href="{plugin_url path="deleteOrganization" organizationId=$organization->getId()}">{translate key="common.delete"}</a>
+		<td><a href="{plugin_url path="manageOrganization" organizationId=$organization->getId()}">{translate key="common.edit"}</a> | <a onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.listOrganizations.confirmDelete"}')" href="{plugin_url path="deleteOrganization" organizationId=$organization->getId()}">{translate key="common.delete"}</a>
 		</td>
 		</tr>
 	{/foreach}

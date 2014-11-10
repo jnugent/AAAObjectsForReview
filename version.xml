@@ -2,7 +2,7 @@
 <!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
 
 <!--
-  * plugins/generic/booksForReview/version.xml
+  * version.xml
   *
   * Copyright (c) 2013-2014 Simon Fraser University Library
   * Copyright (c) 2003-2014 John Willinsky
@@ -11,10 +11,11 @@
   * Plugin version information.
   -->
 <version>
-	<application>booksForReview</application>
+	<application>objectsForReview</application>
 	<type>plugins.generic</type>
-	<release>1.0.0.1</release>
-	<date>2014-11-06</date>
+	<release>1.0.0.0</release>
+	<date>2014-11-10</date>
 	<lazy-load>1</lazy-load>
-	<class>BooksForReviewPlugin</class>
+	<sitewide>1</sitewide>
+	<class>ObjectsForReviewPlugin</class>
 </version>

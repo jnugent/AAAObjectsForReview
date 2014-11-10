@@ -3,120 +3,123 @@
 <!--
   * emailTemplateData.xml
   *
-  * Copyright (c) 2013-2014 Simon Fraser University Library
   * Copyright (c) 2003-2014 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
+  * Credits: http://pkp.sfu.ca/wiki/index.php?title=OJS:_Spanish_%28es_ES%29
+  *
   * Localized email templates XML file.
   *
-  * $Id$
   -->
+
 <email_texts locale="es_ES">
-	<email_text key="BFR_REVIEW_REMINDER">
-		<subject>Petición de Revisión: Recordatorio Fecha de vencimiento</subject>
-		<body>Estimado {$authorName}:
+	<email_text key="OFR_REVIEW_REMINDER">
+		<subject>Objeto a revisar: Recordatorio de fecha de vencimiento</subject>
+		<body>Apreciado/da {$authorName}:
 
-Este es un recordatorio de que su reseña del libro {$bookForReviewTitle}  se debe realizar hacer antes de la fecha {$bookForReviewDueDate}.
+Este es un recordatorio del objeto de revisión {$objectForReviewTitle} previsto para la fecha {$objectForReviewDueDate}.
 
-Para enviar su reseña del libro, inicie sesión en la Web de la revista y complete el proceso de envío de revisión en línea. Para su conveniencia, un enlace directo se proporciona a continuación:
-
-URL Presentación: {$submissionUrl}
-
-Por favor, no dude en ponerse en contacto conmigo si tiene alguna pregunta o inquietud sobre esta reseña del libro.
-
-Gracias por su contribución a la revista y espero con interés recibir su envío.
-
-{$editorialContactSignature}</body>
-		<description>Este es un mensaje generado automáticamente que se envía al autor de la revisión de un libro como un recordatorio de que la fecha de su vencimiento se acerca.</description>
-	</email_text>
-	<email_text key="BFR_REVIEW_REMINDER_LATE">
-		<subject>Petición de Revisión: Recordatorio Fecha de vencimiento</subject>
-		<body>Estimado  {$authorName}:
-
-Este es un recordatorio de que su reseña del libro {$bookForReviewTitle} se debió hacer para la fecha {$bookForReviewDueDate} pero no se ha recibido todavía.
-
-Para enviar su reseña del libro, por favor, inicie sesión en el Web site del diario y complete el proceso de envío de revisión en línea. Para su conveniencia, un enlace directo se proporciona a continuación:
-
-URL Presentación: {$submissionUrl}
-
-Por favor, no dude en ponerse en contacto conmigo si tiene alguna pregunta o inquietud sobre esta reseña del libro.
-
-Gracias por su contribución a la revista y espero con interés recibir su envío.
-
-{$editorialContactSignature}</body>
-		<description>Este es un mensaje generado automáticamente que se envía a un autor de una revisión después de que la revisión ha llegado a la fecha de vencimiento.</description>
-	</email_text>
-	<email_text key="BFR_BOOK_ASSIGNED">
-		<subject>Petición de revisión: Petición asignada</subject>
-		<body>Estimado  {$authorName}:
-
-Este mensaje confirma que {$bookForReviewTitle} se ha asignado a usted para una revisión que debe ser completada antes de {$bookForReviewDueDate}.
-
-Asegúrese de que su dirección de correo en su perfil de usuario está al día. Esta dirección se usará para enviar por correo una copia de la petición a usted para la revisión.
-
-La dirección de correo que tenemos actualmente en el archivo es:
-{$authorMailingAddress}
-
-Si la dirección es incompleta o ya no está disponible, por favor use la siguiente URL  para actualizar su dirección en su perfil de usuario:
-
-Perfil del usuario URL: {$userProfileUrl}
- 
-Para enviar su reseña, por favor, inicie sesión en el Web de la revista y complete el proceso de envío de artículos en línea.
+Para enviar tu objeto de revisión, es necesario que entres en el sitio web de la revista y completes el proceso de envío del artículo. Para tu comodidad, te mandamos la URL del envío.
 
 URL: {$submissionUrl}
 
-Por favor, no dude en ponerse en contacto conmigo si tiene alguna pregunta o inquietud sobre esta petición de revisión.
+Por favor, contacta con nosotros si tienes algún problema o duda sobre este objeto de revisión.
+
+Quedamos a la espera de tu envío, muy agradecidos por tu contribución a la revista.
 
 {$editorialContactSignature}</body>
-		<description>Este correo electrónico es enviado por un editor a un autor de revisión cuando un editor le asigna la petición de revisión al autor.</description>
+		<description>Este es un correo electrónico generado automáticamente y enviado al autor del objeto de revisión como recordatorio cuando la fecha de vencimiento se acerca.</description>
 	</email_text>
-	<email_text key="BFR_BOOK_DENIED">
-		<subject>Petición de revisión</subject>
-		<body>Estimado {$authorName}:
+  <email_text key="OFR_REVIEW_REMINDER_LATE">
+    <subject>Objeto a revisar: Vencimiento de la fecha de revisión</subject>
+    <body>Apreciado/da {$authorName}:
 
-Desafortunadamente, no puedo asignarle en este momento la petición {$bookForReviewTitle}.
+Este es un recordatorio del objeto de revisión {$objectForReviewTitle} previsto para la fecha {$objectForReviewDueDate} pero que todavía no hemos recibido.
 
-Espero que considere la revisión de otra petición de nuestra lista, ya sea en este momento o en el futuro.
+Para enviar tu objeto de revisión, es necesario que entres en el sitio web de la revista y completes el proceso de envío del artículo. Para tu comodidad, te mandamos la URL del envío.
+
+URL: {$submissionUrl}
+
+Por favor, contacta con nosotros si tienes algún problema o duda sobre este objeto de revisión.
+
+Quedamos a la espera de tu envío, muy agradecidos por tu contribución a la revista.
 
 {$editorialContactSignature}</body>
-		<description>Este correo electrónico es enviado por un editor a un autor interesado cuando una petición ya no está disponible para su revisión.</description>
-	</email_text>
-	<email_text key="BFR_BOOK_REQUESTED">
-		<subject>Petición de Revisión: Petición solicitada</subject>
-		<body>Estimado {$editorName}:
+    <description>Este es un correo electrónico generado automáticamente y enviado al autor del objeto de revisión como recordatorio cuando la fecha de vencimiento se ha superado.</description>
+  </email_text>
+  <email_text key="OFR_REVIEWER_REMOVED">
+    <subject>Objeto a revisar</subject>
+    <body>Apreciado/da {$authorName}:
 
-Estoy interesado en escribir la reseña  {$bookForReviewTitle}.
+Este correo electrónico confirma que ya no eres revisor de {$objectForReviewTitle}.
 
-¿Puede usted confirmar si aún está disponible para su revisión?
+Esperamos que consideres revisar otros objetos de nuestra lista, ja sea ahora o en un futuro.
+
+{$editorialContactSignature}</body>
+    <description>Este correo lo envía el editor a los autores interesados cuando el objeto de revisión ya no está disponible.</description>
+  </email_text>
+  <email_text key="OFR_OBJECT_ASSIGNED">
+    <subject>Objeto a revisar: Objeto asignado</subject>
+    <body>Apreciado/da {$authorName}:
+
+Este correo confirma que se te ha asignado {$objectForReviewTitle} y que la revisión se ha de completar antes de  {$objectForReviewDueDate}.
+
+Te pedimos que confirmes que la dirección de correo de tu perfil está actualizada.
+
+Tu dirección actual es:
+{$authorMailingAddress}
+
+Si esta dirección fuese incompleta o ya no es correcta, vista tu perfil de usuario para actualizarla:
+
+URL del perfil de usuario: {$userProfileUrl}
+
+Para enviar tu objeto de revisión, es necesario que entres en el sitio web de la revista y completes el proceso de envío del artículo. Para tu comodidad, te añadimos la URL del envío.
+
+URL: {$submissionUrl}
+
+Por favor, contacta con nosotros si tienes alguna pregunta o duda sobre este objeto de revisión.
+
+Quedamos a la espera de tu envío, muy agradecidos por tu contribución a la revista.
+
+{$editorialContactSignature}</body>
+    <description>Este correo lo envía el editor al autor del objeto de revisión cuando el editor asigna el objeto al autor.</description>
+  </email_text>
+  <email_text key="OFR_OBJECT_DENIED">
+    <subject>Objeto a revisar</subject>
+    <body>Apreciado/da {$authorName}:
+
+Desgraciadamente, en estos momentos no te podemos asignar {$objectForReviewTitle} como objeto de revisión.
+
+Esperamos que consideres revisar otros objetos de nuestra lista, ja sea ahora o en un futuro.
+
+{$editorialContactSignature}</body>
+    <description>Este correo lo envía el editor a los autores interesados cuando el objeto ya no está disponible para ser revisado.</description>
+  </email_text>
+  <email_text key="OFR_OBJECT_REQUESTED">
+    <subject>Objeto a revisar: Objeto solicitado</subject>
+    <body>Apreciado/da {$editorName}:
+
+Estoy interesado en escribir una revisión del objeto {$objectForReviewTitle}.
+
+¿Podría confirmar que el objeto todavía está disponible para ser revisado?
 
 {$authorContactSignature}</body>
-		<description>Este correo electrónico se envía por un autor interesado en escribir una reseña de la lista de peticiones a un editor.</description>
-	</email_text>
-	<email_text key="BFR_BOOK_MAILED">
-		<subject>Petición de revisión: Petición enviada</subject>
-		<body>Estimado {$authorName}:
+    <description>Este correo lo envía al editor el autor interesado en escribir una revisión de un objeto de la lista.</description>
+  </email_text>
+  <email_text key="OFR_OBJECT_MAILED">
+    <subject>Objeto a revisar: Objeto enviado</subject>
+    <body>Apreciado/da {$authorName}:
 
-Este mensaje confirma que he enviado {$bookForReviewTitle} a la siguiente dirección de su perfil de usuario :
+Este correo confirma que os hemos enviado una copia de {$objectForReviewTitle} a la siguiente dirección de correo de tu perfil de usuario: 
 {$authorMailingAddress}
- 
-Para enviar su reseña, por favor, inicie sesión en la Web de la Revista y complete el proceso de envío:
 
-URL: {$submissionUrl}
+Para enviar tu objeto de revisión, es necesario que entres en el sitio web de la revista y completes el proceso de envío del artículo.
 
-Por favor, no dude en ponerse en contacto conmigo si tiene alguna pregunta o inquietud sobre esta reseña.
+URL del envío: {$submissionUrl}
 
-{$editorialContactSignature}</body>
-		<description>Este correo electrónico es enviado por un editor para el autor de una revisión cuando el editor ha enviado por correo una petición autor.</description>
-	</email_text>
-	<email_text key="BFR_REVIEWER_REMOVED">
-		<subject>Petición de revisión</subject>
-		<body>Estimado {$authorName}:
-
-Este mensaje confirma que ha sido eliminado como revisor de {$bookForReviewTitle}, que se pondrá a disposición de otros autores interesados en hace la revisión.
-
-Espero que considere realizar otra revisión de nuestra lista, ya sea en este momento o en el futuro.
+Por favor, contacta con nosotros si tienes algún problema o duda sobre este objeto de revisión.
 
 {$editorialContactSignature}</body>
-		<description>Este correo electrónico es enviado por un editor a un autor interesado cuando una petición ya no está disponible para su revisión.</description>
-	</email_text>
+    <description>Este correo lo envía el editor a los autores interesados cuando el editor ha enviado por correo al autor una copia del objeto.</description>
+  </email_text>
 </email_texts>

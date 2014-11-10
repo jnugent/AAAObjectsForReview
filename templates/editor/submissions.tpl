@@ -1,19 +1,25 @@
 {**
- * @file plugins/generic/booksForReview/templates/editor/submissions.tpl
+ * @file plugins/generic/objectsForReview/templates/editor/submissions.tpl
  *
  * Copyright (c) 2013-2014 Simon Fraser University Library
  * Copyright (c) 2003-2014 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
- * Selection form for book for review submissions.
+ * Selection form for object for review submissions.
  *
  *}
-{assign var="pageTitle" value="plugins.generic.booksForReview.editor.selectSubmission"}
+{assign var="pageTitle" value="plugins.generic.objectsForReview.editor.selectSubmission"}
 {include file="common/header.tpl"}
 
-<form method="post" id="submit" action="{url op="selectBookForReviewSubmission" path=$bookId returnPage=$returnPage}">
+<script type="text/javascript">
+	$(function() {ldelim}
+		// Attach the form handler.
+		$('#submit').pkpHandler('$.pkp.controllers.form.FormHandler');
+	{rdelim});
+</script>
+<form class="pkp_form" method="post" id="submit" action="{url op="selectObjectForReviewSubmission" path=$assignmentId returnPage=$returnPage}">
 	<select name="searchField" size="1" class="selectMenu">
-		{html_options_translate options=$fieldOptions selected=$searchField}
+		{html_options_translate options=$searchFieldOptions selected=$searchField}
 	</select>
 	<select name="searchMatch" size="1" class="selectMenu">
 		<option value="contains"{if $searchMatch == 'contains'} selected="selected"{/if}>{translate key="form.contains"}</option>
@@ -40,15 +46,14 @@
 	<tr>
 		<td colspan="5" class="headseparator">&nbsp;</td>
 	</tr>
-
 {iterate from=submissions item=submission}
 	<tr valign="top">
 		<td>{$submission->getId()}</td>
 		<td>{$submission->getSectionAbbrev()|escape}</td>
 		<td>{$submission->getAuthorString(true)|truncate:40:"..."|escape}</td>
-		<td><a href="{url page="editor" op="submission" path=$submission->getId()}" class="action">{$submission->getArticleTitle()|strip_tags|truncate:60:"..."}</a></td>
+		<td><a href="{url page="editor" op="submission" path=$submission->getId()}" class="action">{$submission->getLocalizedTitle()|strip_tags|truncate:60:"..."}</a></td>
 		<td align="right" class="nowrap">
-			<a href="{url op="assignBookForReviewSubmission" path=$bookId returnPage=$returnPage articleId=$submission->getId()}" class="action">{translate key="plugins.generic.booksForReview.editor.select"}</a>
+			<a href="{url op="assignObjectForReviewSubmission" path=$assignmentId objectId=$objectId submissionId=$submission->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.select"}</a>
 	</td>
 	</tr>
 	<tr>

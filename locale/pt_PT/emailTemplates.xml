@@ -3,7 +3,6 @@
 <!--
   * emailTemplateData.xml
   *
-  * Copyright (c) 2013-2014 Simon Fraser University Library
   * Copyright (c) 2003-2014 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
@@ -11,107 +10,111 @@
   *
   -->
 <email_texts locale="pt_PT">
-	<email_text key="BFR_REVIEW_REMINDER">
-		<subject>Livro para Revisão: Lembrete do Prazo</subject>
-		<body>Caro(a) {$authorName}:
+	<email_text key="OFR_REVIEW_REMINDER">
+		<subject>Object for Review: Due Date Reminder</subject>
+		<body>Dear {$authorName}:
 
-Este lembrete serve para recordar-lhe que a revisão do livro {$bookForReviewTitle} expirou o prazo {$bookForReviewDueDate}.
+This is a friendly reminder that your object review of {$objectForReviewTitle} is due {$objectForReviewDueDate}.
 
-Para submeter a sua revisão do livro, autentique-se no portal e complete o processo de submissão online. Para sua conveniência, é fornecido em baixo o URL da submissão.
+To submit your object review, please log into the journal website and complete the online article submission process. For your convenience, a submission URL has been provided below.
 
-URL da submissão: {$submissionUrl}
+Submission URL: {$submissionUrl}
 
-Entre em contacto com o Editor caso tenha dúvidas ou questões a apresentar sobre a revisão do livro.</body>
-		<description>Trata-se de um email gerado automaticamente e que é enviado para o responsável da revisão do livro, lembrando-o que o prazo da revisão está próximo.</description>
-	</email_text>
-	<email_text key="BFR_REVIEW_REMINDER_LATE">
-		<subject>Livro para Revisão: Prazo da Revisão</subject>
-		<body>Caro(a) {$authorName}:
+Please feel free to contact me if you have any questions or concerns about this object review.
 
-Lembramos que o prazo da sua revisão do livro {$bookForReviewTitle} foi ultrapassada {$bookForReviewDueDate} e ainda não foi recebida.
-
-Para submeter a sua revisão do livro, autentique-se no portal e complete o processo de submissão online. Para sua conveniência, fornecemos em baixo um URL da submissão.
-
-URL da submissão: {$submissionUrl}
-
-Entre em contacto com o Editor caso tenha dúvidas ou questões a apresentar sobre esta revisão do livro.
-
-Obrigado pela sua contribuição para a revisão, com os votos de receber com sucesso a sua submisssão.
+Thank you for your contribution to the journal and I look forward to receiving your submission.
 
 {$editorialContactSignature}</body>
-		<description>Trata-se de um email gerado automaticamente e que é enviado ao responsável pela revisão do livro quando a data de revisão foi ultrapassada.</description>
+		<description>This is an automatically generated email that is sent to an object for review author as a reminder that the due date for the review is approaching.</description>
 	</email_text>
-	<email_text key="BFR_BOOK_ASSIGNED">
-		<subject>Livro para Revisão: Livro Atribuído</subject>
-		<body>Caro(a) {$authorName}:
+	<email_text key="OFR_REVIEW_REMINDER_LATE">
+		<subject>Object for Review: Review Due</subject>
+		<body>Dear {$authorName}:
 
-Este email confirma que {$bookForReviewTitle} foi-lhe atribuído um livro para revisão até {$bookForReviewDueDate}.
+This is a friendly reminder that your object review of {$objectForReviewTitle} was due {$objectForReviewDueDate} but has not been received yet.
 
-Certifique-se que os dados o seu email estão correcto. Este endereço será usado para enviar uma cópia do livro para revisão.
+To submit your object review, please log into the journal website and complete the online article submission process. For your convenience, a submission URL has been provided below.
 
-O endereço de email existente na base de dados é:
+Submission URL: {$submissionUrl}
+
+Please feel free to contact me if you have any questions or concerns about this object review.
+
+Thank you for your contribution to the journal and I look forward to receiving your submission.
+
+{$editorialContactSignature}</body>
+		<description>This is an automatically generated email that is sent to an object for review author after the review due date has passed.</description>
+	</email_text>
+	<email_text key="OFR_OBJECT_ASSIGNED">
+		<subject>Object for Review: Object Assigned</subject>
+		<body>Dear {$authorName}:
+
+This email confirms that {$objectForReviewTitle} has been assigned to you for an object review to be completed by {$objectForReviewDueDate}.
+
+Please ensure that your mailing address in your online user profile is up-to-date. This address will be used to mail a copy of the object to you for the review.
+
+The mailing address that we currently have on file is:
 {$authorMailingAddress}
 
-Se este endereço está incompleto ou desactivado, por favor use o seguinte URL para actualizar o seu perfil:
+If this address is incomplete or you are no longer at this address, please use the following user profile URL to update your address:
 
-URL do Perfil do Utilizador: {$userProfileUrl}
+User Profile URL: {$userProfileUrl}
  
-Para submeter a sua revisão do livro, autentique-se no portal e complete o processo de submissão online disponível no URL em baixo.
+To submit your object review, please log into the journal website and complete the online article submission process.
 
-URL da submissão: {$submissionUrl}
+Submission URL: {$submissionUrl}
 
-Entre em contacto com o Editor caso tenha dúvidas ou questões a apresentar sobre a revisão do livro.
-
-{$editorialContactSignature}</body>
-		<description>Este email é enviado por um editor a um responsável pela revisão do livro quando lhe é atribuído uma revisão.</description>
-	</email_text>
-	<email_text key="BFR_BOOK_DENIED">
-		<subject>Livro para Revisão</subject>
-		<body>Caro(a) {$authorName}:
-
-Lamentamos, mas não foi possível atribuir-lhe o seguinte {$bookForReviewTitle} para revisão.
-
-Pese embora essa impossibilidade, esperamos contar com a sua colaboração em futuras revisões de livros.
+Please feel free to contact me if you have any questions or concerns about this object review.
 
 {$editorialContactSignature}</body>
-		<description>Este email é enviado por um editor a um potencial interessado quando o livro já não está disponível para revisão.</description>
+		<description>This email is sent by an editor to an object review author when an editor assigns the object for review to the author.</description>
 	</email_text>
-	<email_text key="BFR_BOOK_REQUESTED">
-		<subject>Livro para Revisão: Livro Requisitado</subject>
-		<body>Caro(a) {$editorName}:
+	<email_text key="OFR_OBJECT_DENIED">
+		<subject>Object for Review</subject>
+		<body>Dear {$authorName}:
 
-Estou interessado em realizar uma revisão do livro {$bookForReviewTitle}.
+Unfortunately, I am not able to assign {$objectForReviewTitle} to you at this time for an object review.
 
-Pode confirmar se este livro está disponível para revisão?
+I hope you consider reviewing another object from our listing, either at this time or in the future.
+
+{$editorialContactSignature}</body>
+		<description>This email is sent by an editor to an interested author when an object is no longer available for review.</description>
+	</email_text>
+	<email_text key="OFR_OBJECT_REQUESTED">
+		<subject>Object for Review: Object Requested</subject>
+		<body>Dear {$editorName}:
+
+I am interested in writing an object review of {$objectForReviewTitle}.
+
+Can you please confirm whether this object is still available for review?
 
 {$authorContactSignature}</body>
-		<description>Este email é enviado ao editor por alguém interessado em realizar uma revisão de um livro.</description>
+		<description>This email is sent to an editor by an author interested in writing an object review for a listed object.</description>
 	</email_text>
-	<email_text key="BFR_BOOK_MAILED">
-		<subject>Livro para Revisão: Livro Enviado</subject>
-		<body>Caro(a) {$authorName}:
+	<email_text key="OFR_OBJECT_MAILED">
+		<subject>Object for Review: Object Mailed</subject>
+		<body>Dear {$authorName}:
 
-Este email confirma que enviei uma cópia do {$bookForReviewTitle} para o seguinte endereço:
+This email confirms that I have mailed a copy of {$objectForReviewTitle} to the following mailing address from your online user profile:
 {$authorMailingAddress}
  
-Para submeter a sua revisão do livro, autentique-se no portal e complete o processo de submissão no URL indicado em baixo.
+To submit your object review, please log into the journal website and complete the online article submission process.
 
-URL da submissão: {$submissionUrl}
+Submission URL: {$submissionUrl}
 
-Entre em contacto com o Editor caso tenha dúvidas ou questões a apresentar sobre a revisão do livro.
+Please feel free to contact me if you have any questions or concerns about this object review.
 
 {$editorialContactSignature}</body>
-		<description>Este email é enviado por um editor para um revisor quando o editor enviou-lhe uma cópia do livro.</description>
+		<description>This email is sent by an editor to an object review author when the editor has mailed a copy of the object to the author.</description>
 	</email_text>
-	<email_text key="BFR_REVIEWER_REMOVED">
-		<subject>Livro para Revisão</subject>
-		<body>Caro(a) {$authorName}:
+	<email_text key="OFR_REVIEWER_REMOVED">
+		<subject>Object for Review</subject>
+		<body>Dear {$authorName}:
 
-Este email confirma que foi retirado como revisor do livro {$bookForReviewTitle}, o qual estará disponível para outros interessados na revisão.
+This email confirms that you have been removed as the object reviewer for {$objectForReviewTitle}.
 
-Esperamos contar com a sua colaboração, quer na actual ou em revisões futuras.
+I hope you consider reviewing another object from our listing, either at this time or in the future.
 
 {$editorialContactSignature}</body>
-		<description>Este email é enviado pelo editor a um interessado pela revisão quando este já não disponível para rever o livro.</description>
+		<description>This email is sent by an editor to an interested author when an object is no longer available for review.</description>
 	</email_text>
 </email_texts>
