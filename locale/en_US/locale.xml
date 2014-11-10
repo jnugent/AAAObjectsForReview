@@ -656,12 +656,13 @@
 	<message key="plugins.generic.objectsForReview.editor.listOrganizations.createNewOrganization">Create a new Organization</message>
 	<message key="plugins.generic.objectsForReview.editor.listOrganizations.confirmDelete">Confirm Delete?</message>
 	<message key="plugins.generic.objectsForReview.manageOrganizations">Manage Organizations</message>
-	<message key="plugins.generic.objectsForReview.displayName">AAA Books For Review</message>
+	<message key="plugins.generic.objectsForReview.displayName">AAA Objects For Review</message>
 	<message key="plugins.generic.objectsForReview.description">Solicit reviews for books of interest or received from publishers. Manage book reviewers and book review process. Customized for the AAA.</message>
 
 	<!--  Objects for Review Organization Form -->
 	<message key="plugins.generic.objectsForReview.manager.organization.name">Publisher Name</message>
 	<message key="plugins.generic.objectsForReview.manager.organization.city">City</message>
 	<message key="plugins.generic.objectsForReview.manager.organization.state">State</message>
+	<message key="plugins.generic.objectsForReview.manager.organizationSettings">Publisher Settings</message>
 
 </locale>

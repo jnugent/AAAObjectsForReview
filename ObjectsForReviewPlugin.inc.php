@@ -185,6 +185,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 		$this->import('classes.ObjectForReviewDAO');
 		$this->import('classes.ObjectForReviewSettingsDAO');
 		$this->import('classes.ObjectForReviewAssignmentDAO');
+		$this->import('classes.ObjectForReviewOrganizationDAO');
 
 		$reviewObjectTypeDao = new ReviewObjectTypeDAO($this->getName());
 		DAORegistry::registerDAO('ReviewObjectTypeDAO', $reviewObjectTypeDao);
@@ -214,7 +215,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 	function getManagementVerbs() {
 		$verbs = array();
 		if ($this->getEnabled()) {
-			$verbs[] = array('organizations', __('plugins.generic.objectssForReview.manageOrganizations'));
+			$verbs[] = array('organizations', __('plugins.generic.objectsForReview.manageOrganizations'));
 		}
 		return parent::getManagementVerbs($verbs);
 	}
@@ -252,11 +253,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 						Request::redirect(null, 'manager', 'plugin');
 						return false;
 					} else {
-						$this->setBreadCrumbs(true);
 						$form->display();
 					}
 				} else {
-					$this->setBreadCrumbs(true);
 					$form->initData();
 					$form->display();
 				}

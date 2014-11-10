@@ -33,7 +33,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 	 */
 	function &getOrganization($organizationId) {
 		$result =& $this->retrieve(
-			'SELECT * FROM objects_for_review_organizations WHERE organization_id = ?', $organizationId
+			'SELECT * FROM object_for_review_organizations WHERE organization_id = ?', $organizationId
 		);
 
 		$returner = null;
@@ -57,7 +57,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 		$organizations = array();
 
 		$result =& $this->retrieve(
-				'SELECT * FROM objects_for_review_organizations WHERE journal_id = ? ORDER BY seq',
+				'SELECT * FROM object_for_review_organizations WHERE journal_id = ? ORDER BY seq',
 				$journalId
 		);
 
@@ -81,7 +81,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 		$organizations = array();
 
 		$result =& $this->retrieve(
-			'SELECT * FROM objects_for_review_organizations WHERE object_id = ? ORDER BY seq',
+			'SELECT * FROM object_for_review_organizations WHERE object_id = ? ORDER BY seq',
 			$objectId
 		);
 
@@ -105,7 +105,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 		$organizations = array();
 
 		$result =& $this->retrieve(
-			'SELECT organization_id FROM objects_for_review_organizations WHERE object_id = ? ORDER BY seq',
+			'SELECT organization_id FROM object_for_review_organizations WHERE object_id = ? ORDER BY seq',
 			$articleId
 		);
 
@@ -165,8 +165,8 @@ class ObjectForReviewOrganizationDAO extends DAO {
 	 */
 	function insertOrganization(&$organization) {
 		$this->update(
-			'INSERT INTO objects_for_review_organizations
-				(object_id, publisher_name, journal_id, street_address, state, country, phone, fax, url, seq)
+			'INSERT INTO object_for_review_organizations
+				(object_id, publisher_name, journal_id, street_address, state, country, city, phone, fax, url, seq)
 				VALUES
 				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 			array(
@@ -176,6 +176,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 				$organization->getStreetAddress(),
 				$organization->getState(),
 				$organization->getCountry(),
+				$organization->getCity(),
 				$organization->getPhone(),
 				$organization->getFax(),
 				$organization->getUrl(),
@@ -193,7 +194,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 	 */
 	function updateOrganization(&$organization) {
 		$returner = $this->update(
-			'UPDATE objects_for_review_organizations
+			'UPDATE object_for_review_organizations
 				SET
 					object_id = ?,
 					publisher_name = ?,
@@ -240,7 +241,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 	function deleteOrganizationById($organizationId) {
 		$params = array($organizationId);
 		$returner = $this->update(
-			'DELETE FROM objects_for_review_organizations WHERE organization_id = ?',
+			'DELETE FROM object_for_review_organizations WHERE organization_id = ?',
 			$params
 		);
 	}
@@ -262,13 +263,13 @@ class ObjectForReviewOrganizationDAO extends DAO {
 	 */
 	function resequenceOrganizations($objectId) {
 		$result =& $this->retrieve(
-			'SELECT organization_id FROM objects_for_review_organizations WHERE object_id = ? ORDER BY seq', $objectId
+			'SELECT organization_id FROM object_for_review_organizations WHERE object_id = ? ORDER BY seq', $objectId
 		);
 
 		for ($i=1; !$result->EOF; $i++) {
 			list($organizationId) = $result->fields;
 			$this->update(
-				'UPDATE objects_for_review_organizations SET seq = ? WHERE organization_id = ?',
+				'UPDATE object_for_review_organizations SET seq = ? WHERE organization_id = ?',
 				array(
 					$i,
 					$organizationId
@@ -287,7 +288,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 	 * @return int
 	 */
 	function getInsertOrganizationId() {
-		return $this->getInsertId('objects_for_review_organizations', 'organization_id');
+		return $this->getInsertId('object_for_review_organizations', 'organization_id');
 	}
 }
 
