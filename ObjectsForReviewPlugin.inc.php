@@ -186,6 +186,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 		$this->import('classes.ObjectForReviewSettingsDAO');
 		$this->import('classes.ObjectForReviewAssignmentDAO');
 		$this->import('classes.ObjectForReviewOrganizationDAO');
+		$this->import('classes.ObjectForReviewEditorAssignmentDAO');
 
 		$reviewObjectTypeDao = new ReviewObjectTypeDAO($this->getName());
 		DAORegistry::registerDAO('ReviewObjectTypeDAO', $reviewObjectTypeDao);
@@ -207,6 +208,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 
 		$objectForReviewOrgDao = new ObjectForReviewOrganizationDAO($this->getName());
 		$returner =& DAORegistry::registerDAO('ObjectForReviewOrganizationDAO', $objectForReviewOrgDao);
+
+		$objectForReviewEditorAssignmentDao = new ObjectForReviewEditorAssignmentDAO($this->getName());
+		DAORegistry::registerDAO('ObjectForReviewEditorAssignmentDAO', $objectForReviewEditorAssignmentDao);
 	}
 
 	//
@@ -427,6 +431,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'reviewObjectTypes') . '">' . __('plugins.generic.objectsForReview.editor.objectTypes') . '</a></li>
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewPublishers') . '">' . __('plugins.generic.objectsForReview.manageOrganizations') . '</a></li>
+							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewEnrolPublishers') . '">' . __('plugins.generic.objectsForReview.enrolPublishers') . '</a></li>
 							</ul>';
 			} elseif ($hookName == 'Templates::Author::Index::AdditionalItems') { // On author's home page
 				$output .= '<br /><div class="separator"></div><h3>' . __('plugins.generic.objectsForReview.author.objectsForReview') . '</h3><ul class="plain"><li>&#187; <a href="' . Request::url(null, 'author', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.author.myObjectsForReview') . '</a></li></ul><br />';

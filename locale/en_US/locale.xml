@@ -666,4 +666,8 @@
 	<message key="plugins.generic.objectsForReview.manager.organization.state">State</message>
 	<message key="plugins.generic.objectsForReview.manager.organizationSettings">Publisher Settings</message>
 
+	<!-- Objects for Review Enrolling Publishers -->
+	<message key="plugins.generic.objectsForReview.enrolPublishers">Enrol Publishers within Objects for Review</message>
+
+
 </locale>
