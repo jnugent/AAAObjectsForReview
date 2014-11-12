@@ -21,7 +21,7 @@
 
 {include file="common/formErrors.tpl"}
 
-<p><a href="{plugin_url path="manageOrganization"}">{translate key="plugins.generic.objectsForReview.editor.listOrganizations.createNewOrganization"}</a></p>
+<p><a href="{url op="objectsForReviewManagePublisher"}">{translate key="plugins.generic.objectsForReview.editor.listOrganizations.createNewOrganization"}</a></p>
 <table width="100%" class="data">
 	{foreach from=$organizations item=organization}
 		<tr>
@@ -29,7 +29,7 @@
 			{$organization->getName()|escape}
 		</td>
 		<td>
-		<td><a href="{plugin_url path="manageOrganization" organizationId=$organization->getId()}">{translate key="common.edit"}</a> | <a onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.listOrganizations.confirmDelete"}')" href="{plugin_url path="deleteOrganization" organizationId=$organization->getId()}">{translate key="common.delete"}</a>
+		<td><a href="{url op="objectsForReviewManagePublisher" organizationId=$organization->getId()}">{translate key="common.edit"}</a> | <a onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.listOrganizations.confirmDelete"}')" href="{url op="objectsForReviewDeletePublisher" organizationId=$organization->getId()}">{translate key="common.delete"}</a>
 		</td>
 		</tr>
 	{/foreach}

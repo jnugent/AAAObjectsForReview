@@ -209,84 +209,6 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 		$returner =& DAORegistry::registerDAO('ObjectForReviewOrganizationDAO', $objectForReviewOrgDao);
 	}
 
-	/**
-	 * Display verbs for the management interface.
-	 */
-	function getManagementVerbs() {
-		$verbs = array();
-		if ($this->getEnabled()) {
-			$verbs[] = array('organizations', __('plugins.generic.objectsForReview.manageOrganizations'));
-		}
-		return parent::getManagementVerbs($verbs);
-	}
-
-	/**
-	 * Execute a management verb on this plugin
-	 * @param $verb string
-	 * @param $args array
-	 * @param $message string Result status message
-	 * @param $messageParams array Parameters for the message key
-	 * @return boolean
-	 */
-	function manage($verb, $args, &$message, &$messageParams) {
-		if (!parent::manage($verb, $args, $message, $messageParams)) return false;
-
-		$templateMgr =& TemplateManager::getManager();
-		$templateMgr->register_function('plugin_url', array(&$this, 'smartyPluginUrl'));
-		$journal =& Request::getJournal();
-
-		switch ($verb) {
-			case 'deleteOrganization':
-				$organizationId = (int) Request::getUserVar('organizationId');
-				$ofrOrgDao = DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
-				$ofrOrgDao->deleteOrganizationById($organizationId);
-				Request::redirect(null, 'manager', 'plugin');
-				return false;
-			case 'manageOrganization':
-				$organizationId = (int)Request::getUserVar('organizationId');
-				$this->import('classes.form.ObjectForReviewOrganizationForm');
-				$form = new ObjectForReviewOrganizationForm($this, $journal->getId(), $organizationId);
-				if (Request::getUserVar('save')) {
-					$form->readInputData();
-					if ($form->validate()) {
-						$form->execute();
-						Request::redirect(null, 'manager', 'plugin');
-						return false;
-					} else {
-						$form->display();
-					}
-				} else {
-					$form->initData();
-					$form->display();
-				}
-				return true;
-			case 'updateOrganization':
-				$organizationId = (int) Request::getUserVar('organizationId');
-				$this->import('classes.form.ObjectForReviewOrganizationForm');
-				$form = new ObjectForReviewOrganizationForm($this, $journal->getId(), $organizationId);
-				$form->readInputData();
-
-				if ($form->validate()) {
-					$form->execute();
-				}
-				return true;
-			case 'organizations':
-
-				$templateMgr =& TemplateManager::getManager();
-
-				$ofrOrgDao = DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
-				$organizations = $ofrOrgDao->getOrganizations($journal->getId());
-				$templateMgr->assign_by_ref('organizations', $organizations);
-				$templateMgr->display($this->getTemplatePath() . 'editor/listOrganizations.tpl');
-
-				return true;
-			default:
-				// Unknown management verb
-				assert(false);
-			return false;
-		}
-	}
-
 	//
 	// Application level hook implementations.
 	//
@@ -504,6 +426,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 							<ul class="plain">
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'reviewObjectTypes') . '">' . __('plugins.generic.objectsForReview.editor.objectTypes') . '</a></li>
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
+							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewPublishers') . '">' . __('plugins.generic.objectsForReview.manageOrganizations') . '</a></li>
 							</ul>';
 			} elseif ($hookName == 'Templates::Author::Index::AdditionalItems') { // On author's home page
 				$output .= '<br /><div class="separator"></div><h3>' . __('plugins.generic.objectsForReview.author.objectsForReview') . '</h3><ul class="plain"><li>&#187; <a href="' . Request::url(null, 'author', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.author.myObjectsForReview') . '</a></li></ul><br />';
@@ -717,7 +640,10 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 					'selectObjectForReviewSubmission',
 					'assignObjectForReviewSubmission',
 					'editObjectForReviewAssignment',
-					'updateObjectForReviewAssignment'
+					'updateObjectForReviewAssignment',
+					'objectsForReviewPublishers',
+					'objectsForReviewManagePublisher',
+					'objectsForReviewDeletePublisher',
 				);
 	}
 

@@ -18,7 +18,7 @@
 
 <br />
 
-<form method="post" action="{plugin_url path="manageOrganization"}">
+<form method="post" action="{url op="objectsForReviewManagePublisher"}">
 {if $organization}
   <input type="hidden" value="{$organization->getId()}" name="organizationId" />
 {/if}

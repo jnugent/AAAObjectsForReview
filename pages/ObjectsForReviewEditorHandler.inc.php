@@ -865,6 +865,67 @@ class ObjectsForReviewEditorHandler extends Handler {
 	}
 
 	/**
+	 * List the publishers currently available.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function objectsForReviewPublishers($args, &$request) {
+
+		$journal =& $request->getJournal();
+		$journalId = $journal->getId();
+
+		$templateMgr =& TemplateManager::getManager();
+
+		$ofrOrgDao = DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
+		$organizations = $ofrOrgDao->getOrganizations($journal->getId());
+		$templateMgr->assign_by_ref('organizations', $organizations);
+		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
+		$templateMgr->display($ofrPlugin->getTemplatePath() . 'editor/listOrganizations.tpl');
+	}
+
+	/**
+	 * Create or update a publisher.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 * @return boolean
+	 */
+	function objectsForReviewManagePublisher($args, &$request) {
+
+		$journal =& $request->getJournal();
+		$journalId = $journal->getId();
+		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
+
+		$organizationId = (int)Request::getUserVar('organizationId');
+		$ofrPlugin->import('classes.form.ObjectForReviewOrganizationForm');
+		$form = new ObjectForReviewOrganizationForm($ofrPlugin, $journal->getId(), $organizationId);
+		if (Request::getUserVar('save')) {
+			$form->readInputData();
+			if ($form->validate()) {
+				$form->execute();
+				$request->redirect(null, 'editor', 'objectsForReviewPublishers');
+				return false;
+			} else {
+				$form->display();
+			}
+		} else {
+			$form->initData();
+			$form->display();
+		}
+	}
+
+	/**
+	 * Delete a publisher.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function objectsForReviewDeletePublisher($args, &$request) {
+		$organizationId = (int) Request::getUserVar('organizationId');
+		$ofrOrgDao = DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
+		$ofrOrgDao->deleteOrganizationById($organizationId);
+		$request->redirect(null, 'editor', 'objectsForReviewPublishers');
+	}
+
+	/**
 	 * Return valid landing/return pages
 	 * @return array
 	 */
