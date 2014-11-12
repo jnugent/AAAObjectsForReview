@@ -168,7 +168,7 @@ class ObjectForReviewOrganizationDAO extends DAO {
 			'INSERT INTO object_for_review_organizations
 				(object_id, publisher_name, journal_id, street_address, state, country, city, phone, fax, url, seq)
 				VALUES
-				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
 			array(
 				(int) $organization->getObjectId(),
 				$organization->getName(),
