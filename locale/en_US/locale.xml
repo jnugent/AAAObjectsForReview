@@ -327,6 +327,7 @@
 	<message key="plugins.generic.objectsForReview.object.book.publisherURL">Publisher's URL</message>
 	<message key="plugins.generic.objectsForReview.object.book.numberOfPages">Number of Pages</message>
 	<message key="plugins.generic.objectsForReview.object.book.isbn">ISBN</message>
+	<message key="plugins.generic.objectsForReview.object.book.netGalleyURL">NetGalley or PDF URL</message>
 	<!-- Book Section -->
 	<message key="plugins.generic.objectsForReview.object.bookSection">Book Section</message>
 	<message key="plugins.generic.objectsForReview.object.bookSection.person.author">Author</message>

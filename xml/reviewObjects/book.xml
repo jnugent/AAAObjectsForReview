@@ -40,5 +40,8 @@
 	<metadata type="singleLineTextBox" required="false" display="false" key="book_isbn">
 		<name>plugins.generic.objectsForReview.object.book.isbn</name>
 	</metadata>
+	<metadata type="singleLineTextBox" required="false" display="false" key="netgalley_pdf_url">
+		<name>plugins.generic.objectsForReview.object.book.netGalleyURL</name>
+	</metadata>
 	</objectMetadata>
 </object>
