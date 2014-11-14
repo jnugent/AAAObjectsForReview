@@ -1027,7 +1027,11 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 		if (!$ofrPlugin->getEnabled()) return false;
 
-		if (!Validation::isEditor($journal->getId())) Validation::redirectLogin();;
+		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
+		$user =& $request->getUser();
+		$assignments= $ofrEADao->getAllByUserId($user->getId());
+
+		if (!Validation::isEditor($journal->getId()) && count($assignments) == 0) Validation::redirectLogin();
 
 		return parent::authorize($request, $args, $roleAssignments);
 	}
