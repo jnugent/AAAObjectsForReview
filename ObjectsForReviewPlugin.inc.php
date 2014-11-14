@@ -649,6 +649,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 					'objectsForReviewPublishers',
 					'objectsForReviewManagePublisher',
 					'objectsForReviewDeletePublisher',
+					'objectsForReviewEnrolPublishers',
+					'objectsForReviewEnrol',
+					'objectsForReviewUnenrol',
 				);
 	}
 

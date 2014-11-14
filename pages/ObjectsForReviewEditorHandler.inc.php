@@ -926,6 +926,79 @@ class ObjectsForReviewEditorHandler extends Handler {
 	}
 
 	/**
+	 * Display current OJS reader users that can be enrolled as Publisher users.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function objectsForReviewEnrolPublishers($args, &$request) {
+		$roleDao =& DAORegistry::getDAO('RoleDAO');
+		$journalDao =& DAORegistry::getDAO('JournalDAO');
+		$userDao =& DAORegistry::getDAO('UserDAO');
+		$ofrOrgDao =& DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
+		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
+
+		$journal =& $request->getJournal();
+
+		$templateMgr =& TemplateManager::getManager();
+
+		$this->setupTemplate($request, true);
+
+		$rangeInfo = $this->getRangeInfo('users');
+		$users =& $roleDao->getUsersByRoleId(ROLE_ID_READER);
+
+		$templateMgr->assign_by_ref('users', $users);
+		$templateMgr->assign_by_ref('thisUser', Request::getUser());
+		$templateMgr->assign_by_ref('publishers', $ofrOrgDao->getOrganizations($journal->getId()));
+		$templateMgr->assign_by_ref('ofrEADao', $ofrEADao);
+
+		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
+		$templateMgr->display($ofrPlugin->getTemplatePath() . 'editor/enrolPublishers.tpl');
+	}
+
+	/**
+	 * enrol a publisher(s).
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function objectsForReviewEnrol($args, &$request) {
+		$publisherId = (int) Request::getUserVar('publisherId');
+		$ofrOrgDao = DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
+		$ofrEdAssOrgDao = DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
+		$publisher = $ofrOrgDao->getOrganization($publisherId);
+		if ($publisher) {
+			$userIds = Request::getUserVar('users');
+			if (is_array($userIds)) {
+				foreach ($userIds as $userId) {
+					$assignment = $ofrEdAssOrgDao->newDataObject();
+					$assignment->setPublisherId($publisherId);
+					$assignment->setUserId($userId);
+					$ofrEdAssOrgDao->insertObject($assignment);
+				}
+			}
+		}
+		$request->redirect(null, 'editor', 'objectsForReviewEnrolPublishers');
+	}
+
+	/**
+	 * Unenrol a publisher.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function objectsForReviewUnenrol($args, &$request) {
+		$publisherId = (int) Request::getUserVar('publisherId');
+		$userId = (int) Request::getUserVar('userId');
+
+		if ($publisherId && $userId) {
+			$ofrEdAssOrgDao = DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
+			$assignment = $ofrEdAssOrgDao->getByPublisherAndUserId($publisherId, $userId);
+			if ($assignment) {
+				$ofrEdAssOrgDao->deleteById($assignment->getId());
+			}
+		}
+		$request->redirect(null, 'editor', 'objectsForReviewEnrolPublishers');
+	}
+
+	/**
 	 * Return valid landing/return pages
 	 * @return array
 	 */

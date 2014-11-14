@@ -668,6 +668,10 @@
 
 	<!-- Objects for Review Enrolling Publishers -->
 	<message key="plugins.generic.objectsForReview.enrolPublishers">Enrol Publishers within Objects for Review</message>
+	<message key="plugins.generic.objectsForReview.editor.enrolInPublisher">Enrol in this organization</message>
+	<message key="plugins.generic.objectsForReview.editor.enrol">Enrol</message>
+	<message key="plugins.generic.objectsForReview.editor.unenrol">Unenrol from {$publisher}</message>
+	<message key="plugins.generic.objectsForReview.editor.enrolSelected">Enrol Selected Users</message>
 
 
 </locale>
