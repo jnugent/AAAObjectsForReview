@@ -79,6 +79,17 @@ class ObjectForReviewForm extends Form {
 			$editors[$result->getData('id')] =& $result->getFullName();
 			unset($result);
 		}
+
+		// Also include readers specifically enrolled as publishers.
+		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
+		$userIds = $ofrEADao->getAllUserIds();
+		$userDao =& DAORegistry::getDAO('UserDAO');
+		foreach ($userIds as $userId)  {
+			$user =& $userDao->getById($userId);
+			if ($user) {
+				$editors[$user->getId()] =& $user->getFullName();
+			}
+		}
 		// Get language list
 		$languageDao =& DAORegistry::getDAO('LanguageDAO');
 		$languages =& $languageDao->getLanguages();

@@ -235,6 +235,21 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 		return $userIds;
 	}
 
+	/**
+	 * Get all users IDs of users enrolled as publishers.
+	 * @return array of user IDs
+	 */
+	function &getAllUserIds() {
+		$result =& $this->retrieve('SELECT user_id FROM object_for_review_enroled_users');
+
+		$userIds = array();
+		while (!$result->EOF) {
+			$userIds[] = $result->fields[0];
+			$result->MoveNext();
+		}
+		$result->Close();
+		return $userIds;
+	}
 
 	/**
 	 * Get the ID of the last inserted assignment.
