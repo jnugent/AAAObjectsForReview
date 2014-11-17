@@ -136,6 +136,12 @@ class ObjectForReviewForm extends Form {
 				$this->_data['originalFileName'] = $coverPageSetting['originalFileName'];
 			}
 
+			// Reviewer PDF
+			$reviewerPDFSetting = $objectForReview->getReviewerPDF();
+			if ($reviewerPDFSetting) {
+				$this->_data['reviewerPDFFileName'] = $reviewerPDFSetting['reviewerPDFFileName'];
+				$this->_data['reviewerPDFOriginalFileName'] = $reviewerPDFSetting['reviewerPDFOriginalFileName'];
+			}
 		} else {
 			$user =& Request::getUser();
 			$this->_data = array(
@@ -159,7 +165,8 @@ class ObjectForReviewForm extends Form {
 				'originalFileName',
 				'coverPageAltText',
 				'editorId',
-				'available'
+				'available',
+				'reviewerPDF'
 			)
 		);
 	}
@@ -249,6 +256,15 @@ class ObjectForReviewForm extends Form {
 			}
 		}
 
+		// Handle reviewer PDF uploads
+		if ($publicFileManager->uploadedFileExists('reviewerPDF')) {
+			$reviewerPDFMetadataId = $reviewObjectMetadataDao->getMetadataId($this->reviewObjectTypeId, REVIEW_OBJECT_METADATA_KEY_REVIEWER_PDF);
+			$originalFileName = $publicFileManager->getUploadedFileName('reviewerPDF');
+			$newFileName = 'reviewer_pdf_ofr_' . $objectForReview->getId() . '.' . $publicFileManager->getExtension($originalFileName);
+			$publicFileManager->uploadJournalFile($journalId, 'reviewerPDF', $newFileName);
+			$reviewerPDFSetting = array('reviewerPDFOriginalFileName' => $publicFileManager->truncateFileName($originalFileName, 127), 'reviewerPDFFileName' => $newFileName);
+			$objectForReview->updateSetting((int) $reviewerPDFMetadataId, $reviewerPDFSetting, 'object');
+		}
 
 		$ofrPersonDao =& DAORegistry::getDAO('ObjectForReviewPersonDAO');
 		// Insert/update persons

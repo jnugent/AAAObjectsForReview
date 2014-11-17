@@ -212,6 +212,14 @@ class ObjectForReview extends DataObject {
 	}
 
 	/**
+	 * Get reviewer PDF.
+	 * @return string
+	 */
+	function getReviewerPDF() {
+		return $this->getSettingByKey('reviewerPDF');
+	}
+
+	/**
 	 * Get languages.
 	 * @return string
 	 */

@@ -15,7 +15,7 @@
 <!ELEMENT roleSelectionOptions (selectionOption+)>
 <!ELEMENT metadata (name, selectionOptions?)>
 <!ATTLIST metadata
-	type (smallTextField | singleLineTextBox | extendedTextBox | checkBoxes | radioButtons | dropDownBox | roleDropDownBox | languageDropDownBox | coverPage) "singleLineTextBox"
+	type (smallTextField | singleLineTextBox | extendedTextBox | checkBoxes | radioButtons | dropDownBox | roleDropDownBox | languageDropDownBox | coverPage | reviewerPDF) "singleLineTextBox"
 	required (true | false) "false"
 	display (true | false) "false"
 	key CDATA #REQUIRED

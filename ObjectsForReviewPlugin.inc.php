@@ -650,6 +650,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 					'editObjectForReview',
 					'updateObjectForReview',
 					'removeObjectForReviewCoverPage',
+					'removeObjectForReviewReviewerPDF',
 					'deleteObjectForReview',
 					'selectObjectForReviewAuthor',
 					'assignObjectForReviewAuthor',

@@ -186,6 +186,10 @@ function movePerson(dir, personIndex) {
 		</tr>
 	{/if}
 {/foreach}
+	<tr valign="top">
+		<td width="20%" class="label">{fieldLabel name="reviewerPDF" key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDF"}</td>
+		<td width="80%" class="value"><input type="file" name="reviewerPDF" id="reviewerPDF" class="uploadField" />&nbsp;&nbsp;{translate key="form.saveToUpload"}<br />{translate key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDFInstructions"}<br />{translate key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDFUploaded"}:&nbsp;{if $reviewerPDFFileName}<a href="javascript:openWindow('{$publicFilesDir}/{$reviewerPDFFileName|escape:"url"}');" class="file">{$reviewerPDFOriginalFileName|escape}</a>&nbsp;<a href="{url op="removeObjectForReviewReviewerPDF" path=$objectId}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.objectForReview.removeReviewerPDF"}')">{translate key="plugins.generic.objectsForReview.editor.objectForReview.remove"}</a>{else}&mdash;{/if}</td>
+	</tr>
 </table>
 </div>
 

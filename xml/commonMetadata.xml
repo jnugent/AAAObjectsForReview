@@ -40,5 +40,8 @@
 	<metadata type="coverPage" required="false" display="true" key="coverPage"> 
 		<name>plugins.generic.objectsForReview.object.metadata.coverPage</name>
 	</metadata>
+	<metadata type="reviewerPDF" required="false" display="false" key="reviewerPDF">
+		<name>plugins.generic.objectsForReview.object.metadata.reviewerPDF</name>
+	</metadata>
 	</objectMetadata>
 </object>

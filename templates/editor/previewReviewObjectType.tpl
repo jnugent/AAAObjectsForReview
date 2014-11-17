@@ -81,6 +81,17 @@
 	<tr valign="top">
 		<td colspan="2">&nbsp;</td>
 	</tr>
+	{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_REVIEWER_PDF}
+	<tr valign="top">
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<tr valign="top">
+		<td width="20%" class="label">{fieldLabel key="coverPage" key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDF"}</td>
+		<td width="80%" class="value"><input type="file" class="uploadField" />&nbsp;&nbsp;{translate key="form.saveToUpload"}<br />{translate key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDFInstructions"}<br />{translate key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDFUploaded"}: &mdash;</td>
+	</tr>
+	<tr valign="top">
+		<td colspan="2">&nbsp;</td>
+	</tr>
 	{else}
 	<tr valign="top">
 		<td width="20%" class="label">{$metadata->getLocalizedName()|escape} {if $metadata->getRequired()}*{/if}</td>

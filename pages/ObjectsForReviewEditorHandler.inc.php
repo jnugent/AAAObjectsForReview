@@ -368,6 +368,40 @@ class ObjectsForReviewEditorHandler extends Handler {
 		$request->redirect(null, 'editor', 'editObjectForReview', $objectId, array('reviewObjectTypeId' => $objectForReview->getReviewObjectTypeId()));
 	}
 
+
+	/**
+	 * Remove object for review reviewer PDF.
+	 * @param $args array
+	 * @param $request PKPRequest
+	 */
+	function removeObjectForReviewReviewerPDF($args, &$request) {
+		$objectId = array_shift($args);
+
+		$journal =& $request->getJournal();
+		$journalId = $journal->getId();
+
+		if (!$this->_ensureObjectExists($objectId, $journalId)) {
+			$request->redirect(null, 'editor', 'objectsForReview');
+		}
+
+		$ofrDao =& DAORegistry::getDAO('ObjectForReviewDAO');
+		$objectForReview =& $ofrDao->getById($objectId, $journalId);
+		$reviewerPDFSetting = $objectForReview->getReviewerPDF();
+		if ($reviewerPDFSetting) {
+			// Delete file from the filesystem
+			import('classes.file.PublicFileManager');
+			$publicFileManager = new PublicFileManager();
+			$publicFileManager->removeJournalFile($journalId, $reviewerPDFSetting['reviewerPDFFileName']);
+			// Delete object for review setting
+			$ofrPlugin =& $this->_getObjectsForReviewPlugin();
+			$ofrPlugin->import('classes.ReviewObjectMetadata');
+			$metadataId = $objectForReview->getMetadataId(REVIEW_OBJECT_METADATA_KEY_REVIEWER_PDF);
+			$ofrSettingsDao =& DAORegistry::getDAO('ObjectForReviewSettingsDAO');
+			$ofrSettingsDao->deleteSetting($objectId, $metadataId);
+		}
+		$request->redirect(null, 'editor', 'editObjectForReview', $objectId, array('reviewObjectTypeId' => $objectForReview->getReviewObjectTypeId()));
+	}
+
 	/**
 	 * Delete object for review.
 	 * @param $args array
