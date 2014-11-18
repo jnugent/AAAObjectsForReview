@@ -668,6 +668,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 					'objectsForReviewEnrolPublishers',
 					'objectsForReviewEnrol',
 					'objectsForReviewUnenrol',
+					'uploadONIXObjectForReview'
 				);
 	}
 

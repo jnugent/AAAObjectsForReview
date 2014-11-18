@@ -185,6 +185,9 @@
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.removeReviewerPDF">Remove reviewer PDF copy?</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.remove">Remove</message>
 
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.onixFile">ONIX XML File</message>
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.onixFileInstructions">Specify an ONIX XML file containing book review information you wish to import.  The file format must be .xml</message>
+
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.additionalNotes">Additional Notes</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.notes">Notes</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.notesInstructions">For the editor only. Not published as part of the object for review.</message>

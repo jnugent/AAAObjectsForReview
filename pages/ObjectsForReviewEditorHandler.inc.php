@@ -1033,6 +1033,34 @@ class ObjectsForReviewEditorHandler extends Handler {
 	}
 
 	/**
+	 * Batch import from an ONIX XML export.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function uploadONIXObjectForReview($args, &$request) {
+		$user = $request->getUser();
+		$journal =& $request->getJournal();
+
+		$reviewObjectTypeId = (int) $request->getUserVar('reviewObjectTypeId');
+		$reviewObjectTypeDao =& DAORegistry::getDAO('ReviewObjectTypeDAO');
+		if (!$reviewObjectTypeDao->reviewObjectTypeExists($reviewObjectTypeId, $journal->getId())) {
+			$request->redirect(null, 'editor', 'objectsForReview');
+		}
+
+		import('classes.file.TemporaryFileManager');
+		$temporaryFileManager = new TemporaryFileManager();
+		$temporaryFile = $temporaryFileManager->handleUpload('onixFile', $user->getId());
+		$filePath = $temporaryFile->getFilePath();
+		$parser = new XMLParser();
+		$document =& $parser->parse($filePath);
+		if ($document) {
+			$request->redirect(null, 'editor', 'objectsForReview');
+		}
+
+		$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
+	}
+
+	/**
 	 * Return valid landing/return pages
 	 * @return array
 	 */
