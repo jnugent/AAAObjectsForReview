@@ -908,6 +908,8 @@ class ObjectsForReviewEditorHandler extends Handler {
 		$journal =& $request->getJournal();
 		$journalId = $journal->getId();
 
+		$this->setupTemplate($request);
+
 		$templateMgr =& TemplateManager::getManager();
 
 		$ofrOrgDao = DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
@@ -927,6 +929,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 		$journal =& $request->getJournal();
 		$journalId = $journal->getId();
+		$this->setupTemplate($request);
 		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
 
 		$organizationId = (int)Request::getUserVar('organizationId');
