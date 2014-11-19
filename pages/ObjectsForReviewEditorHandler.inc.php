@@ -1107,10 +1107,11 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 			$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
 			$this->editObjectForReview($args, &$request, $importData);
+		} else {
+			// this deleteFile is only called if the document does not parse.
+			$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
+			$request->redirect(null, 'editor', 'objectsForReview');
 		}
-		// this deleteFile is only called if the document does not parse.
-		$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
-		$request->redirect(null, 'editor', 'objectsForReview');
 	}
 
 	/**
