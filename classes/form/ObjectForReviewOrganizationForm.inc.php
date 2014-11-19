@@ -64,6 +64,8 @@ class ObjectForReviewOrganizationForm extends Form {
 				'fax' => $this->organization->getFax(),
 				'url' => $this->organization->getUrl(),
 			);
+		} else {
+			$this->_data = array('country' => 'United States of America');
 		}
 	}
 
