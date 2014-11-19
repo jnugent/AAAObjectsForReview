@@ -27,16 +27,21 @@ class ObjectForReviewForm extends Form {
 	/** @var int ID of the review object type */
 	var $reviewObjectTypeId;
 
+	/** @var array importData an array of data extracted from an ONIX XML ile*/
+	var $importData;
+
 	/**
 	 * Constructor
 	 * @param $parentPluginName sting
 	 * @param $objectId int (optional)
 	 * @param $reviewObjectTypeId int (optional)
+	 * @param $importData array (optional)
 	 */
-	function ObjectForReviewForm($parentPluginName, $objectId = null, $reviewObjectTypeId = null) {
+	function ObjectForReviewForm($parentPluginName, $objectId = null, $reviewObjectTypeId = null, $importData = array()) {
 		$this->parentPluginName = $parentPluginName;
 		$this->objectId = (int) $objectId;
 		$this->reviewObjectTypeId = (int) $reviewObjectTypeId;
+		$this->importData = $importData;
 
 		// Get required metadata and role metadata ID for this review object type
 		$reviewObjectMetadataDao =& DAORegistry::getDAO('ReviewObjectMetadataDAO');
@@ -155,7 +160,18 @@ class ObjectForReviewForm extends Form {
 			}
 		} else {
 			$user =& Request::getUser();
+			$metadataDao =& DAORegistry::getDAO('ReviewObjectMetadataDAO');
+			$ofrSettings = array();
+
+			foreach ($this->importData as $key => $value) {
+				$metadataObject = $metadataDao->getByKey($key, $this->reviewObjectTypeId);
+				if ($metadataObject) {
+					$ofrSettings[$metadataObject->getId()] = $value;
+				}
+			}
+
 			$this->_data = array(
+				'ofrSettings' => $ofrSettings,
 				'editorId' => $user->getId(),
 				'available' => 1
 			);

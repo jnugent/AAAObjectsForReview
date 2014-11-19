@@ -213,8 +213,9 @@ class ObjectsForReviewEditorHandler extends Handler {
 	 * Create/edit object for review.
 	 * @param $args array
 	 * @param $request PKPRequest
+	 * @param $importData array optional
 	 */
-	function editObjectForReview($args, &$request) {
+	function editObjectForReview($args, &$request, $importData = array()) {
 		$objectId = array_shift($args);
 		$reviewObjectTypeId = (int) $request->getUserVar('reviewObjectTypeId');
 
@@ -238,7 +239,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 		}
 		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
 		$ofrPlugin->import('classes.form.ObjectForReviewForm');
-		$ofrForm = new ObjectForReviewForm($ofrPlugin->getName(), $objectId, $reviewObjectTypeId);
+		$ofrForm = new ObjectForReviewForm($ofrPlugin->getName(), $objectId, $reviewObjectTypeId, $importData);
 		$ofrForm->initData();
 		$ofrForm->display($request);
 	}
@@ -1044,23 +1045,72 @@ class ObjectsForReviewEditorHandler extends Handler {
 		$user = $request->getUser();
 		$journal =& $request->getJournal();
 
-		$reviewObjectTypeId = (int) $request->getUserVar('reviewObjectTypeId');
-		$reviewObjectTypeDao =& DAORegistry::getDAO('ReviewObjectTypeDAO');
-		if (!$reviewObjectTypeDao->reviewObjectTypeExists($reviewObjectTypeId, $journal->getId())) {
-			$request->redirect(null, 'editor', 'objectsForReview');
-		}
+		$importData = array();
 
 		import('classes.file.TemporaryFileManager');
 		$temporaryFileManager = new TemporaryFileManager();
 		$temporaryFile = $temporaryFileManager->handleUpload('onixFile', $user->getId());
 		$filePath = $temporaryFile->getFilePath();
 		$parser = new XMLParser();
-		$document =& $parser->parse($filePath);
-		if ($document) {
-			$request->redirect(null, 'editor', 'objectsForReview');
-		}
+		$doc =& $parser->parse($filePath);
 
+		if ($doc) {
+			$productNode = $doc->getChildByName('Product');
+
+			$publisherNode = $productNode->getChildByName('Publisher');
+			$publisherNameNode = $publisherNode->getChildByName('PublisherName');
+			$publisher = $publisherNameNode->getValue();
+			$importData['book_publisher'] = $publisher;
+
+			$websiteNode = $publisherNode->getChildByName('Website');
+			$websiteLinkNode = $websiteNode->getChildByName('WebsiteLink');
+			$websiteLink = $websiteLinkNode->getValue();
+			$importData['book_publisher_url'] = $websiteLink;
+
+			$titleNode = $productNode->getChildByName('Title');
+			$titleTextNode = $titleNode->getChildByName('TitleText');
+			$title = $titleTextNode->getValue();
+			$importData['title'] = $title;
+
+			$subTitleNode = $titleNode->getChildByName('Subtitle');
+			$subTitle = $subTitleNode->getValue();
+			$importData['shortTitle'] = $subTitle;
+
+			$languageNode = $productNode->getChildByName('Language');
+			$languageCodeNode = $languageNode->getChildByName('LanguageCode');
+			$language = $languageCodeNode->getValue();
+			$importData['language'] = substr($language, 0, 2);
+
+			$pageNode = $productNode->getChildByName('NumberOfPages');
+			$pages = $pageNode->getValue();
+			$importData['book_pages_no'] = $pages;
+
+			// Abstract. Look for OtherText with
+			// sub element of TextTypeCode of '01' (main description)
+
+			$abstract = '';
+
+			for ($index=0; ($node = $productNode->getChildByName('OtherText', $index)); $index++) {
+				$typeNode = $node->getChildByName('TextTypeCode');
+				if ($typeNode->getValue() == '01') {
+					$textNode = $node->getChildByName('Text');
+					$abstract = strip_tags($textNode->getValue());
+					break;
+				}
+			}
+
+			$importData['abstract'] = $abstract;
+
+			$publicationDateNode = $productNode->getChildByName('PublicationDate');
+			$publicationDate = $publicationDateNode->getValue();
+			$importData['date'] = $publicationDate;
+
+			$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
+			$this->editObjectForReview($args, &$request, $importData);
+		}
+		// this deleteFile is only called if the document does not parse.
 		$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
+		$request->redirect(null, 'editor', 'objectsForReview');
 	}
 
 	/**
