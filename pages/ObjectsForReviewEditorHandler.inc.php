@@ -1105,6 +1105,48 @@ class ObjectsForReviewEditorHandler extends Handler {
 			$publicationDate = $publicationDateNode->getValue();
 			$importData['date'] = $publicationDate;
 
+			// Contributors.
+			$persons = array();
+			for ($index=0; ($node = $productNode->getChildByName('Contributor', $index)); $index++) {
+				$firstNameNode = $node->getChildByName('NamesBeforeKey');
+				$firstName = $firstNameNode->getValue();
+				$lastNameNode = $node->getChildByName('KeyNames');
+				$lastName = $lastNameNode->getValue();
+				$seqNode = $node->getChildByName('SequenceNumber');
+				$seq = $seqNode->getValue();
+
+				$contributorRoleNode = $node->getChildByName('ContributorRole');
+				$contributorRole = '';
+				switch ($contributorRoleNode->getValue()) {
+					case 'A01':
+						$contributorRole = '1';
+						break;
+					case 'B01':
+						$contributorRole = '3';
+						break;
+					case 'B09':
+						$contributorRole = '4';
+						break;
+					case 'B06':
+						$contributorRole = '5';
+						break;
+					default:
+						$contributorRole = '2'; // Contributor
+					break;
+				}
+
+				$persons[] = array(
+							'personId' => '',
+							'role' => $contributorRole,
+							'firstName' => $firstName,
+							'middleName' => '',
+							'lastName' => $lastName,
+							'seq' => (int) $seq
+						);
+
+				$importData['persons'] = $persons;
+			}
+
 			$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
 			$this->editObjectForReview($args, &$request, $importData);
 		} else {

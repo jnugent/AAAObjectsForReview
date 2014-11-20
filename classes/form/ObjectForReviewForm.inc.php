@@ -171,6 +171,7 @@ class ObjectForReviewForm extends Form {
 			}
 
 			$this->_data = array(
+				'persons' => $this->importData['persons'],
 				'ofrSettings' => $ofrSettings,
 				'editorId' => $user->getId(),
 				'available' => 1
