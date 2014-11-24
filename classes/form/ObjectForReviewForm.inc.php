@@ -163,6 +163,10 @@ class ObjectForReviewForm extends Form {
 			$metadataDao =& DAORegistry::getDAO('ReviewObjectMetadataDAO');
 			$ofrSettings = array();
 
+			if (!array_key_exists('language', $this->importData)) {
+				$this->importData['language'] = 'en';
+			}
+
 			foreach ($this->importData as $key => $value) {
 				$metadataObject = $metadataDao->getByKey($key, $this->reviewObjectTypeId);
 				if ($metadataObject) {
@@ -170,9 +174,10 @@ class ObjectForReviewForm extends Form {
 				}
 			}
 
-			$this->_data = array(
-				'persons' => $this->importData['persons'],
-				'ofrSettings' => $ofrSettings,
+			if (array_key_exists('persons', $this->importData)) {
+				$this->_data['persons'] = $this->importData['persons'];
+			}
+			$this->_data = array('ofrSettings' => $ofrSettings,
 				'editorId' => $user->getId(),
 				'available' => 1
 			);
