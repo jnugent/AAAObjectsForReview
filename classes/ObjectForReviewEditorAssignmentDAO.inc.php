@@ -29,14 +29,14 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 
 	/**
 	 * Retrieve assignment by ID.
-	 * @param $enrolId int
+	 * @param $enrollId int
 	 * @return ObjectForReviewEditorAssignment
 	 */
-	function getById($enrolId) {
-		$params = array((int) $enrolId);
+	function getById($enrollId) {
+		$params = array((int) $enrollId);
 
 		$result =& $this->retrieve(
-			'SELECT * FROM object_for_review_enroled_users WHERE enrol_id = ?',
+			'SELECT * FROM object_for_review_enrolled_users WHERE enroll_id = ?',
 			$params
 		);
 
@@ -56,7 +56,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	 */
 	function assignmentExists($publisherId, $userId = null) {
 		$params = array((int) $publisherId);
-		$sql = 'SELECT COUNT(*) FROM object_for_review_enroled_users WHERE publisher_id = ?';
+		$sql = 'SELECT COUNT(*) FROM object_for_review_enrolled_users WHERE publisher_id = ?';
 		if ($userId) {
 			$sql .= ' AND user_id = ?';
 			$params[] = (int) $userId;
@@ -86,7 +86,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	 */
 	function &_fromRow($row) {
 		$assignment = $this->newDataObject();
-		$assignment->setId($row['enrol_id']);
+		$assignment->setId($row['enroll_id']);
 		$assignment->setPublisherId($row['publisher_id']);
 		$assignment->setUserId($row['user_id']);
 
@@ -103,7 +103,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	function insertObject(&$assignment) {
 		$this->update(
 			sprintf(
-				'INSERT INTO object_for_review_enroled_users
+				'INSERT INTO object_for_review_enrolled_users
 				(publisher_id, user_id)
 				VALUES
 				(?, ?)'),
@@ -124,10 +124,10 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	function updateObject(&$assignment) {
 		$returner = $this->update(
 			sprintf(
-				'UPDATE	object_for_review_enroled_users
+				'UPDATE	object_for_review_enrolled_users
 				SET	publisher_id = ?,
 					user_id = ?
-				WHERE	enrol_id = ?'),
+				WHERE	enroll_id = ?'),
 			array(
 				(int) $assignment->getPublisherId(),
 				$this->nullOrInt($assignment->getUserId()),
@@ -148,16 +148,16 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 
 	/**
 	 * Delete an assignment by ID.
-	 * @param $enrolId int
+	 * @param $enrollId int
 	 * @param $publisherId int (optional)
 	 * @return boolean
 	 */
-	function deleteById($enrolId, $publisherId = null) {
-		$params = array((int) $enrolId);
+	function deleteById($enrollId, $publisherId = null) {
+		$params = array((int) $enrollId);
 		if ($publisherId !== null) $params[] = (int) $publisherId;
 
 		return $this->update('
-			DELETE FROM object_for_review_enroled_users WHERE enrol_id = ?'
+			DELETE FROM object_for_review_enrolled_users WHERE enroll_id = ?'
 			. ($publisherId !== null?' AND publisher_id = ?':''),
 			$params
 		);
@@ -171,7 +171,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	function deleteAllByPublisherId($publisherId) {
 		$params = array((int) $publisherId);
 		return $this->update('
-			DELETE FROM object_for_review_enroled_users WHERE publisher_id = ?',
+			DELETE FROM object_for_review_enrolled_users WHERE publisher_id = ?',
 			$params
 		);
 	}
@@ -184,7 +184,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	 */
 	function &getByPublisherAndUserId($publisherId, $userId) {
 		$params = array((int) $publisherId, (int) $userId);
-		$sql = 'SELECT * FROM object_for_review_enroled_users WHERE publisher_id = ? AND user_id = ?';
+		$sql = 'SELECT * FROM object_for_review_enrolled_users WHERE publisher_id = ? AND user_id = ?';
 		$result =& $this->retrieve($sql, $params);
 
 		$returner = null;
@@ -222,7 +222,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	 */
 	function &getUserIds($publisherId) {
 		$result =& $this->retrieve(
-				'SELECT user_id FROM object_for_review_enroled_users WHERE publisher_id = ?',
+				'SELECT user_id FROM object_for_review_enrolled_users WHERE publisher_id = ?',
 				(int) $publisherId
 		);
 
@@ -240,7 +240,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	 * @return array of user IDs
 	 */
 	function &getAllUserIds() {
-		$result =& $this->retrieve('SELECT user_id FROM object_for_review_enroled_users');
+		$result =& $this->retrieve('SELECT user_id FROM object_for_review_enrolled_users');
 
 		$userIds = array();
 		while (!$result->EOF) {
@@ -256,7 +256,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	 * @return int
 	 */
 	function getInsertId() {
-		return parent::getInsertId('object_for_review_enroled_users', 'enrol_id');
+		return parent::getInsertId('object_for_review_enrolled_users', 'enroll_id');
 	}
 
 
@@ -270,7 +270,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	 * @return DAOResultFactory
 	 */
 	function &_getAllInternally($publisherId = null, $userId = null) {
-		$sql = 'SELECT * FROM object_for_review_enroled_users';
+		$sql = 'SELECT * FROM object_for_review_enrolled_users';
 
 		if ($publisherId) {
 			$conditions[] = 'publisher_id = ?';
@@ -286,7 +286,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 			$sql .= ' WHERE ' . implode(' AND ', $conditions);
 		}
 
-		$sql .= ' ORDER BY enrol_id';
+		$sql .= ' ORDER BY enroll_id';
 		$result =& $this->retrieve($sql, $params);
 
 		$assignments = array();

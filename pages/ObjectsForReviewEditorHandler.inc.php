@@ -968,7 +968,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 	 * @param array $args
 	 * @param PKPRequest $request
 	 */
-	function objectsForReviewEnrolPublishers($args, &$request) {
+	function objectsForReviewEnrollPublishers($args, &$request) {
 		$roleDao =& DAORegistry::getDAO('RoleDAO');
 		$journalDao =& DAORegistry::getDAO('JournalDAO');
 		$userDao =& DAORegistry::getDAO('UserDAO');
@@ -990,15 +990,15 @@ class ObjectsForReviewEditorHandler extends Handler {
 		$templateMgr->assign_by_ref('ofrEADao', $ofrEADao);
 
 		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
-		$templateMgr->display($ofrPlugin->getTemplatePath() . 'editor/enrolPublishers.tpl');
+		$templateMgr->display($ofrPlugin->getTemplatePath() . 'editor/enrollPublishers.tpl');
 	}
 
 	/**
-	 * enrol a publisher(s).
+	 * enroll a publisher(s).
 	 * @param array $args
 	 * @param PKPRequest $request
 	 */
-	function objectsForReviewEnrol($args, &$request) {
+	function objectsForReviewEnroll($args, &$request) {
 		$publisherId = (int) Request::getUserVar('publisherId');
 		$ofrOrgDao = DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
 		$ofrEdAssOrgDao = DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
@@ -1014,15 +1014,15 @@ class ObjectsForReviewEditorHandler extends Handler {
 				}
 			}
 		}
-		$request->redirect(null, 'editor', 'objectsForReviewEnrolPublishers');
+		$request->redirect(null, 'editor', 'objectsForReviewEnrollPublishers');
 	}
 
 	/**
-	 * Unenrol a publisher.
+	 * Unenroll a publisher.
 	 * @param array $args
 	 * @param PKPRequest $request
 	 */
-	function objectsForReviewUnenrol($args, &$request) {
+	function objectsForReviewUnenroll($args, &$request) {
 		$publisherId = (int) Request::getUserVar('publisherId');
 		$userId = (int) Request::getUserVar('userId');
 
@@ -1033,7 +1033,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 				$ofrEdAssOrgDao->deleteById($assignment->getId());
 			}
 		}
-		$request->redirect(null, 'editor', 'objectsForReviewEnrolPublishers');
+		$request->redirect(null, 'editor', 'objectsForReviewEnrollPublishers');
 	}
 
 	/**

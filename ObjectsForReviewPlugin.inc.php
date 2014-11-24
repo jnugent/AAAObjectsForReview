@@ -435,7 +435,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'reviewObjectTypes') . '">' . __('plugins.generic.objectsForReview.editor.objectTypes') . '</a></li>
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewPublishers') . '">' . __('plugins.generic.objectsForReview.manageOrganizations') . '</a></li>
-							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewEnrolPublishers') . '">' . __('plugins.generic.objectsForReview.enrolPublishers') . '</a></li>
+							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewEnrollPublishers') . '">' . __('plugins.generic.objectsForReview.enrollPublishers') . '</a></li>
 							</ul>';
 			} elseif ($hookName == 'Templates::Author::Index::AdditionalItems') { // On author's home page
 				$output .= '<br /><div class="separator"></div><h3>' . __('plugins.generic.objectsForReview.author.objectsForReview') . '</h3><ul class="plain"><li>&#187; <a href="' . Request::url(null, 'author', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.author.myObjectsForReview') . '</a></li></ul><br />';
@@ -665,9 +665,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 					'objectsForReviewPublishers',
 					'objectsForReviewManagePublisher',
 					'objectsForReviewDeletePublisher',
-					'objectsForReviewEnrolPublishers',
-					'objectsForReviewEnrol',
-					'objectsForReviewUnenrol',
+					'objectsForReviewEnrollPublishers',
+					'objectsForReviewEnroll',
+					'objectsForReviewUnenroll',
 					'uploadONIXObjectForReview'
 				);
 	}

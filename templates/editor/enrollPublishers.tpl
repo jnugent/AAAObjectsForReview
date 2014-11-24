@@ -1,22 +1,22 @@
 {**
- * templates/editor/enrolPublishers.tpl
+ * templates/editor/enrollPublishers.tpl
  *
  * Copyright (c) 2013-2014 Simon Fraser University Library
  * Copyright (c) 2003-2014 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
- * Form for enroling a publisher
+ * Form for enrolling a publisher
  *
  *
  *}
 {strip}
-{translate|assign:"pageTitleTranslated" key="plugins.generic.objectsForReview.enrolPublishers"}
+{translate|assign:"pageTitleTranslated" key="plugins.generic.objectsForReview.enrollPublishers"}
 {include file="common/header.tpl"}
 {/strip}
 
-<form id="enroll" action="{url op="objectsForReviewEnrol"}" method="post">
+<form id="enroll" action="{url op="objectsForReviewEnroll"}" method="post">
 	<p>
-	{translate key="plugins.generic.objectsForReview.editor.enrolInPublisher"} <select name="publisherId" size="1" class="selectMenu">
+	{translate key="plugins.generic.objectsForReview.editor.enrollInPublisher"} <select name="publisherId" size="1" class="selectMenu">
 		<option value=""></option>
 		{foreach from=$publishers item=publisher}
 			<option value="{$publisher->getId()|escape}">{$publisher->getName()}</option>
@@ -52,7 +52,7 @@
 			<td width="10%">&nbsp;</td>
 			<td colspan="3">
 				{foreach from=$assignments item=assignment name=a}
-					<a href="{url op="objectsForReviewUnenrol" publisherId=$assignment->getPublisherId() userId=$user->getId()}" class="action">{translate key="plugins.generic.objectsForReview.editor.unenrol" publisher=$publisher->getName()}</a>
+					<a href="{url op="objectsForReviewUnenroll" publisherId=$assignment->getPublisherId() userId=$user->getId()}" class="action">{translate key="plugins.generic.objectsForReview.editor.unenroll" publisher=$publisher->getName()}</a>
 					{if !$smarty.foreach.a.last}, {/if}
 				{/foreach}
 			</td>
@@ -73,7 +73,7 @@
 	{/if}
 	</table>
 </div>
-<input type="submit" value="{translate key="plugins.generic.objectsForReview.editor.enrolSelected"}" class="button defaultButton" /> <input type="button" value="{translate key="common.selectAll"}" class="button" onclick="toggleChecked()" /> <input type="button" value="{translate key="common.cancel"}" class="button" onclick="document.location.href='{url page="editor"}'" />
+<input type="submit" value="{translate key="plugins.generic.objectsForReview.editor.enrollSelected"}" class="button defaultButton" /> <input type="button" value="{translate key="common.selectAll"}" class="button" onclick="toggleChecked()" /> <input type="button" value="{translate key="common.cancel"}" class="button" onclick="document.location.href='{url page="editor"}'" />
 </form>
 
 {include file="common/footer.tpl"}

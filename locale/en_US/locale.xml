@@ -678,11 +678,11 @@
 	<message key="plugins.generic.objectsForReview.manager.organizationSettings">Publisher Settings</message>
 
 	<!-- Objects for Review Enrolling Publishers -->
-	<message key="plugins.generic.objectsForReview.enrolPublishers">Enrol Publishers within Objects for Review</message>
-	<message key="plugins.generic.objectsForReview.editor.enrolInPublisher">Enrol in this organization</message>
-	<message key="plugins.generic.objectsForReview.editor.enrol">Enrol</message>
-	<message key="plugins.generic.objectsForReview.editor.unenrol">Unenrol from {$publisher}</message>
-	<message key="plugins.generic.objectsForReview.editor.enrolSelected">Enrol Selected Users</message>
+	<message key="plugins.generic.objectsForReview.enrollPublishers">Enroll Publishers within Objects for Review</message>
+	<message key="plugins.generic.objectsForReview.editor.enrollInPublisher">Enroll in this organization</message>
+	<message key="plugins.generic.objectsForReview.editor.enroll">Enroll</message>
+	<message key="plugins.generic.objectsForReview.editor.unenroll">Unenroll from {$publisher}</message>
+	<message key="plugins.generic.objectsForReview.editor.enrollSelected">Enroll Selected Users</message>
 
 
 </locale>

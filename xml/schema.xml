@@ -299,11 +299,11 @@
 
 	<!--
 	  *
-	  * TABLE object_for_review_enroled_users
+	  * TABLE object_for_review_enrolled_users
 	  *
 	  -->
-	<table name="object_for_review_enroled_users">
-		<field name="enrol_id" type="I8">
+	<table name="object_for_review_enrolled_users">
+		<field name="enroll_id" type="I8">
 			<KEY />
 			<AUTOINCREMENT/>
 		</field>
@@ -315,8 +315,8 @@
 			<NOTNULL/>
 			<DEFAULT VALUE="0"/>
 		</field>
-		<descr>Object for review enroled users</descr>
-		<index name="ofr_enrol_pkey">
+		<descr>Object for review enrolled users</descr>
+		<index name="ofr_enroll_pkey">
 			<col>user_id</col>
 			<col>publisher_id</col>
 			<UNIQUE />
