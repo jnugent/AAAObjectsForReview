@@ -2,7 +2,7 @@
 <!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
 
 <!--
-  * @file plugins/generic/objectsForReview/locale/en_US/locale.xml
+  * @file plugins/generic/objectsForReview/locale/dk_DK/locale.xml
   *
   * Copyright (c) 2013-2014 Simon Fraser University Library
   * Copyright (c) 2003-2014 John Willinsky
@@ -11,7 +11,7 @@
   * Objects for review plugin localization strings for the en_US (U.S. English) locale.
   -->
  
-<locale name="en_US" full_name="U.S. English">
+<locale name="da_DK" full_name="U.S. English">
 
 	<!-- Objects For Review Plug-In -->
 	<message key="plugins.generic.objectsForReview.displayName">Objects For Review</message>
