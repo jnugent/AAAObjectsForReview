@@ -30,7 +30,7 @@
 	<metadata type="extendedTextBox" required="false" display="false" key="abstract">
 		<name>plugins.generic.objectsForReview.object.metadata.abstract</name>
 	</metadata>
-	<metadata type="radioButtons" required="true" display="true" key="copy">
+	<metadata type="radioButtons" required="false" display="true" key="copy">
 		<name>plugins.generic.objectsForReview.object.metadata.copyAvailable</name>
 		<selectionOptions>
 			<selectionOption>plugins.generic.objectsForReview.object.metadata.copyAvailable.yes</selectionOption>
