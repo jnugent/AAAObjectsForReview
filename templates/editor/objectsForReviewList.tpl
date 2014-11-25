@@ -33,16 +33,17 @@
 
 <br />
 
-{assign var=colspan value="6"}
-{assign var=colspanPage value="3"}
+{assign var=colspan value="7"}
+{assign var=colspanPage value="4"}
 
 <table width="100%" class="listing">
 	<tr>
 		<td colspan="{$colspan}" class="headseparator">&nbsp;</td>
 	</tr>
 	<tr class="heading" valign="bottom">
-		<td width="40%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.title" sort="title"}</td>
-		<td width="20%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.objectType" sort="type"}</td>
+		<td width="35%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.title" sort="title"}</td>
+		<td width="12%">{sort_heading key="plugins.generic.objectsForReview.object.book.publisher" sort="publisherId"}</td>
+		<td width="13%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.objectType" sort="type"}</td>
 		<td width="7%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.dateCreated" sort="created"}</td>
 		<td width="5%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.editor" sort="editor"}</td>
 		<td width="13%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.status" sort="status"}</td>
@@ -53,8 +54,10 @@
 	</tr>
 {iterate from=objectsForReview item=objectForReview}
 {assign var=reviewObjectType value=$objectForReview->getReviewObjectType()}
+{capture assign=noOrg}{translate key="plugins.generic.objectsForReview.manager.noPublisher"}{/capture}
 	<tr valign="top">
 		<td><a href="{url op="editObjectForReview" path=$objectForReview->getId() reviewObjectTypeId=$objectForReview->getReviewObjectTypeId()}" class="action">{$objectForReview->getTitle()|escape|truncate:40:"..."}</a></td>
+		<td>{$objectForReview->getPublisher()|default:$noOrg|escape}</td>
 		<td>{$reviewObjectType->getLocalizedName()|escape}</td>
 		<td>{$objectForReview->getDateCreated()|date_format:$dateFormatTrunc}</td>
 		<td>{$objectForReview->getEditorInitials()|escape}</td>
@@ -63,7 +66,7 @@
 		<td align="right">
 		{if $objectForReview->getAvailable()}
 			{if $mode == $smarty.const.OFR_MODE_FULL}
-				<a href="{url op="selectObjectForReviewAuthor" path=$objectForReview->getId()}" class="action">{translate key="plugins.generic.objectsForReview.editor.assignObjectReviewer"}</a> |
+				<a {if $objectForReview->getPublisher() == ''}onClick="return confirm('{translate key="plugins.generic.objectsForReview.manager.noPublisherInstructions"}')"{/if} href="{url op="selectObjectForReviewAuthor" path=$objectForReview->getId()}" class="action">{translate key="plugins.generic.objectsForReview.editor.assignObjectReviewer"}</a> |
 			{else}
 				<a href="{url op="selectObjectForReviewSubmission" objectId=$objectForReview->getId() returnPage='all'}" class="action">{translate key="plugins.generic.objectsForReview.editor.select"}</a> |
 			{/if}

@@ -241,6 +241,11 @@ class ObjectForReviewDAO extends DAO {
 		$sortColumn = '';
 		$sortSQL = '';
 		switch ($sortBy) {
+			case 'publisherId':
+				$sortColumn .= ", ofrs.setting_value AS ofr_publisher_id";
+				$sortSQL .= ' LEFT JOIN object_for_review_settings ofrs ON (ofr.object_id = ofrs.object_id)
+					JOIN review_object_metadata rom ON (rom.metadata_id = ofrs.review_object_metadata_id AND rom.metadata_key = \'' . REVIEW_OBJECT_METADATA_KEY_PUBLISHER .'\')';
+				break;
 			case 'title':
 				$sortColumn .= ', ofrs.setting_value AS ofr_title';
 				$sortSQL .= ' LEFT JOIN object_for_review_settings ofrs ON (ofr.object_id = ofrs.object_id)
@@ -352,6 +357,7 @@ class ObjectForReviewDAO extends DAO {
 			case 'editor': return 'ed_initials';
 			case 'status': return 'ofr.available';
 			case 'type': return 'ofr_type_name';
+			case 'publisherId': return 'ofr_publisher_id';
 			default: return null;
 		}
 	}

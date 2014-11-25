@@ -677,6 +677,8 @@
 	<message key="plugins.generic.objectsForReview.manager.organization.city">City</message>
 	<message key="plugins.generic.objectsForReview.manager.organization.state">State</message>
 	<message key="plugins.generic.objectsForReview.manager.organizationSettings">Publisher Settings</message>
+	<message key="plugins.generic.objectsForReview.manager.noPublisher">None Assigned</message>
+	<message key="plugins.generic.objectsForReview.manager.noPublisherInstructions">There is no publisher assigned to this object. Assigned users will not be able to access it until the object is edited and a publisher is assigned.  You may still assign a user.</message>
 
 	<!-- Objects for Review Enrolling Publishers -->
 	<message key="plugins.generic.objectsForReview.enrollPublishers">Enroll Publishers within Objects for Review</message>

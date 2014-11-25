@@ -265,6 +265,22 @@ class ObjectForReview extends DataObject {
 	}
 
 	/**
+	 * Retrieve the publisher name for this object for review.
+	 * @return string
+	 */
+	function getPublisher() {
+		$ofrMetadataDao =& DAORegistry::getDAO('ReviewObjectMetadataDAO');
+		$reviewObject =& $ofrMetadataDao->getByKey('publisherId', $this->getReviewObjectTypeId());
+		$ofrSettingsDao =& DAORegistry::getDAO('ObjectForReviewSettingsDAO');
+		$publisherId = $ofrSettingsDao->getSetting($this->getId(), $reviewObject->getId());
+
+		$ofrOrgDao =& DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
+		$org = $ofrOrgDao->getOrganization($publisherId);
+		if ($org) {
+			return $org->getName();
+		}
+	}
+	/**
 	 * Update object for review setting value.
 	 * @param $reviewObjectMetadataId int
 	 * @param $value mixed
