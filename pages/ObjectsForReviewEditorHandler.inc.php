@@ -1161,9 +1161,10 @@ class ObjectsForReviewEditorHandler extends Handler {
 								'lastName' => $lastName,
 								'seq' => (int) $seq
 							);
-
-					$importData['persons'] = $persons;
+						unset($node);
 				}
+
+				$importData['persons'] = $persons;
 			} else {
 				$request->redirect(null, 'editor', 'objectsForReview', 'onixError');
 			}

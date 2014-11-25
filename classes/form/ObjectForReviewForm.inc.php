@@ -183,10 +183,8 @@ class ObjectForReviewForm extends Form {
 				}
 			}
 
-			if (array_key_exists('persons', $this->importData)) {
-				$this->_data['persons'] = $this->importData['persons'];
-			}
 			$this->_data = array('ofrSettings' => $ofrSettings,
+				'persons' => $this->importData['persons'],
 				'editorId' => $user->getId(),
 				'available' => 1
 			);
