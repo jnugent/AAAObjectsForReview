@@ -162,6 +162,7 @@
 	<!-- Object For Review Edit -->
 	<message key="plugins.generic.objectsForReview.editor.objectForReview">Object For Review</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.chooseLanguage">Choose language</message>
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.choosePublisher">Choose Publisher</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption">Choose option</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.chooseRole">Choose role</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.noAnswer">No answer</message>

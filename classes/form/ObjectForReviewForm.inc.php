@@ -103,11 +103,20 @@ class ObjectForReviewForm extends Form {
 			$validLanguages[$language->getCode()] = $language->getName();
 		}
 
+		// Get valid publishers for objects.
+		$ofrOrgDao =& DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
+		$organizations = $ofrOrgDao->getOrganizations($journalId);
+		$validOrganizations = array('' => __('plugins.generic.objectsForReview.editor.objectForReview.choosePublisher'));
+		foreach ($organizations as $organization) {
+			$validOrganizations[$organization->getId()] = $organization->getName();
+		}
+
 		$templateMgr =& TemplateManager::getManager($request);
 		$templateMgr->assign('reviewObjectType', $reviewObjectType);
 		$templateMgr->assign('reviewObjectMetadata', $reviewObjectMetadata);
 		$templateMgr->assign('editors', $editors);
 		$templateMgr->assign('validLanguages', $validLanguages);
+		$templateMgr->assign('validOrganizations', $validOrganizations);
 		$templateMgr->assign('objectId', $this->objectId);
 		parent::display($request);
 	}
@@ -255,6 +264,7 @@ class ObjectForReviewForm extends Form {
 								break;
 							case REVIEW_OBJECT_METADATA_TYPE_RADIO_BUTTONS:
 							case REVIEW_OBJECT_METADATA_TYPE_DROP_DOWN_BOX:
+							case REVIEW_OBJECT_METADATA_TYPE_PUBLISHER_ID_DROP_DOWN_BOX:
 								$objectForReview->updateSetting((int) $metadataId, $ofrSettingValue, 'int');
 								break;
 							case REVIEW_OBJECT_METADATA_TYPE_CHECKBOXES:

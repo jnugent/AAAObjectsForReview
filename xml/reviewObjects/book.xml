@@ -28,9 +28,6 @@
 	<metadata type="singleLineTextBox" required="false" display="false" key="book_place">
 		<name>plugins.generic.objectsForReview.object.book.place</name>
 	</metadata>
-	<metadata type="singleLineTextBox" required="false" display="true" key="book_publisher">
-		<name>plugins.generic.objectsForReview.object.book.publisher</name>
-	</metadata>
 	<metadata type="singleLineTextBox" required="false" display="false" key="book_publisher_url">
 		<name>plugins.generic.objectsForReview.object.book.publisherURL</name>
 	</metadata>

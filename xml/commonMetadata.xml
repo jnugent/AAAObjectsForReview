@@ -9,6 +9,9 @@
 	<metadata type="singleLineTextBox" required="true" display="true" key="title">
 		<name>plugins.generic.objectsForReview.object.metadata.title</name>
 	</metadata>
+	<metadata type="publisherIdDropDownBox" required="true" display="true" key="publisherId">
+		<name>plugins.generic.objectsForReview.object.book.publisher</name>
+	</metadata>
 	<metadata type="roleDropDownBox" required="false" display="true" key="role"> 
 		<name>plugins.generic.objectsForReview.object.metadata.person</name>
 	</metadata>
@@ -39,9 +42,6 @@
 	</metadata>
 	<metadata type="coverPage" required="false" display="true" key="coverPage"> 
 		<name>plugins.generic.objectsForReview.object.metadata.coverPage</name>
-	</metadata>
-	<metadata type="reviewerPDF" required="false" display="false" key="reviewerPDF">
-		<name>plugins.generic.objectsForReview.object.metadata.reviewerPDF</name>
 	</metadata>
 	</objectMetadata>
 </object>

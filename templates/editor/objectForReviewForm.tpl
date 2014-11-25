@@ -173,6 +173,10 @@ function movePerson(dir, personIndex) {
 					<select name="ofrSettings[{$metadataId|escape}][]" id="ofrSettings-{$metadataId|escape}" size="5" class="selectMenu" multiple="multiple">
 						{html_options options=$validLanguages selected=$ofrSettingValue}
 					</select>
+				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_PUBLISHER_ID_DROP_DOWN_BOX}
+					<select name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" size="1" class="selectMenu">
+						{html_options options=$validOrganizations selected=$ofrSettingValue}
+					</select>
 				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_DROP_DOWN_BOX}
 					<select name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" size="1" class="selectMenu">
 						<option label="{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}" value="">{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}</option>
