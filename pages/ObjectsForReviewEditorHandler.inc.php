@@ -1057,94 +1057,115 @@ class ObjectsForReviewEditorHandler extends Handler {
 		if ($doc) {
 			$productNode = $doc->getChildByName('Product');
 
-			$publisherNode = $productNode->getChildByName('Publisher');
-			$publisherNameNode = $publisherNode->getChildByName('PublisherName');
-			$publisher = $publisherNameNode->getValue();
-			$importData['book_publisher'] = $publisher;
-
-			$websiteNode = $publisherNode->getChildByName('Website');
-			$websiteLinkNode = $websiteNode->getChildByName('WebsiteLink');
-			$websiteLink = $websiteLinkNode->getValue();
-			$importData['book_publisher_url'] = $websiteLink;
-
-			$titleNode = $productNode->getChildByName('Title');
-			$titleTextNode = $titleNode->getChildByName('TitleText');
-			$title = $titleTextNode->getValue();
-			$importData['title'] = $title;
-
-			$subTitleNode = $titleNode->getChildByName('Subtitle');
-			$subTitle = $subTitleNode->getValue();
-			$importData['shortTitle'] = $subTitle;
-
-			$languageNode = $productNode->getChildByName('Language');
-			$languageCodeNode = $languageNode->getChildByName('LanguageCode');
-			$language = $languageCodeNode->getValue();
-			$importData['language'] = substr($language, 0, 2);
-
-			$pageNode = $productNode->getChildByName('NumberOfPages');
-			$pages = $pageNode->getValue();
-			$importData['book_pages_no'] = $pages;
-
-			// Abstract. Look for OtherText with
-			// sub element of TextTypeCode of '01' (main description)
-
-			$abstract = '';
-
-			for ($index=0; ($node = $productNode->getChildByName('OtherText', $index)); $index++) {
-				$typeNode = $node->getChildByName('TextTypeCode');
-				if ($typeNode->getValue() == '01') {
-					$textNode = $node->getChildByName('Text');
-					$abstract = strip_tags($textNode->getValue());
-					break;
+			if ($productNode) {
+				$publisherNode = $productNode->getChildByName('Publisher');
+				if ($publisherNode) {
+					$publisherNameNode = $publisherNode->getChildByName('PublisherName');
+					$publisher = $publisherNameNode->getValue();
+					$importData['book_publisher'] = $publisher;
 				}
-			}
+				$websiteNode = $publisherNode->getChildByName('Website');
+				if ($websiteNode) {
+					$websiteLinkNode = $websiteNode->getChildByName('WebsiteLink');
+					$websiteLink = $websiteLinkNode->getValue();
+					$importData['book_publisher_url'] = $websiteLink;
+				}
+				$titleNode = $productNode->getChildByName('Title');
+				if ($titleNode) {
+					$titleTextNode = $titleNode->getChildByName('TitleText');
+					$title = $titleTextNode->getValue();
+					$importData['title'] = $title;
+				}
+				$subTitleNode = $titleNode->getChildByName('Subtitle');
+				if ($subTitleNode) {
+					$subTitle = $subTitleNode->getValue();
+					$importData['shortTitle'] = $subTitle;
+				}
+				$languageNode = $productNode->getChildByName('Language');
+				if ($languageNode) {
+					$languageCodeNode = $languageNode->getChildByName('LanguageCode');
+					$language = $languageCodeNode->getValue();
+					$importData['language'] = substr($language, 0, 2);
+				} else {
+					$importData['language'] = 'en';
+				}
+				$pageNode = $productNode->getChildByName('NumberOfPages');
+				if ($pageNode) {
+					$pages = $pageNode->getValue();
+					$importData['book_pages_no'] = $pages;
+				}
+				// Abstract. Look for OtherText with
+				// sub element of TextTypeCode of '01' (main description)
 
-			$importData['abstract'] = $abstract;
+				$abstract = '';
 
-			$publicationDateNode = $productNode->getChildByName('PublicationDate');
-			$publicationDate = $publicationDateNode->getValue();
-			$importData['date'] = $publicationDate;
-
-			// Contributors.
-			$persons = array();
-			for ($index=0; ($node = $productNode->getChildByName('Contributor', $index)); $index++) {
-				$firstNameNode = $node->getChildByName('NamesBeforeKey');
-				$firstName = $firstNameNode->getValue();
-				$lastNameNode = $node->getChildByName('KeyNames');
-				$lastName = $lastNameNode->getValue();
-				$seqNode = $node->getChildByName('SequenceNumber');
-				$seq = $seqNode->getValue();
-
-				$contributorRoleNode = $node->getChildByName('ContributorRole');
-				$contributorRole = '';
-				switch ($contributorRoleNode->getValue()) {
-					case 'A01':
-						$contributorRole = '1';
+				for ($index=0; ($node = $productNode->getChildByName('OtherText', $index)); $index++) {
+					$typeNode = $node->getChildByName('TextTypeCode');
+					if ($typeNode && $typeNode->getValue() == '01') {
+						$textNode = $node->getChildByName('Text');
+						if ($textNode) {
+							$abstract = strip_tags($textNode->getValue());
+						}
 						break;
-					case 'B01':
-						$contributorRole = '3';
-						break;
-					case 'B09':
-						$contributorRole = '4';
-						break;
-					case 'B06':
-						$contributorRole = '5';
-						break;
-					default:
-						$contributorRole = '2'; // Contributor
-					break;
+					}
 				}
 
-				$persons[] = array(
-							'personId' => '',
-							'role' => $contributorRole,
-							'firstName' => $firstName,
-							'middleName' => '',
-							'lastName' => $lastName,
-							'seq' => (int) $seq
-						);
+				$importData['abstract'] = $abstract;
 
-				$importData['persons'] = $persons;
+				$publicationDateNode = $productNode->getChildByName('PublicationDate');
+				if ($publicationDateNode) {
+					$publicationDate = $publicationDateNode->getValue();
+					$importData['date'] = $publicationDate;
+				}
+				// Contributors.
+				$persons = array();
+				for ($index=0; ($node = $productNode->getChildByName('Contributor', $index)); $index++) {
+					$firstNameNode = $node->getChildByName('NamesBeforeKey');
+					if ($firstNameNode) {
+						$firstName = $firstNameNode->getValue();
+					}
+					$lastNameNode = $node->getChildByName('KeyNames');
+					if ($lastNameNode) {
+						$lastName = $lastNameNode->getValue();
+					}
+					$seqNode = $node->getChildByName('SequenceNumber');
+					if ($seqNode) {
+						$seq = $seqNode->getValue();
+					}
+					$contributorRoleNode = $node->getChildByName('ContributorRole');
+					$contributorRole = '';
+					if ($contributorRoleNode) {
+						switch ($contributorRoleNode->getValue()) {
+							case 'A01':
+								$contributorRole = '1';
+								break;
+							case 'B01':
+								$contributorRole = '3';
+								break;
+							case 'B09':
+								$contributorRole = '4';
+								break;
+							case 'B06':
+								$contributorRole = '5';
+								break;
+							default:
+								$contributorRole = '2'; // Contributor
+							break;
+						}
+					}
+					$persons[] = array(
+								'personId' => '',
+								'role' => $contributorRole,
+								'firstName' => $firstName,
+								'middleName' => '',
+								'lastName' => $lastName,
+								'seq' => (int) $seq
+							);
+
+					$importData['persons'] = $persons;
+				}
+			} else {
+				$request->redirect(null, 'editor', 'objectsForReview', 'onixError');
 			}
 
 			$temporaryFileManager->deleteFile($temporaryFile->getId(), $user->getId());
