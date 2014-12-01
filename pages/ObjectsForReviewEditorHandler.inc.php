@@ -1096,6 +1096,12 @@ class ObjectsForReviewEditorHandler extends Handler {
 						$subTitle = $subTitleNode->getValue();
 						$importData['shortTitle'] = $subTitle;
 					}
+					$seriesNode = $productNode->getChildByName($this->_getOnixTag('Series', $shortTags));
+					if ($seriesNode) {
+						$seriesTextNode = $seriesNode->getChildByName($this->_getOnixTag('TitleOfSeries', $shortTags));
+						$series = $seriesTextNode->getValue();
+						$importData['book_series'] = $series;
+					}
 					$languageNode = $productNode->getChildByName($this->_getOnixTag('Language', $shortTags));
 					if ($languageNode) {
 						$languageCodeNode = $languageNode->getChildByName($this->_getOnixTag('LanguageCode', $shortTags));
@@ -1530,6 +1536,8 @@ class ObjectsForReviewEditorHandler extends Handler {
 				'KeyNames' => 'b040',
 				'SequenceNumber' => 'b034',
 				'ContributorRole' => 'b035',
+				'Series' => 'series',
+				'TitleOfSeries' => 'b018',
 			);
 
 		return $tags[$tagName];
