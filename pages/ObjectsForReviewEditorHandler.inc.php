@@ -1061,46 +1061,50 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 		if ($doc) {
 
-			for ($index=0; ($productNode = $doc->getChildByName('Product', $index)); $index++) {
+			// Determine if we have short or long tags.
+			$productNodes = $doc->getChildByName('product');
+			$shortTags = $productNodes ? true : false;
+
+			for ($index=0; ($productNode = $doc->getChildByName($this->_getOnixTag('Product', $shortTags), $index)); $index++) {
 
 				$importData = array();
 
 				if ($productNode) {
-					$publisherNode = $productNode->getChildByName('Publisher');
+					$publisherNode = $productNode->getChildByName($this->_getOnixTag('Publisher', $shortTags));
 					if ($publisherNode) {
-						$publisherNameNode = $publisherNode->getChildByName('PublisherName');
+						$publisherNameNode = $publisherNode->getChildByName($this->_getOnixTag('PublisherName', $shortTags));
 						$publisher = $publisherNameNode->getValue();
 						$organization =& $ofrOrgDao->getOrganizationByName(trim($publisher));
 						if ($organization) {
 							$importData['publisherId'] = $organization->getId();
 						}
 					}
-					$websiteNode = $publisherNode->getChildByName('Website');
+					$websiteNode = $publisherNode->getChildByName($this->_getOnixTag('Website', $shortTags));
 					if ($websiteNode) {
-						$websiteLinkNode = $websiteNode->getChildByName('WebsiteLink');
+						$websiteLinkNode = $websiteNode->getChildByName($this->_getOnixTag('WebsiteLink', $shortTags));
 						$websiteLink = $websiteLinkNode->getValue();
 						$importData['book_publisher_url'] = $websiteLink;
 					}
-					$titleNode = $productNode->getChildByName('Title');
+					$titleNode = $productNode->getChildByName($this->_getOnixTag('Title', $shortTags));
 					if ($titleNode) {
-						$titleTextNode = $titleNode->getChildByName('TitleText');
+						$titleTextNode = $titleNode->getChildByName($this->_getOnixTag('TitleText', $shortTags));
 						$title = $titleTextNode->getValue();
 						$importData['title'] = $title;
 					}
-					$subTitleNode = $titleNode->getChildByName('Subtitle');
+					$subTitleNode = $titleNode->getChildByName($this->_getOnixTag('Subtitle', $shortTags));
 					if ($subTitleNode) {
 						$subTitle = $subTitleNode->getValue();
 						$importData['shortTitle'] = $subTitle;
 					}
-					$languageNode = $productNode->getChildByName('Language');
+					$languageNode = $productNode->getChildByName($this->_getOnixTag('Language', $shortTags));
 					if ($languageNode) {
-						$languageCodeNode = $languageNode->getChildByName('LanguageCode');
+						$languageCodeNode = $languageNode->getChildByName($this->_getOnixTag('LanguageCode', $shortTags));
 						$language = $languageCodeNode->getValue();
 						$importData['language'] = substr($language, 0, 2);
 					} else {
 						$importData['language'] = 'en';
 					}
-					$pageNode = $productNode->getChildByName('NumberOfPages');
+					$pageNode = $productNode->getChildByName($this->_getOnixTag('NumberOfPages', $shortTags));
 					if ($pageNode) {
 						$pages = $pageNode->getValue();
 						$importData['book_pages_no'] = $pages;
@@ -1110,10 +1114,10 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 					$abstract = '';
 
-					for ($authorIndex=0; ($node = $productNode->getChildByName('OtherText', $authorIndex)); $authorIndex++) {
-						$typeNode = $node->getChildByName('TextTypeCode');
+					for ($authorIndex=0; ($node = $productNode->getChildByName($this->_getOnixTag('OtherText', $shortTags), $authorIndex)); $authorIndex++) {
+						$typeNode = $node->getChildByName($this->_getOnixTag('TextTypeCode', $shortTags));
 						if ($typeNode && $typeNode->getValue() == '01') {
-							$textNode = $node->getChildByName('Text');
+							$textNode = $node->getChildByName($this->_getOnixTag('Text', $shortTags));
 							if ($textNode) {
 								$abstract = strip_tags($textNode->getValue());
 							}
@@ -1123,27 +1127,27 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 					$importData['abstract'] = $abstract;
 
-					$publicationDateNode = $productNode->getChildByName('PublicationDate');
+					$publicationDateNode = $productNode->getChildByName($this->_getOnixTag('PublicationDate', $shortTags));
 					if ($publicationDateNode) {
 						$publicationDate = $publicationDateNode->getValue();
 						$importData['date'] = $publicationDate;
 					}
 					// Contributors.
 					$persons = array();
-					for ($authorIndex=0; ($node = $productNode->getChildByName('Contributor', $authorIndex)); $authorIndex++) {
-						$firstNameNode = $node->getChildByName('NamesBeforeKey');
+					for ($authorIndex=0; ($node = $productNode->getChildByName($this->_getOnixTag('Contributor', $shortTags), $authorIndex)); $authorIndex++) {
+						$firstNameNode = $node->getChildByName($this->_getOnixTag('NamesBeforeKey', $shortTags));
 						if ($firstNameNode) {
 							$firstName = $firstNameNode->getValue();
 						}
-						$lastNameNode = $node->getChildByName('KeyNames');
+						$lastNameNode = $node->getChildByName($this->_getOnixTag('KeyNames', $shortTags));
 						if ($lastNameNode) {
 							$lastName = $lastNameNode->getValue();
 						}
-						$seqNode = $node->getChildByName('SequenceNumber');
+						$seqNode = $node->getChildByName($this->_getOnixTag('SequenceNumber', $shortTags));
 						if ($seqNode) {
 							$seq = $seqNode->getValue();
 						}
-						$contributorRoleNode = $node->getChildByName('ContributorRole');
+						$contributorRoleNode = $node->getChildByName($this->_getOnixTag('ContributorRole', $shortTags));
 						$contributorRole = '';
 						if ($contributorRoleNode) {
 							switch ($contributorRoleNode->getValue()) {
@@ -1493,6 +1497,43 @@ class ObjectsForReviewEditorHandler extends Handler {
 		$notificationManager->createTrivialNotification($user->getId(), $notificationType);
 	}
 
+	/**
+	 * Returns the actual tag name based on whether or not this is a short or long DTD version.
+	 * @param string $tagName
+	 * @param boolean $short
+	 * @return boolean
+	 */
+	function _getOnixTag($tagName, $short = true) {
+
+		if (!$short) {
+			return $tagName;
+		}
+
+		$tags = array(
+				'Product' => 'product',
+				'OtherText' => 'othertext',
+				'TextTypeCode' => 'd102',
+				'Text' => 'd104',
+				'NumberOfPages' => 'b061',
+				'Publisher'=> 'publisher',
+				'PublisherName' => 'b081',
+				'Website' => 'website',
+				'WebsiteLink' => 'b295',
+				'Title' => 'title',
+				'TitleText' => 'b203',
+				'Subtitle' => 'b029',
+				'Language' => 'language',
+				'LanguageCode' => 'b252',
+				'PublicationDate' => 'b003',
+				'Contributor' => 'contributor',
+				'NamesBeforeKey' => 'b039',
+				'KeyNames' => 'b040',
+				'SequenceNumber' => 'b034',
+				'ContributorRole' => 'b035',
+			);
+
+		return $tags[$tagName];
+	}
 }
 
 ?>
