@@ -73,6 +73,27 @@ class ObjectForReviewOrganizationDAO extends DAO {
 	}
 
 	/**
+	 * Returns an Organization by querying for a publisher name.
+	 * @param string $name
+	 * @return ObjectForReviewOrganization
+	 */
+	function getOrganizationByName($name) {
+		$result =& $this->retrieve(
+			'SELECT * FROM object_for_review_organizations WHERE publisher_name = ?', $name
+		);
+
+		$returner = null;
+		if ($result->RecordCount() != 0) {
+			$returner =& $this->_returnOrganizationFromRow($result->GetRowAssoc(false));
+		}
+
+		$result->Close();
+		unset($result);
+
+		return $returner;
+	}
+
+	/**
 	 * Retrieve all organizations for a object for review.
 	 * @param $objectId int
 	 * @return array ObjectForReviewOrganizations ordered by sequence

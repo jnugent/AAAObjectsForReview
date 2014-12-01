@@ -187,8 +187,8 @@
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.remove">Remove</message>
 
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.onixFile">ONIX XML File</message>
-	<message key="plugins.generic.objectsForReview.editor.objectForReview.onixFileInstructions">Specify an ONIX XML file containing book review information you wish to import.  The file format must be .xml</message>
-
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.onixFileInstructions">Specify an ONIX XML file containing book review information you wish to import.  The file format must be .xml. If your file contains more than one object, check the box indicating this.  If so, you will be directed to this page afterwards with the newly imported objects listed.  Otherwise, you will have an opportunity to immediately review the metadata on the next screen.</message>
+	<message key="plugins.generic.objectsForReview.editor.multipleObjectsInFile">This file contains more than one object</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.additionalNotes">Additional Notes</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.notes">Notes</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.notesInstructions">For the editor only. Not published as part of the object for review.</message>

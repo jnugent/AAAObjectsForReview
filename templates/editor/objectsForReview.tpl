@@ -36,6 +36,11 @@
 		<td width="20%" class="label">{fieldLabel name="onixFile" key="plugins.generic.objectsForReview.editor.objectForReview.onixFile"}</td>
 		<td width="80%" class="value"><input type="file" name="onixFile" id="onixFile" class="uploadField" />&nbsp;&nbsp;</td>
 	</tr>
+	<tr valign="top">
+		<td width="20%" class="label">{translate key="plugins.generic.objectsForReview.editor.multipleObjectsInFile"}</td>
+		<td width="80%" class="value"><input type="checkbox" name="multiple" id="multiple" value="1" />
+		</td>
+	</tr>
 	<tr>
 		<td colspan="2"><input type="submit" value="{translate key="common.upload"}" class="button defaultButton"/></td>
 	</tr>
