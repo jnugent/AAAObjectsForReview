@@ -136,6 +136,7 @@ class ObjectForReviewForm extends Form {
 				'persons' => array(),
 				'deletedPersons' => array(),
 				'editorId' => $objectForReview->getEditorId(),
+				'publisherId' => $objectForReview->getPublisherId(),
 				'available' => $objectForReview->getAvailable()
 			);
 			// Persons
@@ -186,6 +187,7 @@ class ObjectForReviewForm extends Form {
 			$this->_data = array('ofrSettings' => $ofrSettings,
 				'persons' => $this->importData['persons'],
 				'editorId' => $user->getId(),
+				'publisherId' => $this->importData['publisherId'],
 				'available' => 1
 			);
 		}
@@ -205,6 +207,7 @@ class ObjectForReviewForm extends Form {
 				'originalFileName',
 				'coverPageAltText',
 				'editorId',
+				'publisherId',
 				'available',
 				'reviewerPDF'
 			)
@@ -233,6 +236,7 @@ class ObjectForReviewForm extends Form {
 		}
 		$objectForReview->setNotes($this->getData('notes'));
 		$objectForReview->setEditorId($this->getData('editorId'));
+		$objectForReview->setPublisherId($this->getData('publisherId'));
 		$objectForReview->setAvailable($this->getData('available'));
 
 		// Insert or update object for review
@@ -262,9 +266,6 @@ class ObjectForReviewForm extends Form {
 								break;
 							case REVIEW_OBJECT_METADATA_TYPE_RADIO_BUTTONS:
 							case REVIEW_OBJECT_METADATA_TYPE_DROP_DOWN_BOX:
-							case REVIEW_OBJECT_METADATA_TYPE_PUBLISHER_ID_DROP_DOWN_BOX:
-								$objectForReview->updateSetting((int) $metadataId, $ofrSettingValue, 'int');
-								break;
 							case REVIEW_OBJECT_METADATA_TYPE_CHECKBOXES:
 							case REVIEW_OBJECT_METADATA_TYPE_LANG_DROP_DOWN_BOX:
 								if (!isset($ofrSettingValue)) $ofrSettingValue = array();

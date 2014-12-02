@@ -173,10 +173,6 @@ function movePerson(dir, personIndex) {
 					<select name="ofrSettings[{$metadataId|escape}][]" id="ofrSettings-{$metadataId|escape}" size="5" class="selectMenu" multiple="multiple">
 						{html_options options=$validLanguages selected=$ofrSettingValue}
 					</select>
-				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_PUBLISHER_ID_DROP_DOWN_BOX}
-					<select name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" size="1" class="selectMenu">
-						{html_options options=$validOrganizations selected=$ofrSettingValue}
-					</select>
 				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_DROP_DOWN_BOX}
 					<select name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" size="1" class="selectMenu">
 						<option label="{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}" value="">{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}</option>
@@ -219,6 +215,22 @@ function movePerson(dir, personIndex) {
 	<td width="80%" class="value">
 		<select name="editorId" id="editorId" size="1" class="selectMenu">
 			{html_options options=$editors selected=$editorId}
+		</select>
+	</td>
+</tr>
+</table>
+</div>
+
+<div class="separator"></div>
+<div id="objectForReviewPublisher">
+<h3>{translate key="plugins.generic.objectsForReview.editor.objectForReview.assignPublisher"}</h3>
+<p>{translate key="plugins.generic.objectsForReview.editor.objectForReview.assignPublisherInstructions"}</p>
+<table class="data" width="100%">
+<tr valign="top">
+	<td width="20%" class="label">{translate key="plugins.generic.objectsForReview.object.book.publisher"}</td>
+	<td width="80%" class="value">
+		<select name="publisherId" id="publisherId" size="1" class="selectMenu">
+			{html_options options=$validOrganizations selected=$publisherId}
 		</select>
 	</td>
 </tr>

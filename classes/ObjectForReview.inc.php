@@ -67,6 +67,22 @@ class ObjectForReview extends DataObject {
 	}
 
 	/**
+	 * Get publisher ID.
+	 * @return int
+	 */
+	function getPublisherId() {
+		return $this->getData('publisherId');
+	}
+
+	/**
+	 * Set publisher ID.
+	 * @param $publisherId int
+	 */
+	function setPublisherId($publisherId) {
+		return $this->setData('publisherId', $publisherId);
+	}
+
+	/**
 	 * Get editor assigned to the object for review.
 	 * @return User
 	 */
@@ -269,10 +285,8 @@ class ObjectForReview extends DataObject {
 	 * @return string
 	 */
 	function getPublisher() {
-		$ofrMetadataDao =& DAORegistry::getDAO('ReviewObjectMetadataDAO');
-		$reviewObject =& $ofrMetadataDao->getByKey('publisherId', $this->getReviewObjectTypeId());
-		$ofrSettingsDao =& DAORegistry::getDAO('ObjectForReviewSettingsDAO');
-		$publisherId = $ofrSettingsDao->getSetting($this->getId(), $reviewObject->getId());
+
+		$publisherId = $this->getPublisherId();
 
 		$ofrOrgDao =& DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
 		$org = $ofrOrgDao->getOrganization($publisherId);

@@ -77,6 +77,7 @@ class ObjectForReviewDAO extends DAO {
 		$object->setAvailable($row['available']);
 		$object->setDateCreated($row['date_created']);
 		$object->setEditorId($row['editor_id']);
+		$object->setPublisherId($row['publisher_id']);
 		$object->setNotes($row['notes']);
 
 		HookRegistry::call('ObjectForReviewDAO::_fromRow', array(&$object, &$row));
@@ -98,9 +99,10 @@ class ObjectForReviewDAO extends DAO {
 					available,
 					date_created,
 					editor_id,
+					publisher_id,
 					notes)
 				VALUES
-					(?, ?, ?, %s, ?, ?)',
+					(?, ?, ?, %s, ?, ?, ?)',
 				$this->datetimeToDB($objectForReview->getDateCreated())
 			),
 			array(
@@ -108,6 +110,7 @@ class ObjectForReviewDAO extends DAO {
 				(int) $objectForReview->getContextId(),
 				(int) $objectForReview->getAvailable(),
 				(int) $objectForReview->getEditorId(),
+				(int) $objectForReview->getPublisherId(),
 				$objectForReview->getNotes()
 			)
 		);
@@ -130,6 +133,7 @@ class ObjectForReviewDAO extends DAO {
 					available = ?,
 					date_created = %s,
 					editor_id = ?,
+					publisher_id = ?,
 					notes = ?
 				WHERE object_id = ?',
 				$this->datetimeToDB($objectForReview->getDateCreated())
@@ -139,6 +143,7 @@ class ObjectForReviewDAO extends DAO {
 				(int) $objectForReview->getContextId(),
 				(int) $objectForReview->getAvailable(),
 				$this->nullOrInt($objectForReview->getEditorId()),
+				(int) $objectForReview->getPublisherId(),
 				$objectForReview->getNotes(),
 				(int) $objectForReview->getId()
 			)

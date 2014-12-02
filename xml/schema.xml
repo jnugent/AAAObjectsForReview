@@ -151,6 +151,9 @@
 			<NOTNULL/>
 		</field>
 		<field name="editor_id" type="I8"/>
+		<field name="publisher_id" type="I8">
+			<NOTNULL/>
+		</field>
 		<field name="notes" type="X"/>
 		<descr>Objects for review.</descr>
 		<index name="ofr_object_id">
