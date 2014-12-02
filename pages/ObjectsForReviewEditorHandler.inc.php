@@ -982,7 +982,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 		$this->setupTemplate($request, true);
 
 		$rangeInfo = $this->getRangeInfo('users');
-		$users =& $roleDao->getUsersByRoleId(ROLE_ID_READER);
+		$users =& $roleDao->getUsersByRoleId(ROLE_ID_EDITOR);
 
 		$templateMgr->assign_by_ref('users', $users);
 		$templateMgr->assign_by_ref('thisUser', Request::getUser());
@@ -1238,11 +1238,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 		if (!$ofrPlugin->getEnabled()) return false;
 
-		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
-		$user =& $request->getUser();
-		$assignments= $ofrEADao->getAllByUserId($user->getId());
-
-		if (!Validation::isEditor($journal->getId()) && count($assignments) == 0) Validation::redirectLogin();
+		if (!Validation::isEditor($journal->getId())) Validation::redirectLogin();
 
 		return parent::authorize($request, $args, $roleAssignments);
 	}
