@@ -216,7 +216,7 @@ class ObjectForReviewEditorAssignmentDAO extends DAO {
 	}
 
 	/**
-	 * Get all users IDs assigned to  publisher
+	 * Get all users IDs assigned to publisher
 	 * @param $publisherId int
 	 * @return array of user IDs
 	 */

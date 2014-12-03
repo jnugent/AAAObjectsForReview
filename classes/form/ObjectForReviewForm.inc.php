@@ -85,9 +85,21 @@ class ObjectForReviewForm extends Form {
 			unset($result);
 		}
 
-		// Also include readers specifically enrolled as publishers.
+		// Determine if this user is enrolled as a publisher.   If so, limit their access.
 		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
-		$userIds = $ofrEADao->getAllUserIds();
+		$currentUser = $request->getUser();
+
+		$assignments = $ofrEADao->getAllByUserId($currentUser->getId());
+
+		// Also include editors specifically enrolled as publishers.
+		$assignment = null;
+		if (count($assignments) > 0) {
+			$assignment = $assignments[0];
+			$editors = array(); // reset this.
+			$userIds = $ofrEADao->getUserIds($assignment->getPublisherId());
+		} else {
+			$userIds = $ofrEADao->getAllUserIds();
+		}
 		$userDao =& DAORegistry::getDAO('UserDAO');
 		foreach ($userIds as $userId)  {
 			$user =& $userDao->getById($userId);
@@ -106,9 +118,13 @@ class ObjectForReviewForm extends Form {
 		// Get valid publishers for objects.
 		$ofrOrgDao =& DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
 		$organizations = $ofrOrgDao->getOrganizations($journalId);
-		$validOrganizations = array('' => __('plugins.generic.objectsForReview.editor.objectForReview.choosePublisher'));
+		if (!$assignment) {
+			$validOrganizations = array('' => __('plugins.generic.objectsForReview.editor.objectForReview.choosePublisher'));
+		}
 		foreach ($organizations as $organization) {
-			$validOrganizations[$organization->getId()] = $organization->getName();
+			if (!$assignment || $organization->getId() == $assignment->getPublisherId()) {
+				$validOrganizations[$organization->getId()] = $organization->getName();
+			}
 		}
 
 		$templateMgr =& TemplateManager::getManager($request);
