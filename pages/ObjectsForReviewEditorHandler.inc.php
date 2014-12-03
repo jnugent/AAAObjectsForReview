@@ -151,15 +151,18 @@ class ObjectsForReviewEditorHandler extends Handler {
 		$templateMgr->assign('mode', $mode);
 		$templateMgr->assign('returnPage', $path);
 
+		$ofrREADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
+		$assignments = $ofrREADao->getAllByUserId($user->getId());
+
 		if ($path == '') {
 			$rangeInfo = Handler::getRangeInfo('objectsForReview');
 			$ofrDao =& DAORegistry::getDAO('ObjectForReviewDAO');
-			$objectsForReview =& $ofrDao->getAllByContextId($journalId, $searchField, $search, $searchMatch, $status, $editorId, $filterType, $rangeInfo, $sort, $sortDirection);
+			$objectsForReview =& $ofrDao->getAllByContextId($journalId, $searchField, $search, $searchMatch, $status, $editorId, $filterType, $rangeInfo, $sort, $sortDirection, $assignments);
 			$templateMgr->assign_by_ref('objectsForReview', $objectsForReview);
 		} else {
 			$rangeInfo = Handler::getRangeInfo('objectForReviewAssignments');
 			$ofrAssignmentDao =& DAORegistry::getDAO('ObjectForReviewAssignmentDAO');
-			$objectForReviewAssignments =& $ofrAssignmentDao->getAllByContextId($journalId, $searchField, $search, $searchMatch, $status, null, $editorId, $filterType, $rangeInfo, $sort, $sortDirection);
+			$objectForReviewAssignments =& $ofrAssignmentDao->getAllByContextId($journalId, $searchField, $search, $searchMatch, $status, null, $editorId, $filterType, $rangeInfo, $sort, $sortDirection, $assignments);
 			$templateMgr->assign_by_ref('objectForReviewAssignments', $objectForReviewAssignments);
 			$templateMgr->assign('counts', $ofrAssignmentDao->getStatusCounts($journalId));
 		}

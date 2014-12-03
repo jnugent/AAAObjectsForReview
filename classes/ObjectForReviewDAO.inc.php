@@ -235,9 +235,10 @@ class ObjectForReviewDAO extends DAO {
 	 * @param $rangeInfo DBResultRange (optional)
 	 * @param $sortBy string (optional), sorting criteria
 	 * @param $sortDirection int (optional), sorting direction
+	 * @param $assignments Array (optional) the number of assignments given to this user.
 	 * @return DAOResultFactory containing matching ObjectForReviewAssignments
 	 */
-	function &getAllByContextId($contextId, $searchType = null, $search = null, $searchMatch = null, $available = null, $editorId = null, $filterType = null, $rangeInfo = null, $sortBy = null, $sortDirection = SORT_DIRECTION_ASC) {
+	function &getAllByContextId($contextId, $searchType = null, $search = null, $searchMatch = null, $available = null, $editorId = null, $filterType = null, $rangeInfo = null, $sortBy = null, $sortDirection = SORT_DIRECTION_ASC, $assignments = null) {
 		$ofrPlugin =& PluginRegistry::getPlugin('generic', $this->parentPluginName);
 		$ofrPlugin->import('classes.ReviewObjectMetadata');
 
@@ -310,6 +311,12 @@ class ObjectForReviewDAO extends DAO {
 		if (!empty($filterType)) {
 			$sql .= ' ofr.review_object_type_id = ? AND';
 			$params[] = (int) $filterType;
+		}
+
+		if (count($assignments) > 0) {
+			$sql .= ' ofr.publisher_id = ? AND';
+			$assignment = $assignments[0];
+			$params[] = $assignment->getPublisherId();
 		}
 
 		$sql .= " ofr.context_id = ?";
