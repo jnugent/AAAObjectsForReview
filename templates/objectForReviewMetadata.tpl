@@ -62,19 +62,21 @@
 				</tr>
 			{else}
 				{if $metadata->getKey() != REVIEW_OBJECT_METADATA_KEY_TITLE}
-				<tr valign="top">
-					<td class="label" width="20%">{$metadata->getLocalizedName()|escape}:</td>
-					<td class="value" width="80%">
-						{if $objectForReview->getSetting($metadataId)}
-							{if $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_TEXTAREA}
-								{$objectForReview->getSetting($metadataId)|strip_unsafe_html|nl2br}
-							{else}
-								{$objectForReview->getSetting($metadataId)|escape}
-							{/if}
-						{else}&mdash;
-						{/if}
-					</td>
-				</tr>
+					{if $metadata->getKey() != 'netgalley_pdf_url'}
+						<tr valign="top">
+							<td class="label" width="20%">{$metadata->getLocalizedName()|escape}:</td>
+							<td class="value" width="80%">
+								{if $objectForReview->getSetting($metadataId)}
+									{if $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_TEXTAREA}
+										{$objectForReview->getSetting($metadataId)|strip_unsafe_html|nl2br}
+									{else}
+										{$objectForReview->getSetting($metadataId)|escape}
+									{/if}
+								{else}&mdash;
+								{/if}
+							</td>
+						</tr>
+					{/if}
 				{/if}
 			{/if} {* metadata types *}
 		{/if} {* listing or OFR view *}
