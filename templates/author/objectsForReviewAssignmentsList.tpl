@@ -53,6 +53,13 @@
 		{/if}
 	</tr>
 	<tr>
+		<td colspan="6">
+			{if $objectForReview->getSettingByKey('netgalley_pdf_url') != ''}
+				<a href="{$objectForReview->getSettingByKey('netgalley_pdf_url')}">View NetGalley PDF</a>
+			{/if}
+		</td>
+	</tr>
+	<tr>
 		<td colspan="6" class="{if $objectForReviewAssignments->eof()}end{/if}separator">&nbsp;</td>
 	</tr>
 {/iterate}
