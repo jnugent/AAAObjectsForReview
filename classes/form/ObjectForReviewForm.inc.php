@@ -266,6 +266,7 @@ class ObjectForReviewForm extends Form {
 		$reviewObjectMetadataDao =& DAORegistry::getDAO('ReviewObjectMetadataDAO');
 		$reviewObjectTypeMetadata = $reviewObjectMetadataDao->getArrayByReviewObjectTypeId($objectForReview->getReviewObjectTypeId());
 		foreach ($reviewObjectTypeMetadata as $metadataId => $reviewObjectMetadata) {
+			if ($reviewObjectMetadata->getKey() == 'reviewerPDF') { continue; }
 			if (($reviewObjectMetadata->getMetadataType() != REVIEW_OBJECT_METADATA_TYPE_ROLE_DROP_DOWN_BOX) &&
 				($reviewObjectMetadata->getMetadataType() != REVIEW_OBJECT_METADATA_TYPE_COVERPAGE)) {
 					$ofrSettings = $this->getData('ofrSettings');

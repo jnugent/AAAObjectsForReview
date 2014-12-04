@@ -55,7 +55,11 @@
 	<tr>
 		<td colspan="6">
 			{if $objectForReview->getSettingByKey('netgalley_pdf_url') != ''}
-				<a href="{$objectForReview->getSettingByKey('netgalley_pdf_url')}">View NetGalley PDF</a>
+				[<a href="{$objectForReview->getSettingByKey('netgalley_pdf_url')}">View NetGalley PDF</a>]
+			{/if}
+			{if $objectForReview->getReviewerPDF()}
+				{assign var=reviewerPDF value=$objectForReview->getReviewerPDF()}
+				[<a href="javascript:openWindow('{$publicFilesDir}/{$reviewerPDF.reviewerPDFFileName|escape:"url"}');" class="file">{$reviewerPDF.reviewerPDFOriginalFileName|escape}</a>]
 			{/if}
 		</td>
 	</tr>

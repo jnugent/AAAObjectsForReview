@@ -147,43 +147,45 @@ function movePerson(dir, personIndex) {
 			<td colspan="2">&nbsp;</td>
 		</tr>
 	{else}
-		<tr valign="top">
-			<td width="20%" class="label">{$metadata->getLocalizedName()|escape} {if $metadata->getRequired() == 1}*{/if}</td>
-			<td width="80%" class="value">
-				{if $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_SMALL_TEXT_FIELD}
-					<input type="text" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" value="{$ofrSettingValue|escape}" size="20" maxlength="40" class="textField" />
-				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_TEXT_FIELD}
-					<input type="text" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" value="{$ofrSettingValue|escape}" size="60" maxlength="255" class="textField" />
-				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_TEXTAREA}
-					<textarea name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" rows="4" cols="60" class="textArea">{$ofrSettingValue|escape}</textarea>
-				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_CHECKBOXES}
-					{assign var=possibleOptions value=$metadata->getLocalizedPossibleOptions()}
-					{foreach name=options from=$possibleOptions key=optionId item=optionItem}
-						<input type="checkbox" name="ofrSettings[{$metadataId|escape}][]" id="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}" value="{$optionItem.order|escape}"{if !empty($ofrSettingValue) && in_array($optionItem.order, $ofrSettingValue)} checked="checked"{/if} />
-						<label for="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}">{$optionItem.content|escape}</label>
-						<br/>
-					{/foreach}
-				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_RADIO_BUTTONS}
-					{assign var=possibleOptions value=$metadata->getLocalizedPossibleOptions()}
-					{foreach name=options from=$possibleOptions key=optionId item=optionItem}
-						<input type="radio" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}" value="{$optionItem.order|escape}"{if $optionItem.order == $ofrSettingValue} checked="checked"{/if}/><label for="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}">{$optionItem.content|escape}</label><br/>
-					{/foreach}
-					<input type="radio" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}-0" value=""{if 0 == $ofrSettingValue} checked="checked"{/if}/><label for="ofrSettings-{$metadataId|escape}-0">{translate key="plugins.generic.objectsForReview.editor.objectForReview.noAnswer"}</label><br/>
-				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_LANG_DROP_DOWN_BOX}
-					<select name="ofrSettings[{$metadataId|escape}][]" id="ofrSettings-{$metadataId|escape}" size="5" class="selectMenu" multiple="multiple">
-						{html_options options=$validLanguages selected=$ofrSettingValue}
-					</select>
-				{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_DROP_DOWN_BOX}
-					<select name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" size="1" class="selectMenu">
-						<option label="{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}" value="">{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}</option>
+		{if $metadata->getKey() != 'reviewerPDF'}
+			<tr valign="top">
+				<td width="20%" class="label">{$metadata->getLocalizedName()|escape} {if $metadata->getRequired() == 1}*{/if}</td>
+				<td width="80%" class="value">
+					{if $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_SMALL_TEXT_FIELD}
+						<input type="text" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" value="{$ofrSettingValue|escape}" size="20" maxlength="40" class="textField" />
+					{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_TEXT_FIELD}
+						<input type="text" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" value="{$ofrSettingValue|escape}" size="60" maxlength="255" class="textField" />
+					{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_TEXTAREA}
+						<textarea name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" rows="4" cols="60" class="textArea">{$ofrSettingValue|escape}</textarea>
+					{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_CHECKBOXES}
 						{assign var=possibleOptions value=$metadata->getLocalizedPossibleOptions()}
 						{foreach name=options from=$possibleOptions key=optionId item=optionItem}
-							<option label="{$optionItem.content|escape}" value="{$optionItem.order}"{if $optionItem.order == $ofrSettingValue} selected="selected"{/if}>{$optionItem.content|escape}</option>
+							<input type="checkbox" name="ofrSettings[{$metadataId|escape}][]" id="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}" value="{$optionItem.order|escape}"{if !empty($ofrSettingValue) && in_array($optionItem.order, $ofrSettingValue)} checked="checked"{/if} />
+							<label for="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}">{$optionItem.content|escape}</label>
+							<br/>
 						{/foreach}
-					</select>
-				{/if}
-			</td>
-		</tr>
+					{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_RADIO_BUTTONS}
+						{assign var=possibleOptions value=$metadata->getLocalizedPossibleOptions()}
+						{foreach name=options from=$possibleOptions key=optionId item=optionItem}
+							<input type="radio" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}" value="{$optionItem.order|escape}"{if $optionItem.order == $ofrSettingValue} checked="checked"{/if}/><label for="ofrSettings-{$metadataId|escape}-{$optionItem.order|escape}">{$optionItem.content|escape}</label><br/>
+						{/foreach}
+						<input type="radio" name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}-0" value=""{if 0 == $ofrSettingValue} checked="checked"{/if}/><label for="ofrSettings-{$metadataId|escape}-0">{translate key="plugins.generic.objectsForReview.editor.objectForReview.noAnswer"}</label><br/>
+					{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_LANG_DROP_DOWN_BOX}
+						<select name="ofrSettings[{$metadataId|escape}][]" id="ofrSettings-{$metadataId|escape}" size="5" class="selectMenu" multiple="multiple">
+							{html_options options=$validLanguages selected=$ofrSettingValue}
+						</select>
+					{elseif $metadata->getMetadataType() == REVIEW_OBJECT_METADATA_TYPE_DROP_DOWN_BOX}
+						<select name="ofrSettings[{$metadataId|escape}]" id="ofrSettings-{$metadataId|escape}" size="1" class="selectMenu">
+							<option label="{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}" value="">{translate key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption"}</option>
+							{assign var=possibleOptions value=$metadata->getLocalizedPossibleOptions()}
+							{foreach name=options from=$possibleOptions key=optionId item=optionItem}
+								<option label="{$optionItem.content|escape}" value="{$optionItem.order}"{if $optionItem.order == $ofrSettingValue} selected="selected"{/if}>{$optionItem.content|escape}</option>
+							{/foreach}
+						</select>
+					{/if}
+				</td>
+			</tr>
+		{/if}
 	{/if}
 {/foreach}
 	<tr valign="top">
