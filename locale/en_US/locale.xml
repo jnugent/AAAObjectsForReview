@@ -180,10 +180,10 @@
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.coverImage">Cover image</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.coverImageAltText">Cover image alternate text</message>
 
-	<message key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDF">Reviewer PDF Copy</message>
-	<message key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDFInstructions">(Allowed formats: .pdf )</message>
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDF">Review Copy</message>
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDFInstructions">(Recommended format: .pdf )</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.reviewerPDFUploaded">Uploaded</message>
-	<message key="plugins.generic.objectsForReview.editor.objectForReview.removeReviewerPDF">Remove reviewer PDF copy?</message>
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.removeReviewerPDF">Remove review copy?</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.remove">Remove</message>
 
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.onixFile">ONIX XML File</message>
