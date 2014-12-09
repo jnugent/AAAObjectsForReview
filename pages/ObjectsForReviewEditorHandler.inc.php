@@ -153,6 +153,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 		$ofrREADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
 		$assignments = $ofrREADao->getAllByUserId($user->getId());
+		$templateMgr->assign('assignments', $assignments);
 
 		if ($path == '') {
 			$rangeInfo = Handler::getRangeInfo('objectsForReview');
