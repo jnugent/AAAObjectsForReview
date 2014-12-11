@@ -1077,10 +1077,12 @@ class ObjectsForReviewEditorHandler extends Handler {
 					$publisherNode = $productNode->getChildByName($this->_getOnixTag('Publisher', $shortTags));
 					if ($publisherNode) {
 						$publisherNameNode = $publisherNode->getChildByName($this->_getOnixTag('PublisherName', $shortTags));
-						$publisher = $publisherNameNode->getValue();
-						$organization =& $ofrOrgDao->getOrganizationByName(trim($publisher));
-						if ($organization) {
-							$importData['publisherId'] = $organization->getId();
+						if ($publisherNameNode) {
+							$publisher = $publisherNameNode->getValue();
+							$organization =& $ofrOrgDao->getOrganizationByName(trim($publisher));
+							if ($organization) {
+								$importData['publisherId'] = $organization->getId();
+							}
 						}
 					}
 					$websiteNode = $publisherNode->getChildByName($this->_getOnixTag('Website', $shortTags));
