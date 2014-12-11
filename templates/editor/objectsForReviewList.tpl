@@ -64,7 +64,7 @@
 		{assign var=statusString value=$objectForReview->getStatusString()}
 		<td>{translate key=$statusString}</td>
 		<td align="right">
-		{if $objectForReview->getAvailable()}
+		{if $objectForReview->getAvailable() && count($assignments) == 0}
 			{if $mode == $smarty.const.OFR_MODE_FULL}
 				<a {if $objectForReview->getPublisher() == ''}onClick="return confirm('{translate key="plugins.generic.objectsForReview.manager.noPublisherInstructions"}')"{/if} href="{url op="selectObjectForReviewAuthor" path=$objectForReview->getId()}" class="action">{translate key="plugins.generic.objectsForReview.editor.assignObjectReviewer"}</a> |
 			{else}
