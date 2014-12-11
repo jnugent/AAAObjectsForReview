@@ -1139,6 +1139,18 @@ class ObjectsForReviewEditorHandler extends Handler {
 
 					$importData['abstract'] = $abstract;
 
+					// ISBN-13
+					for ($productIdentifierIndex=0; ($node = $productNode->getChildByName($this->_getOnixTag('ProductIdentifier', $shortTags), $productIdentifierIndex)); $productIdentifierIndex++) {
+						$idTypeNode = $node->getChildByName($this->_getOnixTag('ProductIDType', $shortTags));
+						if ($idTypeNode && $idTypeNode->getValue() == '15') { // ISBN-13
+							$textNode = $node->getChildByName($this->_getOnixTag('IDValue', $shortTags));
+							if ($textNode) {
+								$importData['book_isbn'] = $textNode->getValue();
+							}
+							break;
+						}
+					}
+
 					$publicationDateNode = $productNode->getChildByName($this->_getOnixTag('PublicationDate', $shortTags));
 					if ($publicationDateNode) {
 						$publicationDate = $publicationDateNode->getValue();
@@ -1540,6 +1552,9 @@ class ObjectsForReviewEditorHandler extends Handler {
 				'ContributorRole' => 'b035',
 				'Series' => 'series',
 				'TitleOfSeries' => 'b018',
+				'ProductIdentifier' => 'productidentifier',
+				'ProductIDType' => 'b221',
+				'IDValue' => 'b244',
 			);
 
 		return $tags[$tagName];
