@@ -248,6 +248,9 @@
 		<field name="date_reminded_before" type="T"/>
 		<field name="date_reminded_after" type="T"/>
 		<field name="notes" type="X"/>
+		<field name="agreed_to_terms" type="I2">
+			<DEFAULT VALUE="0"/>
+		</field>
 		<descr>Object for review assignments</descr>
 		<index name="ofr_assignments_pkey">
 			<col>object_id</col>

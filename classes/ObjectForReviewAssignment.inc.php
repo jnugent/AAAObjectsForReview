@@ -19,6 +19,7 @@ define('OFR_STATUS_REQUESTED',	0x02);
 define('OFR_STATUS_ASSIGNED',	0x03);
 define('OFR_STATUS_MAILED',		0x04);
 define('OFR_STATUS_SUBMITTED',	0x05);
+define('OFR_STATUS_DECLINED',	0x06);
 
 
 class ObjectForReviewAssignment extends DataObject {
@@ -272,6 +273,22 @@ class ObjectForReviewAssignment extends DataObject {
 	 */
 	function setNotes($notes) {
 		return $this->setData('notes', $notes);
+	}
+
+	/**
+	 * Get agreed to terms flag for review assignment.
+	 * @return int
+	 */
+	function getAgreedToTerms() {
+		return $this->getData('agreedToTerms');
+	}
+
+	/**
+	 * Set agreed to terms flag for review assignment.
+	 * @param $status int
+	 */
+	function setAgreedToTerms($agreedToTerms) {
+		return $this->setData('agreedToTerms', $agreedToTerms);
 	}
 
 }

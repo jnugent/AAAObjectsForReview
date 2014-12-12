@@ -225,7 +225,14 @@
 	<message key="plugins.generic.objectsForReview.author.requestObjectForReview">Request this Object For Review</message>
 
 	<message key="plugins.generic.objectsForReview.author.submit">Submit</message>
+	<message key="plugins.generic.objectsForReview.author.agree">Agree</message>
+	<message key="plugins.generic.objectsForReview.author.decline">Decline</message>
 	<message key="plugins.generic.objectsForReview.author.view">View</message>
+	<message key="plugins.generic.objectsForReview.author.form.agreeRequired">You must check the 'agree' box and resubmit.</message>
+	<message key="plugins.generic.objectsForReview.author.agreeToReview">Agree to Review</message>
+	<message key="plugins.generic.objectsForReview.author.agreeToReviewTerms">
+		By checking the box below, you agree to review this item and also agree to not redistribute or make available any advance review copies that you may be provided with during the course of this review.
+	</message>
 	<!-- Submission -->
 	<message key="plugins.generic.objectsForReview.author.submitInstructions">Please indicate if this submission is a review for any of the following objects assigned to you.</message>
 

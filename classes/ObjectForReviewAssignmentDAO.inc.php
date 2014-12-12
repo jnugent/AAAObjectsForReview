@@ -110,6 +110,7 @@ class ObjectForReviewAssignmentDAO extends DAO {
 		$assignment->setDateRemindedBefore($this->datetimeFromDB($row['date_reminded_before']));
 		$assignment->setDateRemindedAfter($this->datetimeFromDB($row['date_reminded_after']));
 		$assignment->setNotes($row['notes']);
+		$assignment->setAgreedToTerms($row['agreed_to_terms']);
 
 		HookRegistry::call('ObjectForReviewAssignmentDAO::_fromRow', array(&$assignment, &$row));
 
@@ -166,7 +167,8 @@ class ObjectForReviewAssignmentDAO extends DAO {
 					date_due = %s,
 					date_reminded_before = %s,
 					date_reminded_after = %s,
-					notes = ?
+					notes = ?,
+					agreed_to_terms = ?
 				WHERE	assignment_id = ?',
 				$this->datetimeToDB($assignment->getDateRequested()),
 				$this->datetimeToDB($assignment->getDateAssigned()),
@@ -181,6 +183,7 @@ class ObjectForReviewAssignmentDAO extends DAO {
 				$this->nullOrInt($assignment->getSubmissionId()),
 				(int) $assignment->getStatus(),
 				$assignment->getNotes(),
+				(int) $assignment->getAgreedToTerms(),
 				(int) $assignment->getId()
 			)
 		);

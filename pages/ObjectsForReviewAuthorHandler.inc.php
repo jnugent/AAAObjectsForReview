@@ -131,6 +131,49 @@ class ObjectsForReviewAuthorHandler extends Handler {
 	}
 
 	/**
+	 * Show form for author to agree to review an object.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function agreeToReviewObject($args, $request) {
+		$objectId = (int) $args[0];
+		$user = $request->getUser();
+		$journal =& $request->getJournal();
+		if ($objectId) {
+			$ofrAssignmentDao =& DAORegistry::getDAO('ObjectForReviewAssignmentDAO');
+			$objectForReviewAssignment = $ofrAssignmentDao->getByObjectAndUserId($objectId, $user->getId());
+			if ($objectForReviewAssignment) {
+				$ofrPlugin =& $this->_getObjectsForReviewPlugin();
+				$ofrPlugin->import('classes.form.ObjectForReviewReviewAgreementForm');
+				$ofrAgreementForm = new ObjectForReviewReviewAgreementForm($ofrPlugin->getName(), $objectForReviewAssignment->getId(), $objectId);
+				$ofrAgreementForm->readInputData();
+				if ($ofrAgreementForm->validate()) {
+					$ofrAgreementForm->execute();
+					$request->redirect(null, 'author', 'objectsForReview');
+				} else {
+					$this->setupTemplate($request, true);
+					$templateMgr =& TemplateManager::getManager($request);
+					$templateMgr->assign('pageTitle', 'plugins.generic.objectsForReview.author.agreeToReview');
+					$mode = $ofrPlugin->getSetting($journal->getId(), 'mode');
+					$templateMgr->assign('mode', $mode);
+					$ofrAgreementForm->display($request);
+				}
+			} else {
+				$request->redirect(null, 'objectsForReview');
+			}
+		}
+	}
+
+	/**
+	 * Store decline by author to review an object.
+	 * @param array $args
+	 * @param PKPRequest $request
+	 */
+	function declineToReviewObject($args, $request) {
+
+	}
+
+	/**
 	 * Ensure that we have a journal, plugin is enabled, and user is author.
 	 * @see PKPHandler::authorize()
 	 */

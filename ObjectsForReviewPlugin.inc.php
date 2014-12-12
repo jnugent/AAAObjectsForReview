@@ -726,7 +726,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 	function _getObjectsForReviewAuthorPages() {
 		return array(
 					'objectsForReview',
-					'requestObjectForReview'
+					'requestObjectForReview',
+					'agreeToReviewObject',
+					'declineToReviewObject'
 				);
 	}
 }

@@ -15,12 +15,12 @@
 		<td colspan="6" class="headseparator">&nbsp;</td>
 	</tr>
 	<tr class="heading" valign="bottom">
-		<td width="35%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.title" sort="title"}</td>
+		<td width="30%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.title" sort="title"}</td>
 		<td width="15%">{sort_heading key="plugins.generic.objectsForReview.objectsForReview.objectType" sort="type"}</td>
 		<td width="15%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.status" sort="status"}</td>
 		<td width="15%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.editor" sort="editor"}</td>
 		<td width="10%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.dueDate" sort="due"}</td>
-		<td width="10%">{translate key="common.action"}</td>
+		<td width="15%">{translate key="common.action"}</td>
 	</tr>
 	<tr>
 		<td colspan="6" class="headseparator">&nbsp;</td>
@@ -43,26 +43,33 @@
 			<td>&nbsp;</td>
 		{/if}
 		<td>{$objectForReviewAssignment->getDateDue()|date_format:$dateFormatTrunc}</td>
-		{if $status == $smarty.const.OFR_STATUS_ASSIGNED || $status == $smarty.const.OFR_STATUS_MAILED}
+		{if $objectForReviewAssignment->getAgreedToTerms() && ($status == $smarty.const.OFR_STATUS_ASSIGNED || $status == $smarty.const.OFR_STATUS_MAILED)}
 			<td><a href="{url page="author" op="submit"}" class="action">{translate key="plugins.generic.objectsForReview.author.submit"}</a></td>
 		{elseif $status == $smarty.const.OFR_STATUS_SUBMITTED}
 			{assign var=submissionId value=$objectForReviewAssignment->getSubmissionId()}
 			<td><a href="{url page="author" op="submission" path=$submissionId}" class="action">{translate key="plugins.generic.objectsForReview.author.view"}</a></td>
+		{elseif !$objectForReviewAssignment->getAgreedToTerms() && ($status == $smarty.const.OFR_STATUS_ASSIGNED || $status == $smarty.const.OFR_STATUS_MAILED)}
+			<td>
+				<a href="{url page="author" op="agreeToReviewObject" path=$objectForReview->getId()}" class="action">{translate key="plugins.generic.objectsForReview.author.agree"}</a> |
+				<a href="{url page="author" op="declineToReviewObject" path=$objectForReview->getId()}" class="action">{translate key="plugins.generic.objectsForReview.author.decline"}</a>
+			</td>
 		{else}
 			<td>&nbsp;</td>
 		{/if}
 	</tr>
-	<tr>
-		<td colspan="6">
-			{if $objectForReview->getSettingByKey('netgalley_pdf_url') != ''}
-				[<a href="{$objectForReview->getSettingByKey('netgalley_pdf_url')}">View NetGalley PDF</a>]
-			{/if}
-			{if $objectForReview->getReviewerPDF()}
-				{assign var=reviewerPDF value=$objectForReview->getReviewerPDF()}
-				[<a href="javascript:openWindow('{$publicFilesDir}/{$reviewerPDF.reviewerPDFFileName|escape:"url"}');" class="file">{$reviewerPDF.reviewerPDFOriginalFileName|escape}</a>]
-			{/if}
-		</td>
-	</tr>
+	{if $objectForReviewAssignment->getAgreedToTerms()}
+		<tr>
+			<td colspan="6">
+				{if $objectForReview->getSettingByKey('netgalley_pdf_url') != ''}
+					[<a href="{$objectForReview->getSettingByKey('netgalley_pdf_url')}">View NetGalley PDF</a>]
+				{/if}
+				{if $objectForReview->getReviewerPDF()}
+					{assign var=reviewerPDF value=$objectForReview->getReviewerPDF()}
+					[<a href="javascript:openWindow('{$publicFilesDir}/{$reviewerPDF.reviewerPDFFileName|escape:"url"}');" class="file">{$reviewerPDF.reviewerPDFOriginalFileName|escape}</a>]
+				{/if}
+			</td>
+		</tr>
+	{/if}
 	<tr>
 		<td colspan="6" class="{if $objectForReviewAssignments->eof()}end{/if}separator">&nbsp;</td>
 	</tr>
