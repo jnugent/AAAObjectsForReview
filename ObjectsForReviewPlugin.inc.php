@@ -516,7 +516,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 				$authorObjects = array();
 				foreach ($objectForReviewAssignments as $objectForReviewAssignment) {
 					// Consider only assigned and mailed assignments
-					if ($objectForReviewAssignment->getStatus() == OFR_STATUS_ASSIGNED || $objectForReviewAssignment->getStatus() == BFR_STATUS_MAILED) {
+					if ($objectForReviewAssignment->getAgreedToTerms() && ($objectForReviewAssignment->getStatus() == OFR_STATUS_ASSIGNED || $objectForReviewAssignment->getStatus() == BFR_STATUS_MAILED)) {
 						$objectForReview = $ofrDao->getById($objectForReviewAssignment->getObjectId(), $journal->getId());
 						$authorObjects[$objectForReviewAssignment->getObjectId()] = substr($objectForReview->getTitle(), 0, 40);
 					}
