@@ -254,6 +254,8 @@ class ObjectForReviewAssignment extends DataObject {
 				return 'plugins.generic.objectsForReview.objectForReviewAssignment.status.mailed';
 			case OFR_STATUS_SUBMITTED:
 				return 'plugins.generic.objectsForReview.objectForReviewAssignment.status.submitted';
+			case OFR_STATUS_DECLINED:
+				return 'plugins.generic.objectsForReview.objectForReviewAssignment.status.declined';
 			default:
 				return 'plugins.generic.objectsForReview.objectForReviewAssignment.status';
 		}

@@ -68,4 +68,12 @@
 			to_role_id="65536"
 			from_role_id="256"
 		/>
+		<!-- from ROLE_ID_AUTHOR to ROLE_ID_EDITOR -->
+		<email
+			key="OFR_OBJECT_DECLINED"
+			can_edit="1"
+			can_disable="0"
+			to_role_id="256"
+			from_role_id="65536"
+		/>
 </emails>

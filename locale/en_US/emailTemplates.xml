@@ -92,6 +92,17 @@ Can you please confirm whether this object is still available for review?
 {$authorContactSignature}</body>
 		<description>This email is sent to an editor by an author interested in writing an object review for a listed object.</description>
 	</email_text>
+	<email_text key="OFR_OBJECT_DECLINED">
+		<subject>Object for Review: Object Declined</subject>
+		<body>Dear {$editorName}:
+
+I am unable to review the object with the title of {$objectForReviewTitle}.
+
+Thank you for considering me.
+
+{$authorContactSignature}</body>
+		<description>This email is sent by the author to the editor when they decline to review an object.</description>
+	</email_text>
 	<email_text key="OFR_OBJECT_MAILED">
 		<subject>Object for Review: Object Mailed</subject>
 		<body>Dear {$authorName}:

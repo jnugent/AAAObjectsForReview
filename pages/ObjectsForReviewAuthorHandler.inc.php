@@ -170,7 +170,38 @@ class ObjectsForReviewAuthorHandler extends Handler {
 	 * @param PKPRequest $request
 	 */
 	function declineToReviewObject($args, $request) {
+		$journal =& $request->getJournal();
+		$journalId = $journal->getId();
+		$user =& $request->getUser();
 
+		$objectId = !isset($args) || empty($args) ? null : (int) $args[0];
+		if (!$this->_ensureObjectExists($objectId, $journalId)) {
+			$request->redirect(null, 'objectsForReview');
+		}
+		$ofrDao =& DAORegistry::getDAO('ObjectForReviewDAO');
+		$objectForReview =& $ofrDao->getById($objectId);
+		$ofrAssignmentDao =& DAORegistry::getDAO('ObjectForReviewAssignmentDAO');
+		$assignment =& $ofrAssignmentDao->getByObjectAndUserId($objectId, $user->getId());
+
+		$redirect = true;
+		if ($assignment) {
+			import('classes.mail.MailTemplate');
+			$email = new MailTemplate('OFR_OBJECT_DECLINED');
+			$send = $request->getUserVar('send');
+			// Author has filled out mail form or decided to skip email
+			if ($send && !$email->hasErrors()) {
+				// Update object for review as requested
+				$assignment->setStatus(OFR_STATUS_DECLINED);
+				$ofrAssignmentDao->updateObject($assignment);
+				$email->send();
+				$this->_createTrivialNotification(NOTIFICATION_TYPE_OFR_DECLINED, $request);
+			} else {
+				$returnUrl = $request->url(null, 'author', 'declineToReviewObject', $objectId);
+				$this->_displayEmailForm($email, $objectForReview, $user, $returnUrl, 'OFR_OBJECT_DECLINED', $request);
+				$redirect = false;
+			}
+		}
+		if ($redirect) $request->redirect(null, 'objectsForReview');
 	}
 
 	/**

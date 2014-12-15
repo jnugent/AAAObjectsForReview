@@ -36,6 +36,7 @@ define('NOTIFICATION_TYPE_OFR_AUTHOR_MAILED',	NOTIFICATION_TYPE_OFR_PLUGIN_BASE 
 define('NOTIFICATION_TYPE_OFR_AUTHOR_REMOVED',	NOTIFICATION_TYPE_OFR_PLUGIN_BASE + 0x000000E);
 define('NOTIFICATION_TYPE_OFR_SUBMISSION_ASSIGNED',	NOTIFICATION_TYPE_OFR_PLUGIN_BASE + 0x000000F);
 define('NOTIFICATION_TYPE_OFR_SETTINGS_SAVED',	NOTIFICATION_TYPE_OFR_PLUGIN_BASE + 0x0000010);
+define('NOTIFICATION_TYPE_OFR_DECLINED',	NOTIFICATION_TYPE_OFR_PLUGIN_BASE + 0x0000011);
 
 
 class ObjectsForReviewPlugin extends GenericPlugin {
@@ -375,6 +376,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 				break;
 			case NOTIFICATION_TYPE_OFR_SETTINGS_SAVED:
 				$message = __('plugins.generic.objectsForReview.notification.ofrSettingsSaved');
+				break;
+			case NOTIFICATION_TYPE_OFR_DECLINED:
+				$message = __('plugins.generic.objectsForReview.notification.ofrDeclined');
 				break;
 		}
 	}
