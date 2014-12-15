@@ -62,7 +62,7 @@
 				</tr>
 			{else}
 				{if $metadata->getKey() != REVIEW_OBJECT_METADATA_KEY_TITLE}
-					{if $metadata->getKey() != 'netgalley_pdf_url'}
+					{if $metadata->getKey() != 'netgalley_pdf_url' && $metadata->getKey() != 'reviewerPDF'}
 						<tr valign="top">
 							<td class="label" width="20%">{$metadata->getLocalizedName()|escape}:</td>
 							<td class="value" width="80%">
