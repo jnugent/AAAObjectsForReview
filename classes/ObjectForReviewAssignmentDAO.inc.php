@@ -17,6 +17,7 @@
 /* These constants are used for user-selectable search fields. */
 define('OFR_FIELD_TITLE', 		'title');
 define('OFR_FIELD_ABSTRACT', 'description');
+define('OFR_FIELD_KEYWORDS', 'subjectKeywords');
 
 
 class ObjectForReviewAssignmentDAO extends DAO {
@@ -366,6 +367,12 @@ class ObjectForReviewAssignmentDAO extends DAO {
 			case OFR_FIELD_ABSTRACT:
 				$sql .= ' LEFT JOIN object_for_review_settings ofrsa ON (ofra.object_id = ofrsa.object_id)
 					LEFT JOIN review_object_metadata rom ON rom.metadata_id = ofrs.review_object_metadata_id AND rom.metadata_key = \'' . REVIEW_OBJECT_METADATA_KEY_ABSTRACT .'\'
+					WHERE LOWER(ofrs.setting_value) ' . ($searchMatch == 'is' ? '=' : 'LIKE') . ' LOWER(?)';
+				$params[] = $searchMatch == 'is' ? $search : "%$search%";
+				break;
+			case OFR_FIELD_KEYWORDS:
+				$sql .= ' LEFT JOIN object_for_review_settings ofrsa ON (ofra.object_id = ofrsa.object_id)
+					LEFT JOIN review_object_metadata rom ON rom.metadata_id = ofrs.review_object_metadata_id AND rom.metadata_key = \'' . REVIEW_OBJECT_METADATA_KEY_KEYWORDS .'\'
 					WHERE LOWER(ofrs.setting_value) ' . ($searchMatch == 'is' ? '=' : 'LIKE') . ' LOWER(?)';
 				$params[] = $searchMatch == 'is' ? $search : "%$search%";
 				break;

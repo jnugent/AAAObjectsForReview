@@ -32,7 +32,8 @@ class ObjectsForReviewEditorHandler extends Handler {
 		);
 		$fieldOptions = Array(
 			OFR_FIELD_TITLE => 'plugins.generic.objectsForReview.search.field.title',
-			OFR_FIELD_ABSTRACT => 'plugins.generic.objectsForReview.search.field.abstract'
+			OFR_FIELD_ABSTRACT => 'plugins.generic.objectsForReview.search.field.abstract',
+			OFR_FIELD_KEYWORDS => 'plugins.generic.objectsForReview.search.field.subjectKeywords'
 		);
 		$searchField = null;
 		$searchMatch = null;

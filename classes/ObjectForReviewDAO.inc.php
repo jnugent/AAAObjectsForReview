@@ -289,6 +289,12 @@ class ObjectForReviewDAO extends DAO {
 					WHERE roma.metadata_key = \'' . REVIEW_OBJECT_METADATA_KEY_ABSTRACT .'\' AND LOWER(ofrsa.setting_value) ' . ($searchMatch == 'is' ? '=' : 'LIKE') . ' LOWER(?)';
 				$params[] = $searchMatch == 'is' ? $search : "%$search%";
 				break;
+			case OFR_FIELD_KEYWORDS:
+				$sql .= ' LEFT JOIN object_for_review_settings ofrsa ON (ofr.object_id = ofrsa.object_id)
+					LEFT JOIN review_object_metadata roma ON (roma.metadata_id = ofrsa.review_object_metadata_id)
+					WHERE roma.metadata_key = \'' . REVIEW_OBJECT_METADATA_KEY_KEYWORDS .'\' AND LOWER(ofrsa.setting_value) ' . ($searchMatch == 'is' ? '=' : 'LIKE') . ' LOWER(?)';
+				$params[] = $searchMatch == 'is' ? $search : "%$search%";
+				break;
 			default:
 				$searchType = null;
 		}
