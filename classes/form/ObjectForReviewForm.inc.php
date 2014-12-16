@@ -195,7 +195,7 @@ class ObjectForReviewForm extends Form {
 				'persons' => array_key_exists('persons', $this->importData) ? $this->importData['persons'] : null,
 				'editorId' => $user->getId(),
 				'publisherId' => array_key_exists('publisherId', $this->importData) ? $this->importData['publisherId'] : 0,
-				'available' => 1
+				'available' => 0
 			);
 		}
 	}
