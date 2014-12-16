@@ -118,12 +118,18 @@ class ObjectForReviewForm extends Form {
 		// Get valid publishers for objects.
 		$ofrOrgDao =& DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
 		$organizations = $ofrOrgDao->getOrganizations($journalId);
-		if (!$assignment) {
+		if (count($assignments) == 0) {
 			$validOrganizations = array('' => __('plugins.generic.objectsForReview.editor.objectForReview.choosePublisher'));
 		}
 		foreach ($organizations as $organization) {
-			if (!$assignment || $organization->getId() == $assignment->getPublisherId()) {
+			if (count($assignments) == 0)
 				$validOrganizations[$organization->getId()] = $organization->getName();
+			else {
+				foreach ($assignments as $assignment) {
+					if ($assignment->getPublisherId() == $organization->getId()) {
+						$validOrganizations[$organization->getId()] = $organization->getName();
+					}
+				}
 			}
 		}
 
