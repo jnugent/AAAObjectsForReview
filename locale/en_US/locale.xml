@@ -292,6 +292,7 @@
 	<message key="plugins.generic.objectsForReview.object.metadata.copyAvailable.no">No</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.coverPage">Cover Page</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.reviewerPDF">Reviewer PDF</message>
+	<message key="plugins.generic.objectsForReview.object.metadata.subjectKeywords">Subject Keywords</message>
 
 	<!-- Artwork -->
 	<message key="plugins.generic.objectsForReview.object.artwork">Artwork</message>

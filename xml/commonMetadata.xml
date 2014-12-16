@@ -43,5 +43,8 @@
 	<metadata type="singleLineTextBox" required="false" display="false" key="reviewerPDF">
 		<name>plugins.generic.objectsForReview.object.metadata.reviewerPDF</name>
 	</metadata>
+	<metadata type="singleLineTextBox" required="false" display="true" key="subjectKeywords">
+		<name>plugins.generic.objectsForReview.object.metadata.subjectKeywords</name>
+	</metadata>
 	</objectMetadata>
 </object>
