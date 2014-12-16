@@ -56,8 +56,8 @@ class ObjectForReviewEditorAssignment extends DataObject {
 	 * @return ObjectsForReviewOrganization
 	 */
 	function &getPublisher() {
-		$ofrPubDao =& DAORegistry::getDAO('ObjectsForReviewOrganizationDAO');
-		return $ofrPubDao->getById($this->getData('publisherId'));
+		$ofrPubDao =& DAORegistry::getDAO('ObjectForReviewOrganizationDAO');
+		return $ofrPubDao->getOrganization($this->getData('publisherId'));
 	}
 
 	/**

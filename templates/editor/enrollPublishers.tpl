@@ -52,7 +52,8 @@
 			<td width="10%">&nbsp;</td>
 			<td colspan="3">
 				{foreach from=$assignments item=assignment name=a}
-					<a href="{url op="objectsForReviewUnenroll" publisherId=$assignment->getPublisherId() userId=$user->getId()}" class="action">{translate key="plugins.generic.objectsForReview.editor.unenroll" publisher=$publisher->getName()}</a>
+					{assign var=p value=$assignment->getPublisher()}
+					<a href="{url op="objectsForReviewUnenroll" publisherId=$assignment->getPublisherId() userId=$user->getId()}" class="action">{translate key="plugins.generic.objectsForReview.editor.unenroll" publisher=$p->getName()}</a>
 					{if !$smarty.foreach.a.last}, {/if}
 				{/foreach}
 			</td>
