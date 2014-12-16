@@ -80,33 +80,18 @@ class ObjectForReviewForm extends Form {
 		$roleDao =& DAORegistry::getDAO('RoleDAO');
 		$editorsDAOResultFactory =& $roleDao->getUsersByRoleId(ROLE_ID_EDITOR, $journalId, null, null, null, null, 'name');
 		$editors = array();
+		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
 		while ($result =& $editorsDAOResultFactory->next()) {
-			$editors[$result->getData('id')] =& $result->getFullName();
+			$assignments = $ofrEADao->getAllByUserId($result->getData('id'));
+			if (count($assignments) == 0) {
+				$editors[$result->getData('id')] =& $result->getFullName();
+			}
 			unset($result);
 		}
 
-		// Determine if this user is enrolled as a publisher.   If so, limit their access.
-		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
 		$currentUser = $request->getUser();
-
 		$assignments = $ofrEADao->getAllByUserId($currentUser->getId());
 
-		// Also include editors specifically enrolled as publishers.
-		$assignment = null;
-		if (count($assignments) > 0) {
-			$assignment = $assignments[0];
-			$editors = array(); // reset this.
-			$userIds = $ofrEADao->getUserIds($assignment->getPublisherId());
-		} else {
-			$userIds = $ofrEADao->getAllUserIds();
-		}
-		$userDao =& DAORegistry::getDAO('UserDAO');
-		foreach ($userIds as $userId)  {
-			$user =& $userDao->getById($userId);
-			if ($user) {
-				$editors[$user->getId()] =& $user->getFullName();
-			}
-		}
 		// Get language list
 		$languageDao =& DAORegistry::getDAO('LanguageDAO');
 		$languages =& $languageDao->getLanguages();
