@@ -201,7 +201,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 				$redirect = false;
 			}
 		}
-		if ($redirect) $request->redirect(null, 'objectsForReview');
+		if ($redirect) $request->redirect(null, 'author', 'objectsForReview');
 	}
 
 	/**
