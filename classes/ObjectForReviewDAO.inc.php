@@ -320,9 +320,12 @@ class ObjectForReviewDAO extends DAO {
 		}
 
 		if (count($assignments) > 0) {
-			$sql .= ' ofr.publisher_id = ? AND';
-			$assignment = $assignments[0];
-			$params[] = $assignment->getPublisherId();
+			$sql .= ' ofr.publisher_id IN (';
+			for ($i = 0 ; $i < count($assignments) ; $i ++) {
+				$sql .= $assignments[$i]->getPublisherId();
+				$sql .= ($i < (count($assignments) - 1)) ? ',':'';
+			}
+			$sql .= ') AND';
 		}
 
 		$sql .= " ofr.context_id = ?";

@@ -52,9 +52,9 @@
 	<tr>
 		<td colspan="{$colspan}" class="headseparator">&nbsp;</td>
 	</tr>
+{capture assign=noOrg}{translate key="plugins.generic.objectsForReview.manager.noPublisher"}{/capture}
 {iterate from=objectsForReview item=objectForReview}
 {assign var=reviewObjectType value=$objectForReview->getReviewObjectType()}
-{capture assign=noOrg}{translate key="plugins.generic.objectsForReview.manager.noPublisher"}{/capture}
 	<tr valign="top">
 		<td><a href="{url op="editObjectForReview" path=$objectForReview->getId() reviewObjectTypeId=$objectForReview->getReviewObjectTypeId()}" class="action">{$objectForReview->getTitle()|escape|truncate:40:"..."}</a></td>
 		<td>{$objectForReview->getPublisher()|default:$noOrg|escape}</td>
