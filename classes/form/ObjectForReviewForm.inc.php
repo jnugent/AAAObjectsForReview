@@ -90,6 +90,7 @@ class ObjectForReviewForm extends Form {
 		}
 
 		$currentUser = $request->getUser();
+		$isPublisher = false;
 		$assignments = $ofrEADao->getAllByUserId($currentUser->getId());
 
 		// Get language list
@@ -105,6 +106,8 @@ class ObjectForReviewForm extends Form {
 		$organizations = $ofrOrgDao->getOrganizations($journalId);
 		if (count($assignments) == 0) {
 			$validOrganizations = array('' => __('plugins.generic.objectsForReview.editor.objectForReview.choosePublisher'));
+		} else {
+			$isPublisher = true;
 		}
 		foreach ($organizations as $organization) {
 			if (count($assignments) == 0)
@@ -125,6 +128,7 @@ class ObjectForReviewForm extends Form {
 		$templateMgr->assign('validLanguages', $validLanguages);
 		$templateMgr->assign('validOrganizations', $validOrganizations);
 		$templateMgr->assign('objectId', $this->objectId);
+		$templateMgr->assign('isPublisher', $isPublisher);
 		parent::display($request);
 	}
 

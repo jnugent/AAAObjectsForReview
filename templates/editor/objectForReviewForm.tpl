@@ -239,19 +239,21 @@ function movePerson(dir, personIndex) {
 </table>
 </div>
 
-<div class="separator"></div>
-<div id="objectForReviewAvailable">
-<h3>{translate key="plugins.generic.objectsForReview.editor.objectForReview.available"}</h3>
-<p>{translate key="plugins.generic.objectsForReview.editor.objectForReview.availableInstructions"}</p>
-<table class="data" width="100%">
-<tr valign="top">
-	<td width="20%" class="label">{translate key="plugins.generic.objectsForReview.editor.objectForReview.available"}</td>
-	<td width="80%" class="value">
-		<input type="checkbox" name="available" id="available" value="1"{if ($available)} checked="checked"{/if} />
-	</td>
-</tr>
-</table>
-</div>
+{if !$isPublisher}
+	<div class="separator"></div>
+	<div id="objectForReviewAvailable">
+	<h3>{translate key="plugins.generic.objectsForReview.editor.objectForReview.available"}</h3>
+	<p>{translate key="plugins.generic.objectsForReview.editor.objectForReview.availableInstructions"}</p>
+	<table class="data" width="100%">
+	<tr valign="top">
+		<td width="20%" class="label">{translate key="plugins.generic.objectsForReview.editor.objectForReview.available"}</td>
+		<td width="80%" class="value">
+			<input type="checkbox" name="available" id="available" value="1"{if ($available)} checked="checked"{/if} />
+		</td>
+	</tr>
+	</table>
+	</div>
+{/if}
 
 <p><input type="submit" value="{translate key="common.save"}" class="button defaultButton" /> {if not $objectId}<input type="submit" name="createAnother" value="{translate key="plugins.generic.objectsForReview.editor.saveAndCreateAnother"}" class="button" /> {/if}<input type="button" value="{translate key="common.cancel"}" class="button" onclick="history.go(-1);" /></p>
 
