@@ -51,19 +51,10 @@ Thank you for your contribution to the journal and I look forward to receiving y
 		<body>Dear {$authorName}:
 
 This email confirms that {$objectForReviewTitle} has been assigned to you for an object review to be completed by {$objectForReviewDueDate}.
-
-Please ensure that your mailing address in your online user profile is up-to-date. This address will be used to mail a copy of the object to you for the review.
-
-The mailing address that we currently have on file is:
-{$authorMailingAddress}
-
-If this address is incomplete or you are no longer at this address, please use the following user profile URL to update your address:
-
-User Profile URL: {$userProfileUrl}
  
-To submit your object review, please log into the journal website and complete the online article submission process.
+To submit your object review, please log into the journal website and complete the online article submission process.  You will first need to agree to perform the review.
 
-Submission URL: {$submissionUrl}
+Your objects for review can be found here: {$submissionUrl}
 
 Please feel free to contact me if you have any questions or concerns about this object review.
 

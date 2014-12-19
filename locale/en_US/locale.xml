@@ -196,7 +196,7 @@
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.notesInstructions">For the editor only. Not published as part of the object for review.</message>
 
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.assignEditor">Assign an Editor</message>
-	<message key="plugins.generic.objectsForReview.editor.objectForReview.assignPublisher">Assign a Publisher</message>
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.assignPublisher">Select Publisher</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.assignPublisherInstructions">Choose the publisher responsible for this object.</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.editor">Editor</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.assignEditorInstructions">Choose an editor that is responsible for this object for review.</message>
