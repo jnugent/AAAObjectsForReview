@@ -1473,8 +1473,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 					'authorMailingAddress' => String::html2text($userMailingAddress),
 					'objectForReviewTitle' => '"' . strip_tags($objectForReview->getTitle()) . '"',
 					'objectForReviewDueDate' => date('l, F j, Y', $dueDateTimestamp),
-					'userProfileUrl' => $request->url(null, 'user', 'profile'),
-					'submissionUrl' => $request->url(null, 'author', 'submit'),
+					'submissionUrl' => $request->url(null, 'author', 'objectsForReview'),
 					'editorialContactSignature' => String::html2text($editorContactSignature)
 				);
 			} elseif ($action = 'OFR_OBJECT_DENIED') {
