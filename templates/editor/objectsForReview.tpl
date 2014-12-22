@@ -8,19 +8,26 @@
  * Display page for all objects for review for editor management.
  *
  *}
-{assign var="pageTitle" value="plugins.generic.objectsForReview.objectsForReview.pageTitle"}
+ {if count($assignments) > 0}
+	{assign var="pageTitle" value="plugins.generic.objectsForReview.author.myObjectsForReview"}
+{else}
+	{assign var="pageTitle" value="plugins.generic.objectsForReview.objectsForReview.pageTitle"}
+{/if}
 {include file="common/header.tpl"}
 
 <div id="objectsForReview">
 <ul class="menu">
-	<li><a href="{url op="objectsForReview" path="all"}">{translate key="plugins.generic.objectsForReview.editor.assignments"}</a></li>
-	<li class="current"><a href="{url op="objectsForReview"}">{translate key="plugins.generic.objectsForReview.editor.objectsForReview"}</a></li>
-	<li><a href="{url op="objectsForReviewSettings"}">{translate key="plugins.generic.objectsForReview.settings"}</a></li>
+		<li><a href="{url op="objectsForReview" path="all"}">{translate key="plugins.generic.objectsForReview.editor.assignments"}</a></li>
+	{if count($assignments) == 0}
+		<li class="current"><a href="{url op="objectsForReview"}">{translate key="plugins.generic.objectsForReview.editor.objectsForReview"}</a></li>
+		<li><a href="{url op="objectsForReviewSettings"}">{translate key="plugins.generic.objectsForReview.settings"}</a></li>
+	{/if}
 </ul>
 <br />
 
 {include file="../plugins/generic/objectsForReview/templates/editor/objectsForReviewList.tpl"}
 
+<h3>{translate key="plugins.generic.objectsForReview.author.createMasthead"}</h3>
 <form id="createObjectForReview" action="{url op="createObjectForReview"}" method="post"><select name="reviewObjectTypeId" class="selectMenu" size="1">{html_options options=$createTypeOptions}</select>&nbsp;<input type="submit" value="{translate key="common.create"}" class="button defaultButton"/></form>
 
 <div class="separator"></div>

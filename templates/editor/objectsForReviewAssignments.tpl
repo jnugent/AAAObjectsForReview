@@ -15,7 +15,7 @@
 <ul class="menu">
 	<li class="current"><a href="{url op="objectsForReview" path="all"}">{translate key="plugins.generic.objectsForReview.editor.assignments"}</a></li>
 	<li><a href="{url op="objectsForReview"}">{translate key="plugins.generic.objectsForReview.editor.objectsForReview"}</a></li>
-	<li><a href="{url op="objectsForReviewSettings"}">{translate key="plugins.generic.objectsForReview.settings"}</a></li>
+	{if count($assignments) == 0}<li><a href="{url op="objectsForReviewSettings"}">{translate key="plugins.generic.objectsForReview.settings"}</a></li>{/if}
 </ul>
 <br />
 {if $mode == $smarty.const.OFR_MODE_FULL}

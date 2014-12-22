@@ -145,6 +145,7 @@
 	<!-- Objects For Review Assignments Management by Editor -->
 	<message key="plugins.generic.objectsForReview.editor.objectsForReview">Objects For Review</message>
 	<message key="plugins.generic.objectsForReview.editor.assignments">Assignments</message>
+	<message key="plugins.generic.objectsForReview.enrolledEditorInstructions"><![CDATA[This is the publishers landing page. In this software, the role of publisher is sometimes called "editor." Because of potential future uses of this software, "books" in this system are called "objects."]]></message>
 	<!--  Actions -->
 	<message key="plugins.generic.objectsForReview.editor.select">Select</message>
 	<message key="plugins.generic.objectsForReview.editor.assignObjectReviewer">Assign</message>
@@ -223,6 +224,7 @@
 	<!-- Author -->
 	<message key="plugins.generic.objectsForReview.author.objectsForReview">Objects For Review</message>
 	<message key="plugins.generic.objectsForReview.author.myObjectsForReview">My Objects</message>
+	<message key="plugins.generic.objectsForReview.author.createMasthead"><![CDATA[To manually enter in a new object and to upload its files, hit "Create."]]></message>
 	<!--  Actions -->
 	<message key="plugins.generic.objectsForReview.author.requestObjectForReview">Request this Object For Review</message>
 

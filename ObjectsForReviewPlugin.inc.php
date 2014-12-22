@@ -446,9 +446,11 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewEnrollPublishers') . '">' . __('plugins.generic.objectsForReview.enrollPublishers') . '</a></li>
 							</ul>';
 				} else {
-					$output .= '</ul><h3>' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</h3>
+					$output .= '</ul>
+						<p>' . __('plugins.generic.objectsForReview.enrolledEditorInstructions') . '</p>
+					<h3>' . __('plugins.generic.objectsForReview.author.myObjectsForReview') . '</h3>
 							<ul class="plain">
-							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
+							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
 							</ul>';
 				}
 			} elseif ($hookName == 'Templates::Author::Index::AdditionalItems') { // On author's home page
