@@ -212,7 +212,7 @@
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.confirmDelete">This will entirely remove the object and its assignments. Are you sure you want to delete this object?</message>
 
 	<!-- Public -->
-	<message key="plugins.generic.objectsForReview.public.headerLink">Objects For Review</message>
+	<message key="plugins.generic.objectsForReview.public.headerLink">Available Books For Review</message>
 	<message key="plugins.generic.objectsForReview.public.objectsForReview">Objects For Review</message>
 	<message key="plugins.generic.objectsForReview.public.objectForReview">Object For Review</message>
 	<message key="plugins.generic.objectsForReview.public.objectsForReviewInstructions"><![CDATA[<p>To request an object for review:</p><ul><li><a href="{$registerUrl}" target="_parent">Register</a> as an author with this journal.</li><li><a href="{$loginAuthorUrl}" target="_parent">Log in</a> as an author.</li><li>Click on the request link that corresponds to the object of interest.</li></ul>]]></message>
