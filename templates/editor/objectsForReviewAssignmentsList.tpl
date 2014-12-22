@@ -80,8 +80,8 @@
 			{else}
 				<td>
 			{/if}
-			{if $status == $smarty.const.OFR_STATUS_REQUESTED}
-				{if count($assignments) == 0}
+			{if count($assignments) == 0}
+				{if $status == $smarty.const.OFR_STATUS_REQUESTED}
 					<br />
 					<a href="{url op="acceptObjectForReviewAuthor" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.acceptObjectReviewer"}</a>&nbsp;|&nbsp;<a href="{url op="denyObjectForReviewAuthor" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.denyObjectReviewer"}</a></td>
 				{elseif $status == $smarty.const.OFR_STATUS_ASSIGNED}
@@ -96,15 +96,15 @@
 				{elseif $userId && $status == $smarty.const.OFR_STATUS_SUBMITTED}
 					<br />
 					<a href="{url op="removeObjectForReviewAssignment" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.confirmRemoveObjectReviewer"}')">{translate key="plugins.generic.objectsForReview.editor.removeObjectReviewer"}</a></td>
+				{else}
+					&nbsp;</td>
 				{/if}
-			{else}
-				&nbsp;</td>
 			{/if}
 			<td>{$objectForReviewAssignment->getDateDue()|date_format:$dateFormatTrunc}</td>
 		{/if}
 		<td align="right">
+		{assign var=submissionId value=$objectForReviewAssignment->getSubmissionId()}
 		{if count($assignments) == 0}
-			{assign var=submissionId value=$objectForReviewAssignment->getSubmissionId()}
 			{if $submissionId}
 				{translate key="common.id"}: {$submissionId|escape}
 				<br />
@@ -112,7 +112,7 @@
 			{/if}
 				<a href="{url op="selectObjectForReviewSubmission" path=$objectForReviewAssignment->getId() objectId=$objectForReviewAssignment->getObjectId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.select"}</a>
 		{else}
-			&nbsp;
+			&mdash;
 		{/if}
 		</td>
 		<td align="right">{$objectForReview->getEditorInitials()|escape}</td>

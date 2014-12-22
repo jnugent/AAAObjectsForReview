@@ -60,7 +60,7 @@ function movePerson(dir, personIndex) {
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="20%" class="label">{fieldLabel name="persons-$personIndex-firstName" key="user.firstName"}
+			<td width="20%" class="label">{fieldLabel name="persons-$personIndex-firstName" key="user.firstName"} *
 				<input type="hidden" name="persons[{$personIndex|escape}][personId]" value="{$person.personId|escape}" />
 				<input type="hidden" name="persons[{$personIndex|escape}][seq]" value="{$personIndex+1|escape}" />
 			</td>
@@ -73,7 +73,7 @@ function movePerson(dir, personIndex) {
 			<td class="value"><input type="text" name="persons[{$personIndex|escape}][middleName]" id="persons-{$personIndex|escape}-middleName" value="{$person.middleName|escape}" size="20" maxlength="40" class="textField" /></td>
 		</tr>
 		<tr valign="top">
-			<td class="label">{fieldLabel name="persons-$personIndex-lastName" key="user.lastName"}</td>
+			<td class="label">{fieldLabel name="persons-$personIndex-lastName" key="user.lastName"} *</td>
 			<td class="value"><input type="text" name="persons[{$personIndex|escape}][lastName]" id="persons-{$personIndex|escape}-lastName" value="{$person.lastName|escape}" size="20" maxlength="90" class="textField" /></td>
 		</tr>
 		{if $smarty.foreach.persons.total > 1}
@@ -100,7 +100,7 @@ function movePerson(dir, personIndex) {
 				</td>
 			</tr>
 			<tr valign="top">
-				<td width="20%" class="label">{fieldLabel name="persons-0-firstName" key="user.firstName"}
+				<td width="20%" class="label">{fieldLabel name="persons-0-firstName" key="user.firstName"} *
 					<input type="hidden" name="persons[0][personId]" value="0" />
 					<input type="hidden" name="persons[0][seq]" value="1" />
 				</td>
@@ -113,7 +113,7 @@ function movePerson(dir, personIndex) {
 				<td class="value"><input type="text" name="persons[0][middleName]" id="persons-0-middleName" size="20" maxlength="40" class="textField" /></td>
 			</tr>
 			<tr valign="top">
-				<td class="label">{fieldLabel name="persons-0-lastName" key="user.lastName"}</td>
+				<td class="label">{fieldLabel name="persons-0-lastName" key="user.lastName"} *</td>
 				<td class="value"><input type="text" name="persons[0][lastName]" id="persons-0-lastName" size="20" maxlength="90" class="textField" /></td>
 			</tr>
 			{/if}
