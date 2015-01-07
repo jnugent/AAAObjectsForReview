@@ -108,6 +108,7 @@
 	<message key="plugins.generic.objectsForReview.objectsForReview.objectReviewer">Object Reviewer</message>
 	<message key="plugins.generic.objectsForReview.objectsForReview.objectType">Object Type</message>
 	<message key="plugins.generic.objectsForReview.objectsForReview.editor">Editor</message>
+	<message key="plugins.generic.objectsForReview.editor.objectsForReview.clickBelow"><![CDATA[To upload new titles or edit existing titles, please click on "Objects for Review" below.]]></message>
 
 	<!-- Object For Review Assignments -->
 	<message key="plugins.generic.objectsForReview.objectForReviewAssignments.pageTitleAll">Objects For Review Assignments - All</message>
@@ -145,7 +146,7 @@
 	<!-- Objects For Review Assignments Management by Editor -->
 	<message key="plugins.generic.objectsForReview.editor.objectsForReview">Objects For Review</message>
 	<message key="plugins.generic.objectsForReview.editor.assignments">Assignments</message>
-	<message key="plugins.generic.objectsForReview.enrolledEditorInstructions"><![CDATA[This is the publishers landing page. In this software, the role of publisher is sometimes called "editor." Because of potential future uses of this software, "books" in this system are called "objects."]]></message>
+	<message key="plugins.generic.objectsForReview.enrolledEditorInstructions"><![CDATA[This is the publishers landing page. In this software, the role of publisher is sometimes called "editor." Because of potential future uses of this software, "books" in this system are called "objects." <br/><br />To upload new titles or edit existing titles, please click on "Objects for Review" below. ]]></message>
 	<!--  Actions -->
 	<message key="plugins.generic.objectsForReview.editor.select">Select</message>
 	<message key="plugins.generic.objectsForReview.editor.assignObjectReviewer">Assign</message>
