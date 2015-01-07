@@ -491,6 +491,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 
 					$contents = preg_replace('|\[<a.*?>Create Issue</a>\]|', '', $contents);
 					$contents = preg_replace('|\[<a.*?>Notify Users</a>\]|', '', $contents);
+					$contents = preg_replace('|(<a.*?>)?\d+\s+Unassigned(</a>)?|', '', $contents);
+					$contents = preg_replace('|(<a.*?>)?\d+\s+In Review(</a>)?|', '', $contents);
+					$contents = preg_replace('|(<a.*?>)?\d+\s+In Editing(</a>)?|', '', $contents);
 
 					$params[4] = $contents;
 					return true;
