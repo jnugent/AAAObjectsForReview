@@ -65,8 +65,8 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 			// Editor links to review object types and objects for review pages
 			HookRegistry::register('Templates::Editor::Index::AdditionalItems', array($this, 'displayLink'));
 
-			// Potentially remove other links for editors enrolled as publishers.
-			HookRegistry::register('TemplateManager::display', array($this, 'removeLinks'));
+			// Hook against the MyAccount link for Readers to have access.
+			HookRegistry::register('Templates::User::Index::MyAccount', array($this, 'displayLink'));
 
 			// Handler for editor, author and public objects for review pages
 			HookRegistry::register('LoadHandler', array($this, 'callbackLoadHandler'));
@@ -434,69 +434,27 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 			$templateMgr = TemplateManager::getManager();
 
 			if ($hookName == 'Templates::Editor::Index::AdditionalItems') { // On editor's home page
-				$user =& Request::getUser();
-				$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
-				$assignments = $ofrEADao->getAllByUserId($user->getId());
-				if (count($assignments) == 0) {
-					$output .= '<h3>' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</h3><p>';
-					$output .= __('plugins.generic.objectsForReview.editor.objectsForReview.clickBelow') .
-							'</p><ul class="plain">
-							<li>&#187; <a href="' . Request::url(null, 'editor', 'reviewObjectTypes') . '">' . __('plugins.generic.objectsForReview.editor.objectTypes') . '</a></li>
-							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
-							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewPublishers') . '">' . __('plugins.generic.objectsForReview.manageOrganizations') . '</a></li>
-							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewEnrollPublishers') . '">' . __('plugins.generic.objectsForReview.enrollPublishers') . '</a></li>
-							</ul>';
-				} else {
-					$output .= '</ul>
-						<p>' . __('plugins.generic.objectsForReview.enrolledEditorInstructions') . '</p>
-					<h3>' . __('plugins.generic.objectsForReview.author.myObjectsForReview') . '</h3>
-							<ul class="plain">
-							<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
-							</ul>';
-				}
+				$output .= '<h3>' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</h3><p>';
+				$output .= __('plugins.generic.objectsForReview.editor.objectsForReview.clickBelow') .
+						'</p><ul class="plain">
+						<li>&#187; <a href="' . Request::url(null, 'editor', 'reviewObjectTypes') . '">' . __('plugins.generic.objectsForReview.editor.objectTypes') . '</a></li>
+						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
+						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewPublishers') . '">' . __('plugins.generic.objectsForReview.manageOrganizations') . '</a></li>
+						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewEnrollPublishers') . '">' . __('plugins.generic.objectsForReview.enrollPublishers') . '</a></li>
+						</ul>';
 			} elseif ($hookName == 'Templates::Author::Index::AdditionalItems') { // On author's home page
 				$output .= '<br /><div class="separator"></div><h3>' . __('plugins.generic.objectsForReview.author.objectsForReview') . '</h3><ul class="plain"><li>&#187; <a href="' . Request::url(null, 'author', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.author.myObjectsForReview') . '</a></li></ul><br />';
 			} elseif ($hookName == 'Templates::Common::Header::Navbar::CurrentJournal' && $this->getSetting($journal->getId(), 'displayListing')) { // In the main nav bar
 				$output .= '<li><a href="' . Request::url(null, 'objectsForReview') . '" target="_parent">' . __('plugins.generic.objectsForReview.public.headerLink') . '</a></li>';
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Potentially remove other editor links from publisher pages.
-	 * @param $hookName string
-	 * TemplateManager::display
-	 * @param $args array
-	 * @return boolean false to continue processing subsequent hooks
-	 */
-	function removeLinks($hookName, $params) {
-		if ($this->getEnabled()) {
-			$smarty =& $params[0];
-			$templateName =& $params[1];
-			$journal =& Request::getJournal();
-			$templateMgr = TemplateManager::getManager();
-
-			if ($templateName == 'editor/index.tpl' || $templateName == 'user/index.tpl') { // On editor's home page
+			} elseif ($hookName == 'Templates::User::Index::MyAccount') {
 				$user =& Request::getUser();
 				$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
 				$assignments = $ofrEADao->getAllByUserId($user->getId());
-
 				if (count($assignments) > 0) {
-					$contents = $smarty->fetch($templateName);
-					$contents = preg_replace('|<div\s+id="issues">.*?</div>|s', '', $contents);
-					$contents = preg_replace('|<div\s+id="articleSubmissions">.*?</div>\s*<div\s+class="separator">.*?</div>|s', '', $contents);
-					$contents = preg_replace('|(<div\s+id="content">.*?)<form.+?action="[^"]+?editor/index/search".*?>.*?</form>|s', '$1', $contents);
-					$contents = preg_replace('|<div\s+class="separator">.*?</div>|s', '', $contents);
-
-					$contents = preg_replace('|\[<a.*?>Create Issue</a>\]|', '', $contents);
-					$contents = preg_replace('|\[<a.*?>Notify Users</a>\]|', '', $contents);
-					$contents = preg_replace('|(<a.*?>)?\d+\s+Unassigned(</a>)?|', '', $contents);
-					$contents = preg_replace('|(<a.*?>)?\d+\s+In Review(</a>)?|', '', $contents);
-					$contents = preg_replace('|(<a.*?>)?\d+\s+In Editing(</a>)?|', '', $contents);
-
-					$params[4] = $contents;
-					return true;
+				$output .= '</ul><h3>' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</h3>
+						<ul class="plain">
+						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
+						</ul>';
 				}
 			}
 		}
