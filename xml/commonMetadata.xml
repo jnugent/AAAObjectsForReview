@@ -30,13 +30,6 @@
 	<metadata type="extendedTextBox" required="false" display="false" key="abstract">
 		<name>plugins.generic.objectsForReview.object.metadata.abstract</name>
 	</metadata>
-	<metadata type="radioButtons" required="false" display="true" key="copy">
-		<name>plugins.generic.objectsForReview.object.metadata.copyAvailable</name>
-		<selectionOptions>
-			<selectionOption>plugins.generic.objectsForReview.object.metadata.copyAvailable.yes</selectionOption>
-			<selectionOption>plugins.generic.objectsForReview.object.metadata.copyAvailable.no</selectionOption>
-		</selectionOptions>
-	</metadata>
 	<metadata type="coverPage" required="false" display="true" key="coverPage"> 
 		<name>plugins.generic.objectsForReview.object.metadata.coverPage</name>
 	</metadata>

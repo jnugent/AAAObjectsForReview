@@ -224,7 +224,7 @@
 
 	<!-- Author -->
 	<message key="plugins.generic.objectsForReview.author.objectsForReview">Objects For Review</message>
-	<message key="plugins.generic.objectsForReview.author.myObjectsForReview">My Objects</message>
+	<message key="plugins.generic.objectsForReview.author.myObjectsForReview">Create and Manage My Review Objects</message>
 	<message key="plugins.generic.objectsForReview.author.createMasthead"><![CDATA[To manually enter in a new object and to upload its files, hit "Create."]]></message>
 	<!--  Actions -->
 	<message key="plugins.generic.objectsForReview.author.requestObjectForReview">Request this Object For Review</message>
@@ -288,7 +288,7 @@
 	<message key="plugins.generic.objectsForReview.object.metadata.date">Date</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.language">Language</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.shortTitle">Short Title</message>
-	<message key="plugins.generic.objectsForReview.object.metadata.url">URL</message>
+	<message key="plugins.generic.objectsForReview.object.metadata.url">URL to Object on Publisher Website</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.rights">Rights</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.abstract">Abstract</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.copyAvailable">Copy available</message>
