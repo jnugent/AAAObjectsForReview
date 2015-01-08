@@ -48,7 +48,7 @@
 	<tr class="heading" valign="bottom">
 		<td width="30%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.title" sort="title"}</td>
 		<td width="7%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.status" sort="status"}</td>
-		<td width="25%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.objectReviewer" sort="reviewer"}</td>
+		{if count($assignments) == 0}<td width="25%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.objectReviewer" sort="reviewer"}</td>{/if}
 		<td width="15%">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.dueDate" sort="due"}</td>
 		<td width="18%" align="right">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.submission" sort="submission"}</td>
 		<td width="5%" align="right">{sort_heading key="plugins.generic.objectsForReview.objectForReviewAssignments.editor" sort="editor"}</td>
@@ -72,32 +72,34 @@
 		{assign var=userId value=$objectForReviewAssignment->getUserId()}
 		<td>{translate key=$statusString}</td>
 		{if $mode == $smarty.const.OFR_MODE_FULL}
-			{if $userId}
-				{assign var=author value=$objectForReviewAssignment->getUser()}
-				{assign var=emailString value=$author->getFullName()|concat:" <":$author->getEmail():">"}
-				{url|assign:"url" page="user" op="email" to=$emailString|to_array redirectUrl=$currentUrl}
-				<td>{$author->getFullName()|escape}&nbsp;{icon name="mail" url=$url}
-			{else}
-				<td>
-			{/if}
 			{if count($assignments) == 0}
-				{if $status == $smarty.const.OFR_STATUS_REQUESTED}
-					<br />
-					<a href="{url op="acceptObjectForReviewAuthor" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.acceptObjectReviewer"}</a>&nbsp;|&nbsp;<a href="{url op="denyObjectForReviewAuthor" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.denyObjectReviewer"}</a></td>
-				{elseif $status == $smarty.const.OFR_STATUS_ASSIGNED}
-					<br />
-					{if $objectForReview->getCopy()}
-						<a href="{url op="notifyObjectForReviewMailed" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.notifyObjectMailed"}</a>&nbsp;|
-					{/if}
-					<a href="{url op="removeObjectForReviewAssignment" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.confirmRemoveObjectReviewer"}')">{translate key="plugins.generic.objectsForReview.editor.removeObjectReviewer"}</a></td>
-				{elseif $status == $smarty.const.OFR_STATUS_MAILED}
-					<br />
-					<a href="{url op="removeObjectForReviewAssignment" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.confirmRemoveObjectReviewer"}')">{translate key="plugins.generic.objectsForReview.editor.removeObjectReviewer"}</a></td>
-				{elseif $userId && $status == $smarty.const.OFR_STATUS_SUBMITTED}
-					<br />
-					<a href="{url op="removeObjectForReviewAssignment" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.confirmRemoveObjectReviewer"}')">{translate key="plugins.generic.objectsForReview.editor.removeObjectReviewer"}</a></td>
+				{if $userId}
+					{assign var=author value=$objectForReviewAssignment->getUser()}
+					{assign var=emailString value=$author->getFullName()|concat:" <":$author->getEmail():">"}
+					{url|assign:"url" page="user" op="email" to=$emailString|to_array redirectUrl=$currentUrl}
+					<td>{$author->getFullName()|escape}&nbsp;{icon name="mail" url=$url}
 				{else}
-					&nbsp;</td>
+					<td>
+				{/if}
+				{if count($assignments) == 0}
+					{if $status == $smarty.const.OFR_STATUS_REQUESTED}
+						<br />
+						<a href="{url op="acceptObjectForReviewAuthor" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.acceptObjectReviewer"}</a>&nbsp;|&nbsp;<a href="{url op="denyObjectForReviewAuthor" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.denyObjectReviewer"}</a></td>
+					{elseif $status == $smarty.const.OFR_STATUS_ASSIGNED}
+						<br />
+						{if $objectForReview->getCopy()}
+							<a href="{url op="notifyObjectForReviewMailed" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action">{translate key="plugins.generic.objectsForReview.editor.notifyObjectMailed"}</a>&nbsp;|
+						{/if}
+						<a href="{url op="removeObjectForReviewAssignment" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.confirmRemoveObjectReviewer"}')">{translate key="plugins.generic.objectsForReview.editor.removeObjectReviewer"}</a></td>
+					{elseif $status == $smarty.const.OFR_STATUS_MAILED}
+						<br />
+						<a href="{url op="removeObjectForReviewAssignment" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.confirmRemoveObjectReviewer"}')">{translate key="plugins.generic.objectsForReview.editor.removeObjectReviewer"}</a></td>
+					{elseif $userId && $status == $smarty.const.OFR_STATUS_SUBMITTED}
+						<br />
+						<a href="{url op="removeObjectForReviewAssignment" path=$objectForReviewAssignment->getId() returnPage=$returnPage}" class="action" onclick="return confirm('{translate|escape:"jsparam" key="plugins.generic.objectsForReview.editor.confirmRemoveObjectReviewer"}')">{translate key="plugins.generic.objectsForReview.editor.removeObjectReviewer"}</a></td>
+					{else}
+						&nbsp;</td>
+					{/if}
 				{/if}
 			{/if}
 			<td>{$objectForReviewAssignment->getDateDue()|date_format:$dateFormatTrunc}</td>
