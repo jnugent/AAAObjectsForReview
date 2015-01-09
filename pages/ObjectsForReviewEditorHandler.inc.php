@@ -56,7 +56,7 @@ class ObjectsForReviewEditorHandler extends Handler {
 			$user->updateSetting('filterEditor', $filterEditor, 'int', $journalId);
 		} else {
 			$filterEditor = $user->getSetting('filterEditor', $journalId);
-			if ($filterEditor == null) {
+			if ($filterEditor == null || !Validation::isEditor($journal->getId())) {
 				$filterEditor = FILTER_EDITOR_ALL;
 				$user->updateSetting('filterEditor', $filterEditor, 'int', $journalId);
 			}

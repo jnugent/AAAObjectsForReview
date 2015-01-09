@@ -195,9 +195,12 @@ class ObjectForReviewForm extends Form {
 				}
 			}
 
+			$request =& Application::getRequest();
+			$journal =& $request->getJournal();
+
 			$this->_data = array('ofrSettings' => $ofrSettings,
 				'persons' => array_key_exists('persons', $this->importData) ? $this->importData['persons'] : null,
-				'editorId' => $user->getId(),
+				'editorId' => Validation::isEditor($journal->getId()) ? $user->getId() : null,
 				'publisherId' => array_key_exists('publisherId', $this->importData) ? $this->importData['publisherId'] : 0,
 				'available' => 0
 			);
