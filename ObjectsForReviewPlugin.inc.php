@@ -438,7 +438,7 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 				$output .= __('plugins.generic.objectsForReview.editor.objectsForReview.clickBelow') .
 						'</p><ul class="plain">
 						<li>&#187; <a href="' . Request::url(null, 'editor', 'reviewObjectTypes') . '">' . __('plugins.generic.objectsForReview.editor.objectTypes') . '</a></li>
-						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
+						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview') . '">' . __('plugins.generic.objectsForReview.objectsForReview.myObjectsForReview') . '</a></li>
 						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewPublishers') . '">' . __('plugins.generic.objectsForReview.manageOrganizations') . '</a></li>
 						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReviewEnrollPublishers') . '">' . __('plugins.generic.objectsForReview.enrollPublishers') . '</a></li>
 						</ul>';
@@ -451,9 +451,10 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 				$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
 				$assignments = $ofrEADao->getAllByUserId($user->getId());
 				if (count($assignments) > 0) {
-				$output .= '</ul><h3>' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</h3>
-						<ul class="plain">
-						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview', 'all') . '">' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</a></li>
+				$output .= '</ul><h3>' . __('plugins.generic.objectsForReview.editor.objectsForReview') . '</h3><p>';
+				$output .= __('plugins.generic.objectsForReview.editor.objectsForReview.clickBelow') .
+						'</p><ul class="plain">
+						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview') . '">' . __('plugins.generic.objectsForReview.objectsForReview.myObjectsForReview') . '</a></li>
 						</ul>';
 				}
 			}

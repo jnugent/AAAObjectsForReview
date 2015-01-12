@@ -100,6 +100,7 @@
 	<message key="plugins.generic.objectsForReview.sort.sortDirectionDesc">Descending</message>
 
 	<!-- Objects For Review -->
+	<message key="plugins.generic.objectsForReview.objectsForReview.myObjectsForReview">My Review Objects</message>
 	<message key="plugins.generic.objectsForReview.objectsForReview.pageTitle">Objects For Review</message>
 	<message key="plugins.generic.objectsForReview.objectsForReview.noneCreated">No objects for review</message>	
 	<message key="plugins.generic.objectsForReview.objectsForReview.title">Title</message>
@@ -145,7 +146,7 @@
 
 	<!-- Objects For Review Assignments Management by Editor -->
 	<message key="plugins.generic.objectsForReview.editor.objectsForReview">Objects For Review</message>
-	<message key="plugins.generic.objectsForReview.editor.assignments">Assignments</message>
+	<message key="plugins.generic.objectsForReview.editor.assignments">Assignment Status</message>
 	<message key="plugins.generic.objectsForReview.enrolledEditorInstructions"><![CDATA[This is the publishers landing page. In this software, the role of publisher is sometimes called "editor." Because of potential future uses of this software, "books" in this system are called "objects." <br/><br />To upload new titles or edit existing titles, please click on "Objects for Review" below. ]]></message>
 	<!--  Actions -->
 	<message key="plugins.generic.objectsForReview.editor.select">Select</message>
@@ -165,6 +166,7 @@
 
 	<!-- Object For Review Edit -->
 	<message key="plugins.generic.objectsForReview.editor.objectForReview">Object For Review</message>
+	<message key="plugins.generic.objectsForReview.editor.objectForReview.editInstructions">This is where you can edit the book description and metadata, upload cover image, and upload a digital file for review.</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.chooseLanguage">Choose language</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.choosePublisher">Choose Publisher</message>
 	<message key="plugins.generic.objectsForReview.editor.objectForReview.chooseOption">Choose option</message>
