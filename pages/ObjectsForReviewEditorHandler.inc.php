@@ -1152,6 +1152,17 @@ class ObjectsForReviewEditorHandler extends Handler {
 						}
 					}
 
+					// Subjects
+					$importData['subjectKeywords'] = '';
+					$subjects = array();
+					for ($subjectIndex=0; ($node = $productNode->getChildByName($this->_getOnixTag('Subject', $shortTags), $subjectIndex)); $subjectIndex++) {
+						$textNode = $node->getChildByName($this->_getOnixTag('SubjectHeadingText', $shortTags));
+						if ($textNode) {
+							$subjects[] = $textNode->getValue();
+						}
+					}
+					$importData['subjectKeywords'] = join(', ', $subjects);
+
 					$publicationDateNode = $productNode->getChildByName($this->_getOnixTag('PublicationDate', $shortTags));
 					if ($publicationDateNode) {
 						$publicationDate = $publicationDateNode->getValue();
@@ -1559,6 +1570,8 @@ class ObjectsForReviewEditorHandler extends Handler {
 				'ProductIdentifier' => 'productidentifier',
 				'ProductIDType' => 'b221',
 				'IDValue' => 'b244',
+				'Subject' => 'subject',
+				'SubjectHeadingText' => 'b070',
 			);
 
 		return $tags[$tagName];

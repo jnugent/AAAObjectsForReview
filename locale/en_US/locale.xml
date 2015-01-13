@@ -92,7 +92,7 @@
 	<!-- Search, filter, sort -->
 	<message key="plugins.generic.objectsForReview.search.field.title">Title</message>
 	<message key="plugins.generic.objectsForReview.search.field.abstract">Abstract</message>
-	<message key="plugins.generic.objectsForReview.search.field.subjectKeywords">Subject Keywords</message>
+	<message key="plugins.generic.objectsForReview.search.field.subjectKeywords">Subject Areas</message>
 	<message key="plugins.generic.objectsForReview.search.noResults">No search results</message>
 	<message key="plugins.generic.objectsForReview.filter.filterBy">Filter by</message>
 	<message key="plugins.generic.objectsForReview.sort.sortBy">Sort by</message>
