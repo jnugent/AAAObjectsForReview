@@ -9,6 +9,9 @@
 	<metadata type="singleLineTextBox" required="true" display="true" key="title">
 		<name>plugins.generic.objectsForReview.object.metadata.title</name>
 	</metadata>
+	<metadata type="singleLineTextBox" required="false" display="false" key="shortTitle">
+		<name>plugins.generic.objectsForReview.object.metadata.shortTitle</name>
+	</metadata>
 	<metadata type="roleDropDownBox" required="false" display="true" key="role"> 
 		<name>plugins.generic.objectsForReview.object.metadata.person</name>
 	</metadata>
@@ -17,9 +20,6 @@
 	</metadata>
 	<metadata type="languageDropDownBox" required="false" display="false" key="language">
 		<name>plugins.generic.objectsForReview.object.metadata.language</name>
-	</metadata>
-	<metadata type="singleLineTextBox" required="false" display="false" key="shortTitle">
-		<name>plugins.generic.objectsForReview.object.metadata.shortTitle</name>
 	</metadata>
 	<metadata type="singleLineTextBox" required="false" display="false" key="url">
 		<name>plugins.generic.objectsForReview.object.metadata.url</name>
