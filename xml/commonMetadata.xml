@@ -24,9 +24,6 @@
 	<metadata type="singleLineTextBox" required="false" display="false" key="url">
 		<name>plugins.generic.objectsForReview.object.metadata.url</name>
 	</metadata>
-	<metadata type="singleLineTextBox" required="false" display="false" key="rights">
-		<name>plugins.generic.objectsForReview.object.metadata.rights</name>
-	</metadata>
 	<metadata type="extendedTextBox" required="false" display="false" key="abstract">
 		<name>plugins.generic.objectsForReview.object.metadata.abstract</name>
 	</metadata>
