@@ -287,10 +287,10 @@
 	<!-- Common Metadata -->
 	<message key="plugins.generic.objectsForReview.object.metadata.title">Title</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.person">Person</message>
-	<message key="plugins.generic.objectsForReview.object.metadata.date">Date</message>
+	<message key="plugins.generic.objectsForReview.object.metadata.date">Publication Date</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.language">Language</message>
-	<message key="plugins.generic.objectsForReview.object.metadata.shortTitle">Short Title</message>
-	<message key="plugins.generic.objectsForReview.object.metadata.url">URL to Object on Publisher Website</message>
+	<message key="plugins.generic.objectsForReview.object.metadata.shortTitle">Subtitle</message>
+	<message key="plugins.generic.objectsForReview.object.metadata.url">Book webpage</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.rights">Rights</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.abstract">Abstract</message>
 	<message key="plugins.generic.objectsForReview.object.metadata.copyAvailable">Copy available</message>
