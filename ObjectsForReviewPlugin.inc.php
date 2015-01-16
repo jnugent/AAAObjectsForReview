@@ -110,6 +110,9 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 					HookRegistry::register ('TemplateManager::display', array(&$this, 'handleTemplateDisplay'));
 					HookRegistry::register ('Templates::Article::MoreInfo', array(&$this, 'displayAbstract'));
 				}
+
+				// remove side bar editor links for enrolled publishers.
+				HookRegistry::register('TemplateManager::display', array($this, 'removeLinks'));
 			}
 		}
 		return $success;
@@ -457,6 +460,29 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 						<li>&#187; <a href="' . Request::url(null, 'editor', 'objectsForReview') . '">' . __('plugins.generic.objectsForReview.objectsForReview.myObjectsForReview') . '</a></li>
 						</ul>';
 				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Remove editor links from the right side bar for enrolled publishers.
+	 * @param String $hookName
+	 * @param array $params
+	 */
+	function removeLinks($hookName, $params) {
+
+		$user =& Request::getUser();
+		$ofrEADao =& DAORegistry::getDAO('ObjectForReviewEditorAssignmentDAO');
+		if ($this->getEnabled() && $user) {
+			$assignments = $ofrEADao->getAllByUserId($user->getId());
+			if (count($assignments) > 0) {
+				$smarty =& $params[0];
+				$templateName =& $params[1];
+				$contents = $smarty->fetch($templateName);
+				$contents = preg_replace('|<div\s+[^>]*?id="sidebarEditor">.*?</div>|s', '', $contents);
+				$params[4] = $contents;
+				return true;
 			}
 		}
 		return false;
