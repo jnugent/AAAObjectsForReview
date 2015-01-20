@@ -723,7 +723,8 @@ class ObjectsForReviewPlugin extends GenericPlugin {
 					'objectsForReview',
 					'requestObjectForReview',
 					'agreeToReviewObject',
-					'declineToReviewObject'
+					'declineToReviewObject',
+					'objectsForReviewLogin',
 				);
 	}
 }
