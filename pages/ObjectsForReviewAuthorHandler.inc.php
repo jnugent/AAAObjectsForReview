@@ -217,6 +217,9 @@ class ObjectsForReviewAuthorHandler extends Handler {
 
 		$token = $request->getUserVar('token');
 		if ($token) {
+			$result = $this->_doAuthenticate();
+
+			error_log($result);
 			error_log($token);
 		}
 	}
@@ -332,22 +335,14 @@ class ObjectsForReviewAuthorHandler extends Handler {
 
 	/**
 	 * Do the actual web SOAP service request.
-	 * @param $action string
-	 * @param $arg string
-	 * @param $authToken string
 	 * @param $token string
 	 * @return boolean|string True for success, an error message otherwise.
 	 */
-	function _doRequest($action, $arg, $authToken, $token) {
+	function _doRequest($token) {
 		// Build the multipart SOAP message from scratch.
 		$soapMessage =
 		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.avectra.com/2005/">
-			<soapenv:Header>
-				<ns:AuthorizationToken>
-					<!--Optional:-->
-					<ns:Token>' . $authToken . '</ns:Token>
-			</ns:AuthorizationToken>
-		</soapenv:Header>
+			<soapenv:Header />
 		<soapenv:Body>
 			<ns:BNEGetIndividualInformation>
 				<!--Optional:-->
@@ -360,10 +355,6 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		$curlCh = curl_init ();
 		curl_setopt($curlCh, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curlCh, CURLOPT_POST, true);
-
-		// Set up basic authentication.
-		curl_setopt($curlCh, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		curl_setopt($curlCh, CURLOPT_USERPWD, $this->_auth);
 
 		// Set up SSL.
 		curl_setopt($curlCh, CURLOPT_SSLVERSION, 3);
@@ -381,6 +372,83 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		$result = true;
 		$response = curl_exec($curlCh);
 
+		// We do not localize our error messages as they are all
+		// fatal errors anyway and must be analyzed by technical staff.
+		if ($response === false) {
+			$result = 'OJS-OFR: Expected string response.';
+		}
+
+		if ($result === true && ($status = curl_getinfo($curlCh, CURLINFO_HTTP_CODE)) != OFR_WS_RESPONSE_OK) {
+			$result = 'OJS-OFR: Expected ' . OFR_WS_RESPONSE_OK . ' response code, got ' . $status . ' instead.';
+		}
+
+		curl_close($curlCh);
+
+		// Check SOAP response by simple string manipulation rather
+		// than instantiating a DOM.
+		if (is_string($response)) {
+			$matches = array();
+			String::regexp_match_get('#<faultstring>([^<]*)</faultstring>#', $response, $matches);
+			if (empty($matches)) {
+				if ($attachment) {
+					assert(String::regexp_match('#<returnCode>success</returnCode>#', $response));
+				} else {
+					$parts = explode("\r\n\r\n", $response);
+					$result = array_pop($parts);
+					$result = String::regexp_replace('/>[^>]*$/', '>', $result);
+				}
+			} else {
+				$result = 'OFR: ' . $status . ' - ' . $matches[1];
+			}
+		} else {
+			$result = 'OJS-OFR: Expected string response.';
+		}
+
+		return $result;
+	}
+
+	function _doAuthenticate() {
+		// Build the multipart SOAP message from scratch.
+		$soapMessage =
+		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.avectra.com/2005/">
+			<soapenv:Header />
+			<soapenv:Body>
+				<ns:Authenticate>
+					<ns:userName>confexxwebuser</ns:userName>
+					<ns:password>123</ns:password>
+				</ns:Authenticate>
+			</soapenv:Body>
+		</soapenv:Envelope>';
+
+		// Prepare HTTP session.
+		$curlCh = curl_init();
+		curl_setopt($curlCh, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curlCh, CURLOPT_POST, true);
+		curl_setopt($curlCh, CURLOPT_VERBOSE, true);
+
+		// Set up SSL.
+		curl_setopt($curlCh, CURLOPT_SSLVERSION, 3);
+		curl_setopt($curlCh, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curlCh, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+
+		// Make SOAP request.
+		curl_setopt($curlCh, CURLOPT_URL, 'https://avectra.aaanet.org/netforumanthrotest/xweb/secure/BNEANTHROWS.asmx');
+		$extraHeaders = array(
+				'Host: avectra.aaanet.org',
+				'SOAPAction: "http://www.avectra.com/2005/Authenticate"',
+				'Content-Length: 334',
+				'Content-Type: text/xml;charset=UTF-8',
+				'UserAgent: OJS-OFR'
+		);
+		curl_setopt($curlCh, CURLOPT_HTTPHEADER, $extraHeaders);
+		curl_setopt($curlCh, CURLOPT_POSTFIELDS, $soapMessage);
+
+		$result = true;
+		$response = curl_exec($curlCh);
+		error_log(curl_error($curlCh));
+		error_log(curl_errno($curlCh));
+
+		error_log($response);
 		// We do not localize our error messages as they are all
 		// fatal errors anyway and must be analyzed by technical staff.
 		if ($response === false) {
