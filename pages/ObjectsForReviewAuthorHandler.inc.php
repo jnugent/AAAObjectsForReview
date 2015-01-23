@@ -217,7 +217,10 @@ class ObjectsForReviewAuthorHandler extends Handler {
 
 		$token = $request->getUserVar('token');
 		if ($token) {
-			$result = $this->_doAuthenticate();
+			$authToken = $this->_doAuthenticate();
+			if ($authToken) {
+				$userResult = $this->_doUserRequest($token, $authToken);
+			}
 		}
 	}
 
@@ -333,16 +336,20 @@ class ObjectsForReviewAuthorHandler extends Handler {
 	/**
 	 * Do the actual web SOAP service request.
 	 * @param $token string
+	 * @param $authToken string The token returned from _doAuthenticate
 	 * @return boolean|string True for success, an error message otherwise.
 	 */
-	function _doRequest($token) {
+	function _doUserRequest($token, $authToken) {
 		// Build the multipart SOAP message from scratch.
 		$soapMessage =
 		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.avectra.com/2005/">
-			<soapenv:Header />
+			<soapenv:Header>
+				<ns:AuthorizationToken>
+					<ns:Token>' . $authToken . '</ns:Token>
+				</ns:AuthorizationToken>
+		</soapenv:Header>
 		<soapenv:Body>
 			<ns:BNEGetIndividualInformation>
-				<!--Optional:-->
 				<ns:SSOToken>' . $token . '</ns:SSOToken>
 			</ns:BNEGetIndividualInformation>
 		</soapenv:Body>
@@ -354,14 +361,14 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		curl_setopt($curlCh, CURLOPT_POST, true);
 
 		// Set up SSL.
-		curl_setopt($curlCh, CURLOPT_SSLVERSION, 3);
 		curl_setopt($curlCh, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curlCh, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
 		// Make SOAP request.
-		curl_setopt($curlCh, CURLOPT_URL, $this->_endpoint);
+		curl_setopt($curlCh, CURLOPT_URL, 'https://avectra.aaanet.org/netforumanthrotest/xweb/secure/BNEANTHROWS.asmx');
 		$extraHeaders = array(
-				'SOAPAction: "BNEGetIndividualInformation"',
-				'UserAgent: OJS-OFR'
+				'SOAPAction: "http://www.avectra.com/2005/BNEGetIndividualInformation"',
+				'Content-Type: text/xml;charset=UTF-8',
 		);
 		curl_setopt($curlCh, CURLOPT_HTTPHEADER, $extraHeaders);
 		curl_setopt($curlCh, CURLOPT_POSTFIELDS, $request);
@@ -386,14 +393,9 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		if (is_string($response)) {
 			$matches = array();
 			String::regexp_match_get('#<faultstring>([^<]*)</faultstring>#', $response, $matches);
-			if (empty($matches)) {
-				if ($attachment) {
-					assert(String::regexp_match('#<returnCode>success</returnCode>#', $response));
-				} else {
-					$parts = explode("\r\n\r\n", $response);
-					$result = array_pop($parts);
-					$result = String::regexp_replace('/>[^>]*$/', '>', $result);
-				}
+			if (!empty($matches)) {
+
+				// process user XML
 			} else {
 				$result = 'OFR: ' . $status . ' - ' . $matches[1];
 			}
