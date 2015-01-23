@@ -218,9 +218,6 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		$token = $request->getUserVar('token');
 		if ($token) {
 			$result = $this->_doAuthenticate();
-
-			error_log($result);
-			error_log($token);
 		}
 	}
 
@@ -427,7 +424,6 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		curl_setopt($curlCh, CURLOPT_VERBOSE, true);
 
 		// Set up SSL.
-		curl_setopt($curlCh, CURLOPT_SSLVERSION, 3);
 		curl_setopt($curlCh, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curlCh, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
@@ -436,19 +432,14 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		$extraHeaders = array(
 				'Host: avectra.aaanet.org',
 				'SOAPAction: "http://www.avectra.com/2005/Authenticate"',
-				'Content-Length: 334',
 				'Content-Type: text/xml;charset=UTF-8',
-				'UserAgent: OJS-OFR'
 		);
 		curl_setopt($curlCh, CURLOPT_HTTPHEADER, $extraHeaders);
 		curl_setopt($curlCh, CURLOPT_POSTFIELDS, $soapMessage);
 
 		$result = true;
 		$response = curl_exec($curlCh);
-		error_log(curl_error($curlCh));
-		error_log(curl_errno($curlCh));
 
-		error_log($response);
 		// We do not localize our error messages as they are all
 		// fatal errors anyway and must be analyzed by technical staff.
 		if ($response === false) {
@@ -465,15 +456,9 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		// than instantiating a DOM.
 		if (is_string($response)) {
 			$matches = array();
-			String::regexp_match_get('#<faultstring>([^<]*)</faultstring>#', $response, $matches);
-			if (empty($matches)) {
-				if ($attachment) {
-					assert(String::regexp_match('#<returnCode>success</returnCode>#', $response));
-				} else {
-					$parts = explode("\r\n\r\n", $response);
-					$result = array_pop($parts);
-					$result = String::regexp_replace('/>[^>]*$/', '>', $result);
-				}
+			String::regexp_match_get('#<Token>([^<]*)</Token>#', $response, $matches);
+			if (!empty($matches)) {
+				$result = $matches[1];
 			} else {
 				$result = 'OFR: ' . $status . ' - ' . $matches[1];
 			}
