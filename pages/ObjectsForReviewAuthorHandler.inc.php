@@ -308,7 +308,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 			$editorFullName = $editor->getFullName();
 			$editorEmail = $editor->getEmail();
 
-			if ($action = 'OFR_OBJECT_REQUESTED') {
+			if ($action == 'OFR_OBJECT_REQUESTED') {
 				$paramArray = array(
 					'editorName' => strip_tags($editorFullName),
 					'objectForReviewTitle' => '"' . strip_tags($objectForReview->getTitle()) . '"',
@@ -356,9 +356,10 @@ class ObjectsForReviewAuthorHandler extends Handler {
 	</soapenv:Envelope>';
 
 		// Prepare HTTP session.
-		$curlCh = curl_init ();
+		$curlCh = curl_init();
 		curl_setopt($curlCh, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curlCh, CURLOPT_POST, true);
+		curl_setopt($curlCh, CURLOPT_VERBOSE, true);
 
 		// Set up SSL.
 		curl_setopt($curlCh, CURLOPT_SSL_VERIFYPEER, false);
@@ -367,11 +368,12 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		// Make SOAP request.
 		curl_setopt($curlCh, CURLOPT_URL, 'https://avectra.aaanet.org/netforumanthrotest/xweb/secure/BNEANTHROWS.asmx');
 		$extraHeaders = array(
+				'Host: avectra.aaanet.org',
 				'SOAPAction: "http://www.avectra.com/2005/BNEGetIndividualInformation"',
 				'Content-Type: text/xml;charset=UTF-8',
 		);
 		curl_setopt($curlCh, CURLOPT_HTTPHEADER, $extraHeaders);
-		curl_setopt($curlCh, CURLOPT_POSTFIELDS, $request);
+		curl_setopt($curlCh, CURLOPT_POSTFIELDS, $soapMessage);
 
 		$result = true;
 		$response = curl_exec($curlCh);
@@ -391,6 +393,27 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		// Check SOAP response by simple string manipulation rather
 		// than instantiating a DOM.
 		if (is_string($response)) {
+
+			/**
+			 * The XML returned looks something like this:
+			 *
+			 * <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			 * 		<soap:Header><AuthorizationToken xmlns="http://www.avectra.com/2005/"><Token>2a51ca85-d490-4444-802c-d247259d674a</Token></AuthorizationToken></soap:Header>
+			 * 		<soap:Body>
+			 * 			<BNEGetIndividualInformationResponse xmlns="http://www.avectra.com/2005/">
+			 * 				<BNEGetIndividualInformationResult>
+			 * 					<Individual xmlns="">
+			 * 						<ind_cst_key>2a51ca85-d490-9999-802c-d24XX59d674a</ind_cst_key>
+			 * 						<cst_recno>000001</cst_recno>
+			 * 						<ind_first_name>John</ind_first_name>
+			 * 						<ind_last_name>Public</ind_last_name>
+			 * 						<InterestCodes>&lt;InterestCode&gt;Art and Material Culture&lt;/InterestCode&gt;</InterestCodes>
+			 * 					</Individual>
+			 * 				</BNEGetIndividualInformationResult>
+			 * 			</BNEGetIndividualInformationResponse>
+			 * 		</soap:Body>
+			 * </soap:Envelope>
+			 */
 			$matches = array();
 			String::regexp_match_get('#<faultstring>([^<]*)</faultstring>#', $response, $matches);
 			if (!empty($matches)) {
@@ -406,6 +429,10 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		return $result;
 	}
 
+	/**
+	 * Authenticate against the AnthroNET portal.
+	 * @return String the auth token if successful
+	 */
 	function _doAuthenticate() {
 		// Build the multipart SOAP message from scratch.
 		$soapMessage =
