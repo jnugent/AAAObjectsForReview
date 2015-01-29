@@ -18,8 +18,13 @@
 	<message key="plugins.generic.objectsForReview.reminderTask.name">Objects for review reminder</message>
 	<message key="plugins.generic.objectsForReview.description">Solicit reviews for objects of interest. Manage review objects and the review process.</message>
 
-	<!--  Editor -->
+	<!-- Editor -->
 	<message key="plugins.generic.objectsForReview.editor.objectsForReview">Objects For Review</message>
+	<message key="plugins.generic.objectsForReview.editor.options">Options:</message>
+	<message key="plugins.generic.objectsForReview.editor.editExisting">3. Edit an Existing Title</message>
+	<message key="plugins.generic.objectsForReview.editor.createManual">1. Create a New Title Manually</message>
+	<message key="plugins.generic.objectsForReview.editor.addUpload">2. Create a New Title by ONIX XML Upload</message>
+	<message key="plugins.generic.objectsForReview.objectsForReview.editor.manageTitle">Create and Manage My Review Objects</message>
 
 	<!-- Object Types Management -->
 	<message key="plugins.generic.objectsForReview.editor.objectTypes">Review Object Types</message>

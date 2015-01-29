@@ -11,7 +11,7 @@
  {if count($assignments) > 0}
 	{assign var="pageTitle" value="plugins.generic.objectsForReview.author.myObjectsForReview"}
 {else}
-	{assign var="pageTitle" value="plugins.generic.objectsForReview.objectsForReview.pageTitle"}
+	{assign var="pageTitle" value="plugins.generic.objectsForReview.objectsForReview.editor.manageTitle"}
 {/if}
 {include file="common/header.tpl"}
 
@@ -25,13 +25,23 @@
 </ul>
 <br />
 
-{include file="../plugins/generic/objectsForReview/templates/editor/objectsForReviewList.tpl"}
+<h2>{translate key="plugins.generic.objectsForReview.editor.options"}</h2>
 
-<h3>{translate key="plugins.generic.objectsForReview.author.createMasthead"}</h3>
+<ul style="">
+	<li><a href="#manual">{translate key="plugins.generic.objectsForReview.editor.createManual"}</a></li>
+	<li><a href="#upload">{translate key="plugins.generic.objectsForReview.editor.addUpload"}</a></li>
+	<li><a href="#edit">{translate key="plugins.generic.objectsForReview.editor.editExisting"}</a></li>
+</ul>
+
+<a name="manual"></a>
+<h3>{translate key="plugins.generic.objectsForReview.editor.createManual"}</h3>
+<p>{translate key="plugins.generic.objectsForReview.author.createMasthead"}</p>
 <form id="createObjectForReview" action="{url op="createObjectForReview"}" method="post"><select name="reviewObjectTypeId" class="selectMenu" size="1">{html_options options=$createTypeOptions}</select>&nbsp;<input type="submit" value="{translate key="common.create"}" class="button defaultButton"/></form>
 
 <div class="separator"></div>
 
+<a name="upload"></a>
+<h3>{translate key="plugins.generic.objectsForReview.editor.addUpload"}</h3>
 <p>{translate key="plugins.generic.objectsForReview.editor.objectForReview.onixFileInstructions"}</p>
 <form id="objectForReviewONIX" action="{url op="uploadONIXObjectForReview"}" method="post" enctype="multipart/form-data">
 <table class="data" width="100%">
@@ -54,5 +64,11 @@
 </table>
 </form>
 </div>
+
+<div class="separator"></div>
+
+<a name="edit"></a>
+<h3>{translate key="plugins.generic.objectsForReview.editor.editExisting"}</h3>
+{include file="../plugins/generic/objectsForReview/templates/editor/objectsForReviewList.tpl"}
 
 {include file="common/footer.tpl"}
