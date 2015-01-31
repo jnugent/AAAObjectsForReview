@@ -447,7 +447,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 					}
 					if (preg_match('#<InterestCodes>(.*?)</InterestCodes>#', $response, $matches)) {
 						$interestCodes = $matches[1];
-						preg_match_all('#&lt;(.*?)&gt;#', $interestCodes, $matches, PREG_PATTERN_ORDER);
+						preg_match_all('&lt;InterestCode&gt;(.*?)&lt;/InterestCode&gt;#', $interestCodes, $matches, PREG_PATTERN_ORDER);
 						if (is_array($matches[1])) {
 							$interestCodesArray = $matches[1];
 						}
