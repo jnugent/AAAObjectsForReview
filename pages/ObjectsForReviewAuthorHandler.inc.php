@@ -482,6 +482,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 						$userDao->insertUser($user);
 					}
 
+					import('lib.pkp.classes.user.InterestManager');
 					$interestManager  = new InterestManager();
 					$interestManager->setInterestsForUser($user, $interestCodesArray);
 
