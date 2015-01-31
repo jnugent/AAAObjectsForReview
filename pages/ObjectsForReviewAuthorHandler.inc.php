@@ -219,7 +219,16 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		if ($token) {
 			$authToken = $this->_doAuthenticate();
 			if ($authToken) {
-				$userResult = $this->_doUserRequest($token, $authToken);
+				$user = $this->_doUserRequest($token, $authToken);
+				if ($user) {
+					$sessionManager =& SessionManager::getManager();
+					$sessionManager->regenerateSessionId();
+					$session =& $sessionManager->getUserSession();
+					$session->setSessionVar('userId', $user->getId());
+					$session->setUserId($user->getId());
+					$session->setSessionVar('username', $user->getUsername());
+					$request->redirect(null, 'objectsForReview'); // place them on the landing page for available objects.
+				}
 			}
 		}
 	}
@@ -394,6 +403,8 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		// than instantiating a DOM.
 		if (is_string($response)) {
 
+			$request = Application::getRequest();
+
 			/**
 			 * The XML returned looks something like this:
 			 *
@@ -416,10 +427,77 @@ class ObjectsForReviewAuthorHandler extends Handler {
 			 * </soap:Envelope>
 			 */
 			$matches = array();
-			String::regexp_match_get('#<faultstring>([^<]*)</faultstring>#', $response, $matches);
-			if (!empty($matches)) {
+			if (!preg_match('#<faultstring>([^<]*)</faultstring>#', $response)) {
 
-				// process user XML
+				// Ensure that the user is logged into the AnthroNet portal.
+				if (preg_match('#<ind_cst_key>00000000\-0000\-0000\-0000\-000000000000</ind_cst_key>#', $response)) {
+					$request->redirect(null, 'user');
+				} else {
+					$email = $firstName = $lastName = $interestCodes = null;
+					$interestCodesArray = array();
+
+					if (preg_match('#<cst_eml_address_dn>(.*?)</cst_eml_address_dn>#', $response, $matches)) {
+						$email = $matches[1];
+					}
+					if (preg_match('#<ind_first_name>(.*?)</ind_first_name>#', $response, $matches)) {
+						$firstName = $matches[1];
+					}
+					if (preg_match('#<ind_last_name>(.*?)</ind_last_name>#', $response, $matches)) {
+						$lastName = $matches[1];
+					}
+					if (preg_match('#<InterestCodes>(.*?)</InterestCodes>#', $response, $matches)) {
+						$interestCodes = $matches[1];
+						preg_match_all('#&lt;(.*?)&gt;#', $interestCodes, $matches, PREG_PATTERN_ORDER);
+						if (is_array($matches[1])) {
+							$interestCodesArray = $matches[1];
+						}
+					}
+
+					$userDao =& DAORegistry::getDAO('UserDAO');
+					// see if this user exists already.
+					$user = $userDao->getUserByEmail($email);
+
+					if (!$user) {
+						$user = new User();
+
+						$userName = Validation::suggestUsername($firstName, $lastName);
+						$user->setUsername($userName);
+						$user->setFirstName($firstName);
+						$user->setLastName($lastName);
+						$user->setEmail($email);
+						$user->setDateRegistered(Core::getCurrentDate());
+
+						$site =& Request::getSite();
+						$availableLocales = $site->getSupportedLocales();
+
+						$locales = array();
+						foreach ($this->getData('userLocales') as $locale) {
+							if (AppLocale::isLocaleValid($locale) && in_array($locale, $availableLocales)) {
+								array_push($locales, $locale);
+							}
+						}
+						$user->setLocales($locales);
+						$user->setPassword(Validation::encryptCredentials($userName, Validation::generatePassword()));
+
+						$userDao->insertUser($user);
+					}
+
+					$interestManager  = new InterestManager();
+					$interestManager->setInterestsForUser($user, $interestCodesArray);
+
+					// enroll as Author, if not already.
+					$roleDao =& DAORegistry::getDAO('RoleDAO');
+					$journal =& Request::getJournal();
+					if (!$roleDao->userHasRole($journal->getId(), $user->getId(), ROLE_ID_AUTHOR)) {
+						$role = new Role();
+						$role->setJournalId($journal->getId());
+						$role->setUserId($user->getId());
+						$role->setRoleId(ROLE_ID_AUTHOR);
+						$roleDao->insertRole($role);
+					}
+
+					return $user;
+				}
 			} else {
 				$result = 'OFR: ' . $status . ' - ' . $matches[1];
 			}
