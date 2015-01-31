@@ -238,7 +238,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 
 		if (!$ofrPlugin->getEnabled()) return false;
 
-		if (!Validation::isAuthor($journal->getId())) Validation::redirectLogin();
+		if ($request->getRequestedOp() != 'objectsForReviewLogin' && !Validation::isAuthor($journal->getId())) Validation::redirectLogin();
 
 		return parent::authorize($request, $args, $roleAssignments);
 	}
@@ -407,6 +407,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 			 * 						<cst_recno>000001</cst_recno>
 			 * 						<ind_first_name>John</ind_first_name>
 			 * 						<ind_last_name>Public</ind_last_name>
+			 * 						<cst_eml_address_dn>user@email.com</cst_eml_address_dn>
 			 * 						<InterestCodes>&lt;InterestCode&gt;Art and Material Culture&lt;/InterestCode&gt;</InterestCodes>
 			 * 					</Individual>
 			 * 				</BNEGetIndividualInformationResult>
