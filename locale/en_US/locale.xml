@@ -105,7 +105,7 @@
 	<message key="plugins.generic.objectsForReview.sort.sortDirectionDesc">Descending</message>
 
 	<!-- Objects For Review -->
-	<message key="plugins.generic.objectsForReview.objectsForReview.myObjectsForReview">My Review Objects</message>
+	<message key="plugins.generic.objectsForReview.objectsForReview.myObjectsForReview">My Objects for Review</message>
 	<message key="plugins.generic.objectsForReview.objectsForReview.pageTitle">Objects For Review</message>
 	<message key="plugins.generic.objectsForReview.objectsForReview.noneCreated">No objects for review</message>	
 	<message key="plugins.generic.objectsForReview.objectsForReview.title">Title</message>
@@ -231,7 +231,7 @@
 
 	<!-- Author -->
 	<message key="plugins.generic.objectsForReview.author.objectsForReview">Objects For Review</message>
-	<message key="plugins.generic.objectsForReview.author.myObjectsForReview">Create and Manage My Review Objects</message>
+	<message key="plugins.generic.objectsForReview.author.myObjectsForReview">Manage My Objects for Review</message>
 	<message key="plugins.generic.objectsForReview.author.createMasthead"><![CDATA[To manually enter in a new object and to upload its files, hit "Create."]]></message>
 	<!--  Actions -->
 	<message key="plugins.generic.objectsForReview.author.requestObjectForReview">Request this Object For Review</message>
