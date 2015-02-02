@@ -447,7 +447,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 					}
 					if (preg_match('#<InterestCodes>(.*?)</InterestCodes>#', $response, $matches)) {
 						$interestCodes = $matches[1];
-						preg_match_all('&lt;InterestCode&gt;(.*?)&lt;/InterestCode&gt;#', $interestCodes, $matches, PREG_PATTERN_ORDER);
+						preg_match_all('#&lt;InterestCode&gt;(.*?)&lt;/InterestCode&gt;#', $interestCodes, $matches, PREG_PATTERN_ORDER);
 						if (is_array($matches[1])) {
 							$interestCodesArray = $matches[1];
 						}
@@ -467,15 +467,8 @@ class ObjectsForReviewAuthorHandler extends Handler {
 						$user->setEmail($email);
 						$user->setDateRegistered(Core::getCurrentDate());
 
-						$site =& Request::getSite();
-						$availableLocales = $site->getSupportedLocales();
+						$locales = array('en_US');
 
-						$locales = array();
-						foreach ($this->getData('userLocales') as $locale) {
-							if (AppLocale::isLocaleValid($locale) && in_array($locale, $availableLocales)) {
-								array_push($locales, $locale);
-							}
-						}
 						$user->setLocales($locales);
 						$user->setPassword(Validation::encryptCredentials($userName, Validation::generatePassword()));
 
