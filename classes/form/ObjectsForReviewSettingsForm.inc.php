@@ -95,7 +95,11 @@ class ObjectsForReviewSettingsForm extends Form {
 			'numDaysBeforeDueReminder' => $plugin->getSetting($journalId, 'numDaysBeforeDueReminder'),
 			'enableDueReminderAfter' => $plugin->getSetting($journalId, 'enableDueReminderAfter'),
 			'numDaysAfterDueReminder' => $plugin->getSetting($journalId, 'numDaysAfterDueReminder'),
-			'additionalInformation' => $plugin->getSetting($journalId, 'additionalInformation')
+			'additionalInformation' => $plugin->getSetting($journalId, 'additionalInformation'),
+			'anthroNetUsername' => $plugin->getSetting($journalId, 'anthroNetUsername'),
+			'anthroNetPassword' => $plugin->getSetting($journalId, 'anthroNetUsername'),
+			'anthroNetSoapURL' => $plugin->getSetting($journalId, 'anthroNetSoapURL'),
+
 		);
 	}
 
@@ -114,6 +118,9 @@ class ObjectsForReviewSettingsForm extends Form {
 				'enableDueReminderAfter',
 				'numDaysAfterDueReminder',
 				'additionalInformation',
+				'anthroNetUsername',
+				'anthroNetPassword',
+				'anthroNetSoapURL',
 			)
 		);
 		// If full management mode, due weeks provided and valid
@@ -133,6 +140,9 @@ class ObjectsForReviewSettingsForm extends Form {
 		$plugin->updateSetting($journalId, 'displayAbstract', $this->getData('displayAbstract'), 'bool');
 		$plugin->updateSetting($journalId, 'displayListing', $this->getData('displayListing'), 'bool');
 		$plugin->updateSetting($journalId, 'dueWeeks', $this->getData('dueWeeks'), 'int');
+		$plugin->updateSetting($journalId, 'anthroNetUsername', $this->getData('anthroNetUsername'), 'string');
+		$plugin->updateSetting($journalId, 'anthroNetPassword', $this->getData('anthroNetPassword'), 'string');
+		$plugin->updateSetting($journalId, 'anthroNetSoapURL', $this->getData('anthroNetSoapURL'), 'string');
 		$plugin->updateSetting($journalId, 'enableDueReminderBefore', $this->getData('enableDueReminderBefore'), 'bool');
 		$plugin->updateSetting($journalId, 'numDaysBeforeDueReminder', $this->getData('numDaysBeforeDueReminder'), 'int');
 		$plugin->updateSetting($journalId, 'enableDueReminderAfter', $this->getData('enableDueReminderAfter'), 'bool');

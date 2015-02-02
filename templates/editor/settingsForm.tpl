@@ -117,6 +117,25 @@
 </table>
 </div>
 
+<div class="separator"></div>
+<h4>{translate key="plugins.generic.objectsForReview.settings.portalConnectivity"}</h4>
+<table width="100%" class="data">
+	<tr valign="top">
+		<td width="20%" class="label">{fieldLabel name="anthroNetUsername" required="true" key="plugins.generic.objectsForReview.settings.anthroNetUsername"}</td>
+		<td width="80%" class="value"><input type="text" name="anthroNetUsername" id="anthroNetUsername" value="{$anthroNetUsername|escape}" size="25" maxlength="100" class="textField" />
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="20%" class="label">{fieldLabel name="anthroNetPassword" required="true" key="plugins.generic.objectsForReview.settings.anthroNetPassword"}</td>
+		<td width="80%" class="value"><input type="password" name="anthroNetPassword" id="anthroNetPassword" value="{$anthroNetPassword|escape}" size="25" maxlength="25" class="textField" />
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="20%" class="label">{fieldLabel name="anthroNetSoapURL" required="true" key="plugins.generic.objectsForReview.settings.anthroNetSoapURL"}</td>
+		<td width="80%" class="value"><input type="password" name="anthroNetSoapURL" id="anthroNetSoapURL" value="{$anthroNetSoapURL|escape}" size="25" maxlength="255" class="textField" />
+		</td>
+	</tr>
+</table>
 <br/>
 
 <input type="submit" name="save" class="button defaultButton" value="{translate key="common.save"}"/>&nbsp;<input type="button" class="button" value="{translate key="common.cancel"}" onclick="history.go(-1)"/>

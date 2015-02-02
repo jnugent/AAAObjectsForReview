@@ -368,14 +368,16 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		$curlCh = curl_init();
 		curl_setopt($curlCh, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curlCh, CURLOPT_POST, true);
-		curl_setopt($curlCh, CURLOPT_VERBOSE, true);
 
 		// Set up SSL.
 		curl_setopt($curlCh, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curlCh, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
 		// Make SOAP request.
-		curl_setopt($curlCh, CURLOPT_URL, 'https://avectra.aaanet.org/netforumanthrotest/xweb/secure/BNEANTHROWS.asmx');
+		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
+		$journal =& Request::getJournal();
+
+		curl_setopt($curlCh, CURLOPT_URL, $ofrPlugin->getSetting($journal->getId(), 'anthroNetSoapURL'));
 		$extraHeaders = array(
 				'Host: avectra.aaanet.org',
 				'SOAPAction: "http://www.avectra.com/2005/BNEGetIndividualInformation"',
@@ -481,7 +483,6 @@ class ObjectsForReviewAuthorHandler extends Handler {
 
 					// enroll as Author, if not already.
 					$roleDao =& DAORegistry::getDAO('RoleDAO');
-					$journal =& Request::getJournal();
 					if (!$roleDao->userHasRole($journal->getId(), $user->getId(), ROLE_ID_AUTHOR)) {
 						$role = new Role();
 						$role->setJournalId($journal->getId());
@@ -508,13 +509,16 @@ class ObjectsForReviewAuthorHandler extends Handler {
 	 */
 	function _doAuthenticate() {
 		// Build the multipart SOAP message from scratch.
+		$journal =& Request::getJournal();
+		$ofrPlugin =& $this->_getObjectsForReviewPlugin();
+
 		$soapMessage =
 		'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.avectra.com/2005/">
 			<soapenv:Header />
 			<soapenv:Body>
 				<ns:Authenticate>
-					<ns:userName>confexxwebuser</ns:userName>
-					<ns:password>123</ns:password>
+					<ns:userName>' . $ofrPlugin->getSetting($journal->getId(), 'anthroNetUsername') . '</ns:userName>
+					<ns:password>' . $ofrPlugin->getSetting($journal->getId(), 'anthroNetPassword')  . '</ns:password>
 				</ns:Authenticate>
 			</soapenv:Body>
 		</soapenv:Envelope>';
@@ -523,14 +527,13 @@ class ObjectsForReviewAuthorHandler extends Handler {
 		$curlCh = curl_init();
 		curl_setopt($curlCh, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curlCh, CURLOPT_POST, true);
-		curl_setopt($curlCh, CURLOPT_VERBOSE, true);
 
 		// Set up SSL.
 		curl_setopt($curlCh, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curlCh, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
 		// Make SOAP request.
-		curl_setopt($curlCh, CURLOPT_URL, 'https://avectra.aaanet.org/netforumanthrotest/xweb/secure/BNEANTHROWS.asmx');
+		curl_setopt($curlCh, CURLOPT_URL, $ofrPlugin->getSetting($journal->getId(), 'anthroNetSoapURL'));
 		$extraHeaders = array(
 				'Host: avectra.aaanet.org',
 				'SOAPAction: "http://www.avectra.com/2005/Authenticate"',

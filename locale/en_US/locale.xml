@@ -93,6 +93,10 @@
 	<message key="plugins.generic.objectsForReview.settings.scheduledTasksDisabled"><![CDATA[<strong>Note:</strong> To activate these options, the site administrator must enable the <tt>scheduled_tasks</tt> option in the OJS configuration file. Additional server configuration may be required to support this functionality (which may not be possible on all servers), as indicated in the OJS documentation.]]></message>
 	<message key="plugins.generic.objectsForReview.settings.additionalInformation">Additional Information</message>
 	<message key="plugins.generic.objectsForReview.settings.additionalInformationDescription">Additional information published along with the list of objects for review.</message>
+	<message key="plugins.generic.objectsForReview.settings.portalConnectivity">Portal Connectivity</message>
+	<message key="plugins.generic.objectsForReview.settings.anthroNetUsername">Portal Username</message>
+	<message key="plugins.generic.objectsForReview.settings.anthroNetPassword">Portal Password</message>
+	<message key="plugins.generic.objectsForReview.settings.anthroNetSoapURL">Portal WSDL URL</message>
 
 	<!-- Search, filter, sort -->
 	<message key="plugins.generic.objectsForReview.search.field.title">Title</message>
