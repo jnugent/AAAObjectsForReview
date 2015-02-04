@@ -518,7 +518,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 			<soapenv:Body>
 				<ns:Authenticate>
 					<ns:userName>' . $ofrPlugin->getSetting($journal->getId(), 'anthroNetUsername') . '</ns:userName>
-					<ns:password>' . $ofrPlugin->getSetting($journal->getId(), 'anthroNetPassword')  . '</ns:password>
+					<ns:password><![CDATA[' . $ofrPlugin->getSetting($journal->getId(), 'anthroNetPassword')  . ']]></ns:password>
 				</ns:Authenticate>
 			</soapenv:Body>
 		</soapenv:Envelope>';
