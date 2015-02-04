@@ -228,6 +228,8 @@ class ObjectsForReviewAuthorHandler extends Handler {
 					$session->setUserId($user->getId());
 					$session->setSessionVar('username', $user->getUsername());
 					$request->redirect(null, 'objectsForReview'); // place them on the landing page for available objects.
+				} else {
+					$request->redirect(null, 'user');
 				}
 			}
 		}
@@ -500,7 +502,7 @@ class ObjectsForReviewAuthorHandler extends Handler {
 			$result = 'OJS-OFR: Expected string response.';
 		}
 
-		return $result;
+		return false;
 	}
 
 	/**
